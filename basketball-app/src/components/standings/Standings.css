@@ -1,0 +1,157 @@
+*, ::after, ::before {
+  box-sizing: border-box;
+  border: 0 solid;
+}
+
+.Positive {
+  color: #24a133;
+  width: 32.44px;
+  height: 16.5px;
+}
+.Negative {
+  color: #d50032;
+  width: 32.44px;
+  height: 16.5px;
+}
+
+.home {
+width: 89.8px;
+height: 41px;
+}
+.road {
+width: 86.34px;
+height: 41px;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  height: 41px;
+  width: 564.34px;
+  font-size: 12px;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  margin-top: 30px;
+  height: 1457px;
+  width: 1133px;
+}
+
+.conference-name {
+  width: 170px;
+  height: 32px;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 0 16px;
+}
+
+.team::after {
+  content: "";
+  box-shadow: 2px 0 5px -2px hsl(0deg 0% 39% / 20%);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+}
+
+th {
+  font: 10px "Roboto Condensed", Arial, sans-serif;
+  color: #343232;
+  padding: 14px 6px;
+  background-color: #ffffff;
+text-align: right;
+letter-spacing: 1px;
+white-space: nowrap;
+vertical-align: bottom;
+display: table-cell;
+font-weight: bold;
+}
+
+.conf {
+  width: 85.28px;
+  height: 41px;
+}
+
+.conference-title {
+left: 0;
+text-align: left;
+padding: 2px 0;
+border-bottom: 1px solid #e5e7eb;
+font-family: "Knockout Wide",sans-serif;
+font-size: 20px;
+font-weight: 400;
+width: 1093px;
+height: 35px;
+position: sticky;
+color: #000000;
+display: block;
+margin-block-start: 0.83em;
+margin-block-end: 0.83em;
+margin-inline-start: 0px;
+margin-inline-end: 0px;
+}
+
+.division-name span {
+  text-align: left;
+}
+
+.div {
+  width: 64.7px;
+  height: 41px;
+}
+
+.span {
+  width: 22.5px;
+  height: 18px;
+}
+
+
+.record {
+  width: 57.04px;
+  height: 41px;
+border-color: #ebe9e7;
+}
+
+tr.team {
+  width: 200px;
+  height: 41px;
+  color: #000000;
+  position: sticky;
+left: 0;
+z-index: 5;
+background-color: #ffffff;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+  width: 1052px;
+  height: 41px;
+}
+
+.winpercent {
+  width: 85.49px;
+  height: 41px;
+}
+
+.gb {
+  width: 80.44px;
+  height: 41px;
+}
+
+.last10 {
+width: 109px;
+height: 41px;
+}
+
+.streak {
+width: 112.19px;
+height: 41px;
+}

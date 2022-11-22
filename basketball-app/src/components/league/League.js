@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { baseurL } from '../../api/Api'
 import Card from '../card/Card'
 import './League.css'
-import { useParams } from 'react-router-dom'
 
 const League = () => {
 

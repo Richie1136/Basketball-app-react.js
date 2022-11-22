@@ -1,0 +1,21 @@
+.nav {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.nav a {
+    color: blue;
+    display: inline-block;
+    width: 20%;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  nav a:hover {
+    /* background-color: #ddd; */
+    color: black;
+  }

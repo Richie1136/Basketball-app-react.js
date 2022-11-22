@@ -3,6 +3,7 @@ import League from "./league/League";
 import Player from "./player/Player"
 import { Routes, Route } from 'react-router-dom'
 import Navigation from "./navigation/Navigation";
+import Standings from "./standings/Standings";
 
 
 const AllRoutes = () => (
@@ -12,6 +13,7 @@ const AllRoutes = () => (
       <Route path='/' element={<League />} />
       <Route path='/:team' element={<TeamRoster />} />
       <Route path="/player/:PlayerID" element={<Player />} />
+      <Route path='/standings' element={<Standings />} />
     </Routes>
   </>
 )
