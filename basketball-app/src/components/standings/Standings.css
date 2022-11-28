@@ -1,18 +1,8 @@
-*, ::after, ::before {
+/* *, ::after, ::before {
   box-sizing: border-box;
   border: 0 solid;
 }
 
-.Positive {
-  color: #24a133;
-  width: 32.44px;
-  height: 16.5px;
-}
-.Negative {
-  color: #d50032;
-  width: 32.44px;
-  height: 16.5px;
-}
 
 .home {
 width: 89.8px;
@@ -38,16 +28,22 @@ table {
   border-left: none;
   border-top: none;
   margin-top: 30px;
-  height: 1457px;
   width: 1133px;
 }
 
 .conference-name {
-  width: 170px;
-  height: 32px;
+  width: 1093px;
+  height: 41px;
   color: #ffffff;
   font-size: 12px;
   padding: 0 16px;
+}
+
+.team-data {
+  width: 1093px;
+  height: 616.5px;
+  display: table-row-group;
+  vertical-align: middle;
 }
 
 .team::after {
@@ -118,7 +114,7 @@ margin-inline-end: 0px;
 border-color: #ebe9e7;
 }
 
-tr.team {
+.team {
   width: 200px;
   height: 41px;
   color: #000000;
@@ -126,6 +122,7 @@ tr.team {
 left: 0;
 z-index: 5;
 background-color: #ffffff;
+text-align: left;
 }
 
 tbody {
@@ -154,4 +151,269 @@ height: 41px;
 .streak {
 width: 112.19px;
 height: 41px;
+} */
+
+
+
+
+
+* {
+  box-sizing: border-box;
 }
+
+.Positive {
+  color: #24a133;
+  width: 32.44px;
+  height: 16.5px;
+}
+.Negative {
+  color: #d50032;
+  width: 32.44px;
+  height: 16.5px;
+}
+
+.rundiff {
+  width: 48px;
+  height: 48px;
+  color: #333333;
+  font-size: 14.4px;
+  font-family: Helvetica, Arial, sans-serif;
+  padding: 1px 8px;
+}
+
+.teamrundiff {
+  width: 32.44px;
+  height: 16.5px;
+}
+
+.division-row {
+  width: 990px;
+  height: 32px;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  margin-top: 30px;
+}
+
+.division-name {
+  width: 170px;
+  height: 32px;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 0 16px;
+}
+
+th span {
+  display: block;
+}
+
+.division-title {
+  height: 18px;
+  display: inline-block;
+}
+
+.division-name span {
+  text-align: left;
+}
+
+.wins {
+  width: 57.04px;
+  height: 41px;
+border-color: #ebe9e7;
+}
+
+.division-span {
+  width: 22.5px;
+  height: 18px;
+}
+
+.teamw {
+  width: 10.59px;
+  height: 15.5px;
+}
+
+.losses {
+  width: 57.04px;
+  height: 41px;
+border-color: #ebe9e7;
+}
+
+.teaml {
+  width: 6.12px;
+  height: 15.5px;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+.pct {
+  width: 85.49px;
+  height: 41px;
+}
+
+.percentage {
+  width: 21.99px;
+  height: 15.5px;
+}
+
+.gb {
+  width: 80.44px;
+  height: 41px;
+}
+
+.tgb {
+  width: 16.1px;
+  height: 15.5px;
+  display: inline;
+}
+
+.div {
+  width: 64.7px;
+  height: 41px;
+}
+
+.last10 {
+  width: 109px;
+  height: 41px;
+}
+
+.l10 {
+  width: 17.53px;
+  height: 15.5px;
+  display: inline;
+}
+
+.streak {
+  width: 112.19px;
+  height: 41px;
+}
+
+.tstreak {
+  width: 24px;
+  height: 18px;
+}
+
+.teamStreak {
+  width: 28.3px;
+  height: 15.5px;
+  display: inline;
+}
+
+.trs {
+  width: 14.33px;
+  height: 15.5px;
+  display: inline;
+}
+
+.tra {
+  width: 15.19px;
+  height: 15.5px;
+  display: inline;
+}
+
+.runs {
+  width: 32px;
+  height: 18px;
+}
+
+.home {
+  width: 89.8px;
+  height: 41px;
+}
+
+.hr {
+  width: 34.25px;
+  height: 15.5px;
+  display: inline;
+}
+
+.road {
+  width: 86.34px;
+  height: 41px;
+}
+
+.ar {
+  width: 32.02px;
+  height: 15.5px;
+  display: inline;
+}
+
+.span {
+  width: 44px;
+  height: 18px;
+}
+
+.conf {
+  width: 85.28px;
+  height: 41px;
+}
+
+td.home {
+  text-align: center;
+}
+
+.division-title {
+  width: 200px;
+  height: 41px;
+  color: #000000;
+  position: sticky;
+left: 0;
+z-index: 5;
+background-color: #ffffff;
+text-align: left;
+font: 10px "Roboto Condensed", Arial, sans-serif;
+color: #343232;
+padding: 14px 6px;
+background-color: #ffffff;
+text-align: right;
+letter-spacing: 1px;
+white-space: nowrap;
+vertical-align: bottom;
+display: table-cell;
+font-weight: bold;
+}
+
+th {
+  font: 10px "Roboto Condensed", Arial, sans-serif;
+  color: #343232;
+  padding: 14px 6px;
+  background-color: #ffffff;
+text-align: center;
+letter-spacing: 1px;
+white-space: nowrap;
+vertical-align: bottom;
+display: table-cell;
+font-weight: bold;
+}
+
+h2.conference-title {
+  left: 0;
+  text-align: left;
+  padding: 2px 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-family: "Knockout Wide",sans-serif;
+  height: 35px;
+  width: 300px;
+  position: sticky;
+  color: #000000;
+  display: block;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  }

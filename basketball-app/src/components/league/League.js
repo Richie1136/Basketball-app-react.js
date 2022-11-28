@@ -5,16 +5,16 @@ import './League.css'
 
 const League = () => {
 
-  const [leagueData, setLeagueData] = useState()
-  const [initialTeams, setInitialTeams] = useState(leagueData)
+  const [initialTeams, setIntialTeams] = useState()
+  const [leagueData, setLeagueData] = useState([])
   const [filteredResults, setFilteredResults] = useState(null)
+
 
   const APIKEY = process.env.REACT_APP_API_KEY
 
   let result = `${baseurL}/teams?key=${APIKEY}`
 
 
-  let displayData = leagueData
 
   useEffect(() => {
     const leagueData = async () => {
@@ -29,54 +29,53 @@ const League = () => {
     leagueData()
   }, [result])
 
-  // console.log(leagueData?.filter((team) => team.Conference === 'Western'))
-  let west = leagueData?.filter((team) => team.Conference === 'Western')
-  console.log(west)
-  let east = leagueData?.filter((team) => team.Conference === 'Eastern')
-  // console.log(east)
 
-  console.log(leagueData?.Name)
+  let allTeams = leagueData
+  let displayData = allTeams
 
-  let All = leagueData
 
+  let West = leagueData?.filter((team) => team.Conference === 'Western')
+  let East = leagueData?.filter((team) => team.Conference === 'Eastern')
   let Southeast = leagueData?.filter((team) => team.Division === 'Southeast')
   let Southwest = leagueData?.filter((team) => team.Division === 'Southwest')
-  let Atlantic = leagueData?.filter((team) => team.Division === 'Atlantic')
+  let Atlantic = East?.filter((team) => team.Division === 'Atlantic')
   let Central = leagueData?.filter((team) => team.Division === 'Central')
   let NorthWest = leagueData?.filter((team) => team.Division === 'Northwest')
-  let Pacific = All?.filter((team) => team.Division === 'Pacific')
-  let La = All?.filter((team) => team.Name === 'Wizards')
+  let Pacific = leagueData?.filter((team) => team.Division === 'Pacific')
 
 
   const handleChange = (event) => {
-    setLeagueData(event.target.value)
+    setIntialTeams(event.target.value)
   }
 
-  if (initialTeams === 'ALL') {
-    displayData = All
+  if (initialTeams === "ALL") {
+    displayData = leagueData
   }
-  if (initialTeams === "La") {
-    displayData = La
+
+  if (initialTeams === 'East') {
+    displayData = East
+  }
+  if (initialTeams === 'Atlantic') {
+    displayData = Atlantic
+  }
+  if (initialTeams === "Central") {
+    displayData = Central
+  }
+  if (initialTeams === 'Southeast') {
+    displayData = Southeast
+  }
+  if (initialTeams === "West") {
+    displayData = West
+  }
+  if (initialTeams === 'Northwest') {
+    displayData = NorthWest
   }
   if (initialTeams === 'Pacific') {
     displayData = Pacific
   }
-  if (initialTeams === 'West') {
-    displayData = west
+  if (initialTeams === 'Southwest') {
+    displayData = Southwest
   }
-  // if (initialTeams === 'NL') {
-  //   displayData = NL
-  // }
-  // if (initialTeams === "NL East") {
-  //   displayData = NLE
-  // }
-  // if (initialTeams === 'NL Central') {
-  //   displayData = NLC
-  // }
-  // if (initialTeams === 'NL West') {
-  //   displayData = NLW
-  // }
-
 
 
   return (
@@ -84,14 +83,14 @@ const League = () => {
       <label>
         <select value={filteredResults} onChange={handleChange}>
           <option multiple={false} value={"ALL"}>ALL</option>
-          <option multiple={false} value={"West"}>West</option>
-          <option multiple={false} value={"Pacific"}>Pacific</option>
-          <option multiple={false} value={"AL Central"}>AL Central</option>
-          <option multiple={false} value={"AL West"}>AL West</option>
           <option multiple={false} value={"East"}>East</option>
-          <option multiple={false} value={"NL East"}>NL East</option>
-          <option multiple={false} value={"NL Central"}>NL Central</option>
-          <option multiple={false} value={"LA West"}>La</option>
+          <option multiple={false} value={"Atlantic"}>Atlantic Division</option>
+          <option multiple={false} value={"Central"}>Central Division</option>
+          <option multiple={false} value={"Southeast"}>Southeast Division</option>
+          <option multiple={false} value={"West"}>West</option>
+          <option multiple={false} value={"Northwest"}>Northwest Division</option>
+          <option multiple={false} value={"Pacific"}>Pacific Division</option>
+          <option multiple={false} value={"Southwest"}>Southwest Division</option>
         </select>
       </label>
       {displayData?.map(({ City, WikipediaLogoUrl, Name, Conference, Division, Key }) => (

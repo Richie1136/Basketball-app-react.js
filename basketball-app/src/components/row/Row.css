@@ -1,0 +1,56 @@
+.stats-standings {
+  width: 1093px;
+  height: 41px;
+}
+
+.city-name {
+  width: 200px;
+  height: 41px;
+  padding: 8px 6px;
+}
+
+.team-winorl {
+  width: 58.03px;
+  height: 41px;
+  padding: 8px 6px;
+}
+
+.winper {
+  width: 86.98px;
+  height: 41px;
+  padding: 8px 6px;
+}
+
+.conrecord {
+  width: 86.77px;
+  height: 41px;
+  padding: 8px 6px;
+}
+
+.divrecord {
+width: 65.83px;
+height: 41px;
+padding: 8px 6px;
+}
+
+.gamesback {
+  width: 66.3px;
+  height: 41px;
+}
+.home {
+  width: 89.8px;
+  height: 41px;
+  }
+  .road {
+      width: 86.34px;
+      height: 41px;
+      }
+.last10 {
+  width: 109px;
+height: 41px;
+}
+
+.streak {
+  width: 112.19px;
+  height: 41px;
+  }
