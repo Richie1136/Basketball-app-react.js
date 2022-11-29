@@ -46,9 +46,12 @@ const TeamRoster = () => {
 
   return (
     <div className='team-container'>
-      {active?.map(({ Jersey, FirstName, LastName, PlayerID }) => (
+      {active?.map(({ Jersey, FirstName, LastName, PlayerID, Position, PhotoUrl }) => (
         <Card key={PlayerID}>
-          <h2><a href={`/${PlayerID}`}>{FirstName}, {LastName}</a></h2>
+          <img src={PhotoUrl} />
+          <h2><a href={`/${PlayerID}`}>{FirstName} {LastName}</a></h2>
+          <h4>{Jersey}</h4>
+          <h5>{Position}</h5>
         </Card>
       ))}
     </div>
