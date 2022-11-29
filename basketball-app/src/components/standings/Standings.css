@@ -218,7 +218,6 @@ th span {
 .wins {
   width: 57.04px;
   height: 41px;
-border-color: #ebe9e7;
 }
 
 .division-span {
@@ -234,7 +233,6 @@ border-color: #ebe9e7;
 .losses {
   width: 57.04px;
   height: 41px;
-border-color: #ebe9e7;
 }
 
 .teaml {
@@ -384,6 +382,8 @@ white-space: nowrap;
 vertical-align: bottom;
 display: table-cell;
 font-weight: bold;
+border-bottom: 1px solid #ebe9e7;
+;
 }
 
 h2.conference-title {
@@ -403,28 +403,4 @@ h2.conference-title {
   font-family: Knockout Wide,sans-serif;
   font-size: 1.25rem;
   font-weight: 400;
-  }
-
-  th.division-name::after {
-    content: "";
-    box-shadow: 2px 0 5px -2px hsl(0deg 0% 39% / 20%);
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 10px;
-    height: 100%;
-  }
-
-  td.city-name::after {
-    content: "";
-    box-shadow: 2px 0 5px -2px hsl(0deg 0% 39% / 20%);
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 10px;
-    height: 100%;
-  }
-
-  .container {
-    padding: 20px;
   }

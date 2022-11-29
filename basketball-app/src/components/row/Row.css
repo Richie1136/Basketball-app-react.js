@@ -1,6 +1,8 @@
 .stats-standings {
   width: 1093px;
   height: 41px;
+  border-bottom: 3px solid #ebe9e7;;
+width: 100%;
 }
 
 .city-name {
@@ -80,4 +82,24 @@ border-style: solid;
     right: 0;
     width: 10px;
     height: 100%;
+  }
+
+  tbody {
+    border-bottom: 3px solid #ebe9e7;;
+  }
+
+  tbody:not(11) {
+    border-bottom: 3px solid #e5e7eb;
+  }
+
+   tbody:not(15) {
+    border-bottom: 3px solid #e5e7eb;
+  }
+
+  tbody:not(30) {
+    border-bottom: 3px solid #e5e7eb;
+  } 
+
+   tbody:not(34) {
+    border-bottom: 3px solid #e5e7eb;
   }
