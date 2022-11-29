@@ -154,22 +154,9 @@ height: 41px;
 } */
 
 
-
-
-
-* {
+ *, ::after, ::before {
   box-sizing: border-box;
-}
-
-.Positive {
-  color: #24a133;
-  width: 32.44px;
-  height: 16.5px;
-}
-.Negative {
-  color: #d50032;
-  width: 32.44px;
-  height: 16.5px;
+  border: 0 solid;
 }
 
 .rundiff {
@@ -370,16 +357,14 @@ td.home {
 .division-title {
   width: 200px;
   height: 41px;
-  color: #000000;
+  color: #000;
   position: sticky;
 left: 0;
 z-index: 5;
-background-color: #ffffff;
 text-align: left;
 font: 10px "Roboto Condensed", Arial, sans-serif;
-color: #343232;
 padding: 14px 6px;
-background-color: #ffffff;
+background-color: #fff;
 text-align: right;
 letter-spacing: 1px;
 white-space: nowrap;
@@ -406,7 +391,6 @@ h2.conference-title {
   text-align: left;
   padding: 2px 0;
   border-bottom: 1px solid #e5e7eb;
-  font-family: "Knockout Wide",sans-serif;
   height: 35px;
   width: 300px;
   position: sticky;
@@ -416,4 +400,31 @@ h2.conference-title {
   margin-block-end: 0.83em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
+  font-family: Knockout Wide,sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  }
+
+  th.division-name::after {
+    content: "";
+    box-shadow: 2px 0 5px -2px hsl(0deg 0% 39% / 20%);
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100%;
+  }
+
+  td.city-name::after {
+    content: "";
+    box-shadow: 2px 0 5px -2px hsl(0deg 0% 39% / 20%);
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100%;
+  }
+
+  .container {
+    padding: 20px;
   }
