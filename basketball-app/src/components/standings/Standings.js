@@ -3,6 +3,7 @@ import Card from '../card/Card'
 import { useState, useEffect } from 'react'
 import './Standings.css'
 import Row from '../row/Row'
+import Loading from '../loading/Loading'
 
 import { useParams } from 'react-router-dom'
 
@@ -36,6 +37,8 @@ const Standings = () => {
   }, [])
 
   console.log(getStandings)
+
+  if (!getStandings) return <Loading />
 
   let Eastern = getStandings?.filter((east) => east.Conference === 'Eastern').sort((a, b) => b.Percentage - a.Percentage)
   let Western = getStandings?.filter((west) => west.Conference === 'Western').sort((a, b) => b.Percentage - a.Percentage)
@@ -98,7 +101,6 @@ const Standings = () => {
 
   return (
     <>
-      {/* <div className='container'> */}
       <h2 className='conference-title'>Eastern Conference</h2>
       <table>
         <colgroup className='col1' span='6'></colgroup>
@@ -136,7 +138,6 @@ const Standings = () => {
           <Row key={Name} Name={Name} City={City} Losses={Losses} Wins={Wins} Percentage={Percentage} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} Streak={Streak} />
         ))}
       </table>
-      {/* </div> */}
     </>
   )
 

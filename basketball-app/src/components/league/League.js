@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { baseurL } from '../../api/Api'
 import Card from '../card/Card'
 import './League.css'
+import Loading from '../loading/Loading'
 
 const League = () => {
 
@@ -32,6 +33,9 @@ const League = () => {
 
   let allTeams = leagueData
   let displayData = allTeams
+
+  if (!initialTeams) return <Loading />
+
 
 
   let West = leagueData?.filter((team) => team.Conference === 'Western')
