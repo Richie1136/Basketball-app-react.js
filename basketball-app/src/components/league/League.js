@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { baseurL } from '../../api/Api'
 import Card from '../card/Card'
 import './League.css'
-import Loading from '../loading/Loading'
 
 const League = () => {
 
@@ -14,7 +13,6 @@ const League = () => {
   const APIKEY = process.env.REACT_APP_API_KEY
 
   let result = `${baseurL}/teams?key=${APIKEY}`
-
 
 
   useEffect(() => {
@@ -31,11 +29,10 @@ const League = () => {
   }, [result])
 
 
+  console.log(leagueData)
+
   let allTeams = leagueData
   let displayData = allTeams
-
-  if (!initialTeams) return <Loading />
-
 
 
   let West = leagueData?.filter((team) => team.Conference === 'Western')
@@ -97,10 +94,10 @@ const League = () => {
           <option multiple={false} value={"Southwest"}>Southwest Division</option>
         </select>
       </label>
-      {displayData?.map(({ City, WikipediaLogoUrl, Name, Conference, Division, Key }) => (
+      {displayData?.map(({ City, WikipediaLogoUrl, Name, Conference, Division, Key, PrimaryColor, SecondaryColor }) => (
         <Card key={Key}>
-          <div className='league-info'>
-            <h2><a href={`/${Key}`}>{City} {Name}</a></h2>
+          <div className='league-info' style={{ 'backgroundColor': '#' + SecondaryColor }}>
+            <h2><a style={{ 'color': '#' + PrimaryColor }} href={`/${Key}`}>{City} {Name}</a></h2>
             <img src={WikipediaLogoUrl} alt='All teams in the NBA' />
           </div>
         </Card>
