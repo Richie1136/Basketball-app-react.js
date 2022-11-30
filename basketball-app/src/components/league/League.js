@@ -5,8 +5,8 @@ import './League.css'
 
 const League = () => {
 
-  const [initialTeams, setIntialTeams] = useState()
   const [leagueData, setLeagueData] = useState([])
+  const [initialTeams, setIntialTeams] = useState(leagueData)
   const [filteredResults, setFilteredResults] = useState(null)
 
 

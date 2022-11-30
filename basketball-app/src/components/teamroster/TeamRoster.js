@@ -40,16 +40,14 @@ const TeamRoster = () => {
 
   console.log(roster)
 
-  // console.log(leagueData)
-
-  let active = roster?.filter((status) => status.Status === 'Active')
+  let active = roster?.filter((status) => status.Status === 'Active').sort((a, b) => a.Jersey - b.Jersey)
 
   return (
     <div className='team-container'>
       {active?.map(({ Jersey, FirstName, LastName, PlayerID, Position, PhotoUrl }) => (
         <Card key={PlayerID}>
           <img src={PhotoUrl} />
-          <h2><a href={`/${PlayerID}`}>{FirstName} {LastName}</a></h2>
+          <h2><a href={`/player/${PlayerID}`}>{FirstName} {LastName}</a></h2>
           <h4>{Jersey}</h4>
           <h5>{Position}</h5>
         </Card>

@@ -12,7 +12,7 @@ const AllRoutes = () => (
     <Routes>
       <Route path='/' element={<League />} />
       <Route path='/:team' element={<TeamRoster />} />
-      <Route path="/player/:PlayerID" element={<Player />} />
+      <Route path="/player/:playerid" element={<Player />} />
       <Route path='/standings' element={<Standings />} />
     </Routes>
   </>

@@ -7,6 +7,7 @@ function App() {
     <div className="App">
       <AllRoutes />
       {/* <TeamRoster /> */}
+      {/* <Player /> */}
     </div>
   );
 }
