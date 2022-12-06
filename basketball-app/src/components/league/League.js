@@ -98,7 +98,7 @@ const League = () => {
         <Card key={Key}>
           <div className='league-info' style={{ 'backgroundColor': '#' + PrimaryColor }}>
             <h2><a style={{ 'color': '#' + SecondaryColor }} href={`/${Key}`}>{City} {Name}</a></h2>
-            <img src={WikipediaLogoUrl} alt='All teams in the NBA' />
+            <img className='team-photo' src={WikipediaLogoUrl} alt='All teams in the NBA' />
           </div>
         </Card>
       ))}
