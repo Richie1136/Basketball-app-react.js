@@ -161,14 +161,6 @@ body {
   color: #333;
 }
 
-.player-header {
-  width: 1189px;
-  height: 304.87px;
-  padding: 0 80px;
-  display: flex;
-  background-color: black;
-}
-
 .player-photo {
   width: 285.83px;
   height: 208.87px;
@@ -268,6 +260,16 @@ padding: 0;
 
 } */
 
+.player-details {
+  width: 1189px;
+  height: 119px;
+  padding: 0 80px;
+  position: relative;
+  color: #fff;
+  /* margin-top: 20px; */
+  margin-top: -35px;
+}
+
 .player-data {
   width: 1189px;
   height: 119px;
@@ -275,10 +277,25 @@ padding: 0;
   position: relative;
   color: #fff;
   margin-top: 20px;
+  border-bottom: 1px solid gray;
+}
+
+.player-data:nth-child(1) {
+  border-bottom: none;
 }
 
 li {
   margin-top: 0;
+}
+
+h4.players-birthday {
+  text-align: left;
+  /* width: 100%; */
+  width: 200px;
+  font-size: 16px;
+  display: flex;
+  /* margin-right: 400px; */
+  margin-left: -40px;
 }
 
 /* .player-header-height {
