@@ -99,25 +99,40 @@ const Player = () => {
           </ul> */}
           <section className='player-data'>
             <div className='player-height'>
-              <ul className='player-height-info'>
+              <ul className='player-info'>
                 <div>
                   <p>HEIGHT</p>
-                  <li className='players-height'>{feet}'{inches}" ({value.toFixed(2)}m)</li>
+                  <p className='players-height'>{feet}'{inches}" ({value.toFixed(2)}m)</p>
                 </div>
               </ul>
               {/* <p className='player-height-info'>HEIGHT</p>
               <p className='players-height'>{playerData?.Height}</p> */}
             </div>
-            <div className='divider'></div>
             <div className='player-weight'>
-              <ul className='player-weight-info'>
+              <ul className='player-info'>
                 <div>
                   <p>Weight</p>
-                  <li className='players-weight'>{playerData?.Weight}lb</li>
+                  <p className='players-weight'>{playerData?.Weight}lb</p>
                 </div>
               </ul>
-              {/* <p className='player-height-info'>HEIGHT</p>
-              <p className='players-height'>{playerData?.Height}</p> */}
+            </div>
+            <div className='player-birthcountry'>
+              <ul className='player-info'>
+                <div>
+                  <p>Country</p>
+                  <p className='players-weight'>{playerData?.BirthCountry}</p>
+                </div>
+              </ul>
+            </div>
+            <div className='player-birthcountry'>
+              <ul className='player-info'>
+                <div>
+                  <p>College</p>
+                  <p className='players-college'> {playerData?.College !== "None" ? <li>
+                    {playerData?.College}
+                  </li> : "None"}</p>
+                </div>
+              </ul>
             </div>
             {/* <div className='player-weight'>
               <p className='player-weight-info'>Weight</p>
@@ -137,7 +152,7 @@ const Player = () => {
             </li> : null}
           </ul>
         </div> */}
-      </div>
+      </div >
     </>
   )
 }

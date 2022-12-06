@@ -250,7 +250,7 @@ padding: 0;
 }
 
 
-.player-height-info {
+.player-info {
   width: 153.35px;
   color: #ffffff;
   font: 12px Roboto, Arial, sans-serif;
@@ -259,12 +259,14 @@ padding: 0;
 }
 
 
-.player-weight-info {
+/* .player-weight-info {
   width: 153.35px;
-  /* height: 15px; */
   font: 12px Roboto, Arial, sans-serif;
 }
 
+.player-birthcountry-info {
+
+} */
 
 .player-data {
   width: 1189px;
@@ -273,6 +275,10 @@ padding: 0;
   position: relative;
   color: #fff;
   margin-top: 20px;
+}
+
+li {
+  margin-top: 0;
 }
 
 /* .player-header-height {
