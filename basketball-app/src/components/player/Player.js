@@ -56,7 +56,7 @@ const Player = () => {
 
   // console.log(playerData?.Salary.toLocaleString('en-US'))
 
-  let playerSalary = playerData?.Salary ? playerData?.Salary.toLocaleString('en-US') : "No Salary Found"
+  let playerSalary = playerData?.Salary ? playerData?.Salary.toLocaleString('en-US') : <p className='noSalaryFound'>No Salary Found</p>
 
 
   const today = new Date();
@@ -143,8 +143,7 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>Salary</p>
-                  {/* <p className='players-dollars'>{playerData?.Salary !== "null" ? <li>
-                    {playerData?.Salary}</li> : "No Salary Found"}</p> */}
+
                   <p className='players-dollars'>{playerSalary}</p>
                 </div>
               </ul>
