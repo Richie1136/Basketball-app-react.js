@@ -53,6 +53,10 @@ const Player = () => {
 
   let playerSalary = playerData?.Salary ? playerData?.Salary.toLocaleString('en-US') : <p className='noSalaryFound'>No Salary Found</p>
   let playerState = playerData?.BirthState ? playerData?.BirthState : <p>No State</p>
+  // condition1 ? value1
+  // : condition2 ? value2
+  // : condition3 ? value3
+  // : value4;
 
   const today = new Date();
   const year = today.getFullYear();
@@ -64,7 +68,7 @@ const Player = () => {
 
   let convetFromPoundsToKG = Math.round(playerData?.Weight / 2.2046)
 
-  console.log(playerData)
+  console.log(playerData.HighSchool)
 
   return (
     <>
@@ -154,10 +158,10 @@ const Player = () => {
             <div className='player-college'>
               <ul className='player-info'>
                 <div>
-                  <p>COLLEGE</p>
+                  <p>School</p>
                   <p className='players-college'> {playerData?.College !== "None" ? <li>
                     {playerData?.College}
-                  </li> : "None"}</p>
+                  </li> : playerData.HighSchool ? playerData?.HighSchool : "No School"}</p>
                 </div>
               </ul>
             </div>
