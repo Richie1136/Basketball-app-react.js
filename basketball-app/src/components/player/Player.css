@@ -207,7 +207,7 @@ p {
     color: #fff;
 }
 .player-header-name {
-  width: 225.37px;
+  /* width: 225.37px; */
   height: 48px;
   font: 60px 'Knockout Wide', sans-serif;
   color: #ffffff;
@@ -215,6 +215,7 @@ p {
   text-transform: uppercase;
 margin: 0;
 padding: 0;
+width: max-content;
 }
 
 .player-photo {
@@ -230,11 +231,13 @@ padding: 0;
   height: 20px;
  font: 16px Roboto, Arial, sans-serif;
     color: #fff;
+    margin-top: 60px;
 }
 
 .player-header {
   width: 1189px;
-  height: 304.87px;
+  /* height: 304.87px; */
+  height: 350px;
   padding: 0 80px;
   display: flex;
   background-color: black;
@@ -276,7 +279,7 @@ padding: 0;
   padding: 0 80px;
   position: relative;
   color: #fff;
-  margin-top: 20px;
+  margin-top: 70px;
   border-bottom: 1px solid gray;
 }
 
