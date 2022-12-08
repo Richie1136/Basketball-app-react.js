@@ -31,7 +31,6 @@ const Player = () => {
     playerData()
   }, [results])
 
-  console.log(playerData)
 
   let grabHeight = Number(playerData?.Height / 12).toFixed(1)
   let feet = grabHeight.split(".")[0]
@@ -40,21 +39,14 @@ const Player = () => {
   let date = playerData?.BirthDate
 
   let objectDate = new Date(date).toLocaleDateString('em-US', { month: 'long' })
-  console.log(objectDate)
 
   date = new Date(date).toLocaleDateString()
-  console.log(date)
 
   let getBirth = date.split("/")
   let birthDay = getBirth[1]
   let birthYear = getBirth[2]
-  console.log(birthYear)
-  console.log(birthDay)
-  console.log(objectDate)
 
-  console.log(date.split("/")[2])
 
-  // console.log(playerData?.Salary.toLocaleString('en-US'))
 
   let playerSalary = playerData?.Salary ? playerData?.Salary.toLocaleString('en-US') : <p className='noSalaryFound'>No Salary Found</p>
 
@@ -66,6 +58,9 @@ const Player = () => {
   let convertInches = inches * 2.54
   let resultOfBoth = convertInches + convertToCm
   let value = resultOfBoth / 100
+
+  let convetFromPoundsToKG = Math.ceil(playerData?.Weight / 2.2046)
+  console.log(convetFromPoundsToKG)
 
 
   return (
@@ -91,7 +86,7 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>Weight</p>
-                  <p className='players-weight'>{playerData?.Weight}lb</p>
+                  <p className='players-weight'>{playerData?.Weight}lb ({convetFromPoundsToKG}kg)</p>
                 </div>
               </ul>
             </div>
