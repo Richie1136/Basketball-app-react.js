@@ -81,13 +81,14 @@ width: max-content;
 }
 
 .player-header {
-  width: 1189px;
+  width: 1360px;
   height: 350px;
   padding: 0 80px;
   display: flex;
   background-color: black;
   margin-top: 40px;
 }
+
 
 
 .player-info {
@@ -108,7 +109,9 @@ width: max-content;
 }
 
 .player-data {
-  width: 778px;
+  /* width: 778px; */
+  /* width: 1189px; */
+  width: 932px;
   height: 119px;
   padding: 0 80px;
   position: relative;
@@ -123,15 +126,20 @@ li {
 }
 
 h4.players-birthday {
-  text-align: left;
   width: 200px;
   font-size: 16px;
   display: flex;
-  margin-left: -40px;
+  margin-left: -38px;
 }
 
 .noSalaryFound {
-  width: 138px;
+  width: 200px;
+  margin-left: -30px;
+}
+
+.players-birthcountry {
+  width: 300px;
+  flex-wrap: nowrap;
   margin-left: -40px;
 }
 
@@ -147,4 +155,15 @@ div {
   list-style-type: none;
   border-right: 1px solid #ffffff;
   margin-left: 1px;
+}
+
+.players-college {
+  /* width: 200px; */
+  /* margin-left: -30px; */
+  flex-wrap: nowrap;
+  /* margin-left: -28px; */
+}
+
+.players-city {
+  /* margin-left: -28px; */
 }

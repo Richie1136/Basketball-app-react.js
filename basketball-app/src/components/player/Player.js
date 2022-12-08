@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { baseurL } from '../../api/Api'
 import './Player.css'
+import Loading from '../loading/Loading'
 
 
 const APIKEY = process.env.REACT_APP_API_KEY
@@ -32,6 +33,8 @@ const Player = () => {
   }, [results])
 
 
+  if (!playerData) return <Loading />
+
   let grabHeight = Number(playerData?.Height / 12).toFixed(1)
   let feet = grabHeight.split(".")[0]
   let inches = grabHeight.split(".")[1]
@@ -49,7 +52,7 @@ const Player = () => {
 
 
   let playerSalary = playerData?.Salary ? playerData?.Salary.toLocaleString('en-US') : <p className='noSalaryFound'>No Salary Found</p>
-
+  let playerState = playerData?.BirthState ? playerData?.BirthState : <p>No State</p>
 
   const today = new Date();
   const year = today.getFullYear();
@@ -59,9 +62,9 @@ const Player = () => {
   let resultOfBoth = convertInches + convertToCm
   let value = resultOfBoth / 100
 
-  let convetFromPoundsToKG = Math.ceil(playerData?.Weight / 2.2046)
-  console.log(convetFromPoundsToKG)
+  let convetFromPoundsToKG = Math.round(playerData?.Weight / 2.2046)
 
+  console.log(playerData)
 
   return (
     <>
@@ -85,7 +88,7 @@ const Player = () => {
             <div className='player-weight'>
               <ul className='player-info'>
                 <div>
-                  <p>Weight</p>
+                  <p>WEIGHT</p>
                   <p className='players-weight'>{playerData?.Weight}lb ({convetFromPoundsToKG}kg)</p>
                 </div>
               </ul>
@@ -93,18 +96,24 @@ const Player = () => {
             <div className='player-birthcountry'>
               <ul className='player-info'>
                 <div>
-                  <p>Country</p>
+                  <p>COUNTRY</p>
                   <p className='players-weight'>{playerData?.BirthCountry}</p>
                 </div>
               </ul>
             </div>
-            <div className='player-college'>
+            <div className='player-birthcity'>
               <ul className='player-info'>
                 <div>
-                  <p>College</p>
-                  <p className='players-college'> {playerData?.College !== "None" ? <li>
-                    {playerData?.College}
-                  </li> : "None"}</p>
+                  <p>CITY</p>
+                  <p className='players-city'>{playerData?.BirthCity}</p>
+                </div>
+              </ul>
+            </div>
+            <div className='player-state'>
+              <ul className='player-info'>
+                <div>
+                  <p>STATE</p>
+                  <p>{playerState}</p>
                 </div>
               </ul>
             </div>
@@ -121,15 +130,15 @@ const Player = () => {
             <div className='player-birthdate'>
               <ul className='player-info'>
                 <div>
-                  <p>Birthdate</p>
-                  <h4 className='players-birthday'>{objectDate} {birthDay},{birthYear}</h4>
+                  <p>BIRTHDATE</p>
+                  <h4 className='players-birthday'>{objectDate} {birthDay}, {birthYear}</h4>
                 </div>
               </ul>
             </div>
             <div className='player-experience'>
               <ul className='player-info'>
                 <div>
-                  <p>Experience</p>
+                  <p>EXPERIENCE</p>
                   <p className='players-weight'>{playerData?.Experience}</p>
                 </div>
               </ul>
@@ -137,9 +146,18 @@ const Player = () => {
             <div className='player-salary'>
               <ul className='player-info'>
                 <div>
-                  <p>Salary</p>
-
+                  <p>SALARY</p>
                   <p className='players-dollars'>{playerSalary}</p>
+                </div>
+              </ul>
+            </div>
+            <div className='player-college'>
+              <ul className='player-info'>
+                <div>
+                  <p>COLLEGE</p>
+                  <p className='players-college'> {playerData?.College !== "None" ? <li>
+                    {playerData?.College}
+                  </li> : "None"}</p>
                 </div>
               </ul>
             </div>
