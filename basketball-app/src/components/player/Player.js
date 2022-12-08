@@ -54,9 +54,9 @@ const Player = () => {
 
   console.log(date.split("/")[2])
 
-  console.log(playerData?.Salary.toLocaleString('en-US'))
+  // console.log(playerData?.Salary.toLocaleString('en-US'))
 
-  let playerSalary = playerData?.Salary.toLocaleString('en-US')
+  let playerSalary = playerData?.Salary ? playerData?.Salary.toLocaleString('en-US') : "No Salary Found"
 
 
   const today = new Date();
@@ -143,6 +143,8 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>Salary</p>
+                  {/* <p className='players-dollars'>{playerData?.Salary !== "null" ? <li>
+                    {playerData?.Salary}</li> : "No Salary Found"}</p> */}
                   <p className='players-dollars'>{playerSalary}</p>
                 </div>
               </ul>
@@ -155,24 +157,3 @@ const Player = () => {
 }
 
 export default Player
-
-/* What i was working with now going to copy what i did on the sports app */
-{/* <div className='player-header'>
-          <img className='player-photo' src={playerData?.PhotoUrl} alt='Bio Card' />
-          <div className='player-vitals'>
-            <div className='player-bio'>
-              <p className='player-header-summary'>#{playerData?.Jersey} | {playerData?.Position}</p>
-              <p className='player-header-name'>{playerData?.FirstName}</p>
-              <p className='player-header-name'>{playerData?.LastName}</p>
-            </div>
-            <section className='player-data'>
-              <div className='player-height'>
-                <p className='player-height-info'>HEIGHT</p>
-                <p className='players-height'>{playerData?.Height}</p>
-              </div>
-              <div className='divider'></div>
-              <div className='player-weight'>
-                <p className='player-weight-info'>Weight</p>
-                <p className='players-weight'>{playerData?.Weight}</p>
-              </div>
-            </section> */}

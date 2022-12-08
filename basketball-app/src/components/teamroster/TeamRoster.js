@@ -2,6 +2,7 @@ import { baseurL } from '../../api/Api'
 import Card from '../card/Card'
 import { useState, useEffect } from 'react'
 import './TeamRoster.css'
+import Loading from '../loading/Loading'
 
 import { useParams } from 'react-router-dom'
 
@@ -41,6 +42,8 @@ const TeamRoster = () => {
   console.log(roster)
 
   let active = roster?.filter((status) => status.Status === 'Active').sort((a, b) => a.Jersey - b.Jersey)
+
+  if (!roster) return <Loading />
 
   return (
     <div className='team-container'>
