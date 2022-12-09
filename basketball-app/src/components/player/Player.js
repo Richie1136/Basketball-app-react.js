@@ -68,8 +68,6 @@ const Player = () => {
 
   let convetFromPoundsToKG = Math.round(playerData?.Weight / 2.2046)
 
-  console.log(playerData.HighSchool)
-
   return (
     <>
       <div className='player-header'>

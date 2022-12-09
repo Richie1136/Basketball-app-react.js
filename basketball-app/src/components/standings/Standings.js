@@ -122,7 +122,7 @@ const Standings = () => {
           <Row key={Name} Name={Name} City={City} Losses={Losses} Wins={Wins} Percentage={Percentage} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} Streak={Streak} />
         ))}
         <br />
-        <h2 className='conference-title'>Western Conference</h2>
+        <h2 className='conference-west'>Western Conference</h2>
         <tbody>
           <tr className='division-row'>
             <th className='division-name'>
