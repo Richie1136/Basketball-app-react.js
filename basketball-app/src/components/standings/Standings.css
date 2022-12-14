@@ -3,10 +3,6 @@
   border: 0 solid;
 }
 
-body {
-  background-image: linear-gradient(#1d428a 33.33%, #c8102e 33.33%, #c8102e 66.66%, white 66.66%);
-
-}
 
 .rundiff {
   width: 48px;
@@ -25,6 +21,11 @@ body {
 .division-row {
   width: 990px;
   height: 32px;
+}
+
+.App {
+  background-image: linear-gradient(#1d428a 33.33%, #c8102e 33.33%, #c8102e 66.66%, white 66.66%);
+
 }
 
 tr {

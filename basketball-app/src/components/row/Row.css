@@ -5,6 +5,14 @@
 width: 100%;
 }
 
+.Positive {
+  color: #094;
+}
+
+.Negative {
+  color: #d00;
+}
+
 .city-name {
   width: 200px;
   align-items: center;
