@@ -1,15 +1,17 @@
 import './Row.css'
 
 const Row = ({ City, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, PointsPerGameFor,
-  PointsPerGameAgainst, ConferenceLosses, DivisionWins, DivisionLosses, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak }) => {
+  PointsPerGameAgainst, Key, ConferenceLosses, DivisionWins, DivisionLosses, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak }) => {
   let posorNegStreak = Streak < 1 ? "L" + Streak.toString().split("")[1] : "W" + Streak
   let convertPercentage = "." + Percentage.toFixed(3).split(".")[1]
+
+  console.log(Key)
 
   // console.log(PointsPerGameFor.toString().split("")[4])
 
   // console.log(PointsPerGameFor.toString().split(" ")[4] === "0" ? "0" + PointsPerGameFor.pop() : PointsPerGameFor)
 
-  let result = PointsPerGameFor.toString().split("")[4] === "0" ? PointsPerGameFor.toString().slice(0, -1) : Math.round(PointsPerGameFor * 10) / 10
+  // let result = PointsPerGameFor.toString().split("")[4] === "0" ? PointsPerGameFor.toString().slice(0, -1) : Math.round(PointsPerGameFor * 10) / 10
 
   let pointsScored = Math.round(PointsPerGameFor * 10) / 10
   let OpponentsScored = Math.round(PointsPerGameAgainst * 10) / 10
@@ -17,16 +19,16 @@ const Row = ({ City, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, 
   // let j = result
   // console.log(typeof Number(result))
 
-  console.log(PointsPerGameAgainst.toFixed(2))
+  // console.log(PointsPerGameAgainst.toFixed(2))
 
   let pointDiff = (pointsScored - OpponentsScored).toFixed(1)
-  console.log(pointDiff > 0)
+  // console.log(Name)
 
 
   return (
     <tbody>
       <tr className='stats-standings'>
-        <td className='city-name'>{City} {Name}</td>
+        <td className='city-name'><a href={`/${Key}`}>{City} {Name}</a></td>
         <td className='team-winorl'>{Wins}</td>
         <td className='team-winorl'>{Losses}</td>
         <td className='winper'>{convertPercentage}</td>

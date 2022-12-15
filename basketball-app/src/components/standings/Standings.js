@@ -42,6 +42,8 @@ const Standings = () => {
   let Eastern = getStandings?.filter((east) => east.Conference === 'Eastern').sort((a, b) => b.Percentage - a.Percentage)
   let Western = getStandings?.filter((west) => west.Conference === 'Western').sort((a, b) => b.Percentage - a.Percentage)
 
+  console.log(getStandings)
+
 
   let headers = (
     <>
@@ -133,8 +135,8 @@ const Standings = () => {
             </tr>
           </tbody>
           {Eastern?.map(({ City, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, ConferenceLosses, DivisionWins, DivisionLosses, PointsPerGameFor,
-            PointsPerGameAgainst, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak }) => (
-            <Row key={Name} Name={Name} City={City} Losses={Losses} Wins={Wins} Percentage={Percentage} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} Streak={Streak} />
+            PointsPerGameAgainst, Key, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak, Team }) => (
+            <Row Key={Key} Name={Name} Team={Team} City={City} Losses={Losses} Wins={Wins} Percentage={Percentage} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} Streak={Streak} />
           ))}
           <br />
           <h2 className='conference-west'>Western Conference</h2>
