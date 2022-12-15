@@ -14,6 +14,7 @@ const Player = () => {
   const obj = new URLSearchParams(params);
 
 
+
   const playerid = obj.get('playerid')
 
   let results = `${baseurL}/Player/${playerid}?key=${APIKEY}`
@@ -31,6 +32,8 @@ const Player = () => {
     }
     playerData()
   }, [results])
+
+  console.log(playerData)
 
 
   if (!playerData) return <Loading />
@@ -156,10 +159,10 @@ const Player = () => {
             <div className='player-college'>
               <ul className='player-info'>
                 <div>
-                  <p>School</p>
+                  <p>{playerData?.College !== "None" ? "College" : playerData?.HighSchool ? "High School" : "No School"}</p>
                   <p className='players-college'> {playerData?.College !== "None" ? <li>
                     {playerData?.College}
-                  </li> : playerData.HighSchool ? playerData?.HighSchool : "No School"}</p>
+                  </li> : playerData.HighSchool ? playerData?.HighSchool : "None"}</p>
                 </div>
               </ul>
             </div>
