@@ -4,7 +4,7 @@ import TeamRoster from "./components/teamroster/TeamRoster";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <AllRoutes />
       {/* <TeamRoster /> */}
       {/* <Player /> */}
