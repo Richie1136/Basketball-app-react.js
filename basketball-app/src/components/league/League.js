@@ -7,7 +7,7 @@ const League = () => {
 
   const [leagueData, setLeagueData] = useState([])
   const [initialTeams, setIntialTeams] = useState(leagueData)
-  const [filteredResults, setFilteredResults] = useState(null)
+  const [filteredResults, setFilteredResults] = useState(undefined)
 
 
   const APIKEY = process.env.REACT_APP_API_KEY
@@ -29,10 +29,10 @@ const League = () => {
   }, [result])
 
 
-  console.log(leagueData)
-
   let allTeams = leagueData
   let displayData = allTeams
+
+  console.log(leagueData)
 
 
   let West = leagueData?.filter((team) => team.Conference === 'Western')
@@ -96,8 +96,8 @@ const League = () => {
       </label>
       {displayData?.map(({ City, WikipediaLogoUrl, Name, Conference, Division, Key, PrimaryColor, SecondaryColor }) => (
         <Card key={Key}>
-          <div className='league-info' style={{ 'backgroundColor': '#' + PrimaryColor }}>
-            <h2><a style={{ 'color': '#' + SecondaryColor }} href={`/${Key}`}>{City} {Name}</a></h2>
+          <div className='league-info' style={{ 'backgroundColor': '#' + SecondaryColor }}>
+            <h2><a style={{ 'color': '#' + PrimaryColor }} href={`/${Key}`}>{City} {Name}</a></h2>
             <img className='team-photo' src={WikipediaLogoUrl} alt='All teams in the NBA' />
           </div>
         </Card>
