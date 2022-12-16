@@ -19,7 +19,6 @@ const Player = () => {
 
   let results = `${baseurL}/Player/${playerid}?key=${APIKEY}`
 
-
   useEffect(() => {
     const playerData = async () => {
       try {
@@ -34,7 +33,6 @@ const Player = () => {
   }, [results])
 
   console.log(playerData)
-
 
   if (!playerData) return <Loading />
 
@@ -56,10 +54,6 @@ const Player = () => {
 
   let playerSalary = playerData?.Salary ? playerData?.Salary.toLocaleString('en-US') : <p className='noSalaryFound'>No Salary Found</p>
   let playerState = playerData?.BirthState ? playerData?.BirthState : <p>No State</p>
-  // condition1 ? value1
-  // : condition2 ? value2
-  // : condition3 ? value3
-  // : value4;
 
   const today = new Date();
   const year = today.getFullYear();

@@ -242,7 +242,6 @@ border-bottom: 1px solid #ebe9e7;
 .conference-title {
   padding: 2px 0;
   height: 35px;
-  width: 300px;
   position: sticky;
   color: #ffffff;
   display: flex;
@@ -258,9 +257,6 @@ border-bottom: 1px solid #ebe9e7;
   }
 
  .conference-west {
-  padding: 2px 0;
-  height: 35px;
-  width: 300px;
   position: sticky;
   display: flex;
   margin-block-start: 0.83em;
@@ -271,5 +267,7 @@ border-bottom: 1px solid #ebe9e7;
   font-size: 1.25rem;
   font-weight: 400;
   padding-top: 70px;
+  margin-top: 10px;
   color: #ffffff;
+  
 } 
