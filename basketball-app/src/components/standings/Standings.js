@@ -50,17 +50,17 @@ const Standings = () => {
       </th>
       <th className='pct'>
         <span className='runs'>
-          <span className='header-percentage'>WIN%</span>
+          <span>WIN%</span>
         </span>
       </th>
       <th className='gb'>
         <span className='runs'>
-          <span className='tgb'>GB</span>
+          <span>GB</span>
         </span>
       </th>
       <th className='conf'>
-        <span className='tstreak'>
-          <span className='twcgb'>CONF</span>
+        <span className='runs'>
+          <span>CONF</span>
         </span>
       </th>
       <th className='div'>
@@ -84,23 +84,23 @@ const Standings = () => {
         </span>
       </th>
       <th className='home'>
-        <span className='span'>
+        <span className='runs'>
           <span>Home</span>
         </span>
       </th>
       <th className='road'>
-        <span className='span'>
+        <span className='runs'>
           <span>Road</span>
         </span>
       </th>
       <th className='last10'>
         <span className='runs'>
-          <span className='l10'>LAST10</span>
+          <span>LAST10</span>
         </span>
       </th>
       <th className='streak'>
         <span className='tstreak'>
-          <span className='teamStreak'>STREAK</span>
+          <span>STREAK</span>
         </span>
       </th>
     </>

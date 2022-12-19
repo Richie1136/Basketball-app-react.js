@@ -3,35 +3,9 @@
   border: 0 solid;
 }
 
-
-.rundiff {
-  width: 48px;
-  height: 48px;
-  color: #333333;
-  font-size: 14.4px;
-  font-family: Helvetica, Arial, sans-serif;
-  padding: 1px 8px;
-}
-
-.teamrundiff {
-  width: 32.44px;
-  height: 16.5px;
-}
-
-.division-row {
-  width: 990px;
-  height: 32px;
-}
-
 .background-container {
     background-image: linear-gradient(#1d428a 33.33%, #c8102e 33.33%, #c8102e 66.66%, white 66.66%);
     margin-top: -17px;
-}
-
-tr {
-  display: table-row;
-  vertical-align: inherit;
-  border-color: inherit;
 }
 
 table {
@@ -57,53 +31,20 @@ th span {
   display: block;
 }
 
-.division-title {
-  height: 18px;
-  display: inline-block;
-}
 
 .division-name span {
   text-align: left;
 }
 
-.wins {
-  width: 57.04px;
-  height: 41px;
-}
 
-.division-span {
-  width: 22.5px;
-  height: 18px;
-}
 
 .teamw {
   width: 10.59px;
   height: 15.5px;
 }
 
-.losses {
-  width: 57.04px;
-  height: 41px;
-}
-
 .teaml {
   width: 6.12px;
-  height: 15.5px;
-}
-
-tbody {
-  display: table-row-group;
-  vertical-align: middle;
-  border-color: inherit;
-}
-
-.pct {
-  width: 85.49px;
-  height: 41px;
-}
-
-.percentage {
-  width: 21.99px;
   height: 15.5px;
 }
 
@@ -114,55 +55,15 @@ tbody {
   text-align: justify;
 }
 
-.tgb {
-  width: 16.1px;
-  height: 15.5px;
-  display: inline;
-}
-
 .div {
   width: 64.7px;
   height: 41px;
   text-align: justify;
 }
 
-.last10 {
-  width: 109px;
-  height: 41px;
-}
-
-.l10 {
-  width: 17.53px;
-  height: 15.5px;
-  display: inline;
-}
-
-.streak {
-  width: 112.19px;
-  height: 41px;
-}
-
 .tstreak {
   width: 24px;
   height: 18px;
-}
-
-.teamStreak {
-  width: 28.3px;
-  height: 15.5px;
-  display: inline;
-}
-
-.trs {
-  width: 14.33px;
-  height: 15.5px;
-  display: inline;
-}
-
-.tra {
-  width: 15.19px;
-  height: 15.5px;
-  display: inline;
 }
 
 .runs {
@@ -180,16 +81,6 @@ tbody {
   width: 86.34px;
   height: 41px;
   text-align: justify;
-}
-
-.span {
-  width: 44px;
-  height: 18px;
-}
-
-.conf {
-  width: 85.28px;
-  height: 41px;
 }
 
 .division-title {

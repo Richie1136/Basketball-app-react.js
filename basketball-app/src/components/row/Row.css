@@ -1,8 +1,5 @@
 .stats-standings {
-  width: 1093px;
-  height: 41px;
-  border-bottom: 3px solid #ebe9e7;;
-width: 100%;
+  border-bottom: 3px solid #ebe9e7;
 }
 
 .Positive {
@@ -39,19 +36,7 @@ td.city-name a {
   width: 85.28px;
 }
 
-.divrecord {
-width: 64.7px;
-}
 
-.gamesback {
-  width: 80.44px;
-}
-.home {
-  width: 88.2px;
-  }
-  .road {
-      width: 86.34px;
-      }
 .last10 {
   width: 109.98px;
 }
@@ -77,7 +62,6 @@ font-weight: 400;
     background-color: #fff;
     color: #000;
     border-top: 1px #ebe9e7;
-    /* padding: 8px 6px; */
     font-stretch: condensed;
   }
 
