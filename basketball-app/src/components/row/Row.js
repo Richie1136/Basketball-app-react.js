@@ -10,8 +10,6 @@ const Row = ({ City, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, 
 
   let pointDiff = (pointsScored - OpponentsScored).toFixed(1)
 
-  console.log(Streak)
-
 
   return (
     <tbody>
