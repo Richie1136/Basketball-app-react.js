@@ -1,5 +1,4 @@
 import { baseurL } from '../../api/Api'
-// import Card from '../card/Card'
 import { useState, useEffect } from 'react'
 import './Standings.css'
 import Row from '../row/Row'
@@ -66,32 +65,32 @@ const Standings = () => {
       </th>
       <th className='div'>
         <span className='runs'>
-          <span className='trs'>DIV</span>
+          <span>DIV</span>
         </span>
       </th>
       <th className='div'>
         <span className='runs'>
-          <span className='trs'>PPG</span>
+          <span>PPG</span>
         </span>
       </th>
       <th className='div'>
         <span className='runs'>
-          <span className='trs'>OPP PPG</span>
+          <span>OPP PPG</span>
         </span>
       </th>
       <th className='div'>
         <span className='runs'>
-          <span className='trs'>DIFF</span>
+          <span>DIFF</span>
         </span>
       </th>
       <th className='home'>
         <span className='span'>
-          <span className='hr'>Home</span>
+          <span>Home</span>
         </span>
       </th>
       <th className='road'>
         <span className='span'>
-          <span className='ar'>Road</span>
+          <span>Road</span>
         </span>
       </th>
       <th className='last10'>

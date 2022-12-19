@@ -47,7 +47,7 @@ width: 64.7px;
   width: 80.44px;
 }
 .home {
-  width: 89.8px;
+  width: 88.2px;
   }
   .road {
       width: 86.34px;
@@ -68,6 +68,17 @@ height: 41px;
 font-weight: 400;
 line-height: 1.25;
 border-style: solid;
+font-weight: 400;
+    font-size: .875rem;
+    font-family: Roboto Condensed,Arial,sans-serif;
+    line-height: 1.25;
+    text-align: left;
+    white-space: nowrap;
+    background-color: #fff;
+    color: #000;
+    border-top: 1px #ebe9e7;
+    /* padding: 8px 6px; */
+    font-stretch: condensed;
   }
 
   tbody:nth-child(11) {

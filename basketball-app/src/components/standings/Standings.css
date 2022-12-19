@@ -110,6 +110,8 @@ tbody {
 .gb {
   width: 80.44px;
   height: 41px;
+  vertical-align: bottom;
+  text-align: justify;
 }
 
 .tgb {
@@ -121,6 +123,7 @@ tbody {
 .div {
   width: 64.7px;
   height: 41px;
+  text-align: justify;
 }
 
 .last10 {
@@ -170,23 +173,13 @@ tbody {
 .home {
   width: 89.8px;
   height: 41px;
-}
-
-.hr {
-  width: 34.25px;
-  height: 15.5px;
-  display: inline;
+  text-align: justify;
 }
 
 .road {
   width: 86.34px;
   height: 41px;
-}
-
-.ar {
-  width: 32.02px;
-  height: 15.5px;
-  display: inline;
+  text-align: justify;
 }
 
 .span {
@@ -197,10 +190,6 @@ tbody {
 .conf {
   width: 85.28px;
   height: 41px;
-}
-
-td.home {
-  text-align: start;
 }
 
 .division-title {
@@ -230,12 +219,19 @@ th {
   padding: 14px 6px;
   background-color: #ffffff;
 text-align: center;
+/* text-align: justify; */
 letter-spacing: 1px;
 white-space: nowrap;
 vertical-align: bottom;
 display: table-cell;
 font-weight: bold;
 border-bottom: 1px solid #ebe9e7;
+vertical-align: bottom;
+text-align: right;
+white-space: nowrap;
+letter-spacing: 1px;
+font-size: 10px;
+padding: 14px 6px;
 ;
 }
 
@@ -269,5 +265,4 @@ border-bottom: 1px solid #ebe9e7;
   padding-top: 70px;
   margin-top: 10px;
   color: #ffffff;
-  
 } 
