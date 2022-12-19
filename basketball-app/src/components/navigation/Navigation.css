@@ -18,8 +18,11 @@
     background-color: beige;
   }
   
+.nav {
+  justify-content: space-evenly;
+}
+
   nav a:hover {
-    /* background-color: #ddd; */
     color: black;
   }
 
