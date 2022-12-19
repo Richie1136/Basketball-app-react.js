@@ -2,13 +2,15 @@ import './Row.css'
 
 const Row = ({ City, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, PointsPerGameFor,
   PointsPerGameAgainst, Key, ConferenceLosses, DivisionWins, DivisionLosses, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak }) => {
-  let posorNegStreak = Streak < 1 ? "L" + Streak.toString().split("")[1] : "W" + Streak
+  let posorNegStreak = Streak < 1 ? "L" + Streak.toString().split("-")[1] : "W" + Streak
   let convertPercentage = "." + Percentage.toFixed(3).split(".")[1]
 
   let pointsScored = Math.round(PointsPerGameFor * 10) / 10
   let OpponentsScored = Math.round(PointsPerGameAgainst * 10) / 10
 
   let pointDiff = (pointsScored - OpponentsScored).toFixed(1)
+
+  console.log(Streak)
 
 
   return (
