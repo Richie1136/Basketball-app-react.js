@@ -1,11 +1,9 @@
 import { baseurL } from '../../api/Api'
-import Card from '../card/Card'
+// import Card from '../card/Card'
 import { useState, useEffect } from 'react'
 import './Standings.css'
 import Row from '../row/Row'
 import Loading from '../loading/Loading'
-
-import { useParams } from 'react-router-dom'
 
 
 const Standings = () => {
@@ -13,12 +11,6 @@ const Standings = () => {
   const [getStandings, setGetStadings] = useState()
 
   const APIKEY = process.env.REACT_APP_API_KEY
-
-
-  const params = useParams()
-
-  const obj = new URLSearchParams(params);
-
 
 
   let result = `${baseurL}/Standings/2023?key=${APIKEY}`

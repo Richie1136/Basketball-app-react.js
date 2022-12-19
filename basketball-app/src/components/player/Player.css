@@ -158,12 +158,5 @@ div {
 }
 
 .players-college {
-  /* width: 200px; */
-  /* margin-left: -30px; */
   flex-wrap: nowrap;
-  /* margin-left: -28px; */
-}
-
-.players-city {
-  /* margin-left: -28px; */
 }
