@@ -36,11 +36,15 @@ const Player = () => {
 
   if (!playerData) return <Loading />
 
-  let grabHeight = Number(playerData?.Height / 12).toFixed(1)
+
+  const { Salary, BirthState, Team, BirthCity, BirthCountry, BirthDate, Jersey, Position, FirstName, LastName, Weight, PhotoUrl, Experience, HighSchool, College, Height } = playerData
+
+
+  let grabHeight = Number(Height / 12).toFixed(1)
   let feet = grabHeight.split(".")[0]
   let inches = grabHeight.split(".")[1]
 
-  let date = playerData?.BirthDate
+  let date = BirthDate
 
   let objectDate = new Date(date).toLocaleDateString('em-US', { month: 'long' })
 
@@ -52,8 +56,8 @@ const Player = () => {
 
 
 
-  let playerSalary = playerData?.Salary ? playerData?.Salary.toLocaleString('en-US') : <p className='noSalaryFound'>No Salary Found</p>
-  let playerState = playerData?.BirthState ? playerData?.BirthState : <p>No State</p>
+  let playerSalary = Salary ? Salary.toLocaleString('en-US') : <p className='noSalaryFound'>No Salary Found</p>
+  let playerState = BirthState ? BirthState : <p>No State</p>
 
   const today = new Date();
   const year = today.getFullYear();
@@ -63,17 +67,17 @@ const Player = () => {
   let resultOfBoth = convertInches + convertToCm
   let value = resultOfBoth / 100
 
-  let convetFromPoundsToKG = Math.round(playerData?.Weight / 2.2046)
+  let convetFromPoundsToKG = Math.round(Weight / 2.2046)
 
   return (
     <>
       <div className='player-header'>
-        <img className='player-photo' src={playerData?.PhotoUrl} alt='Bio Card' />
+        <img className='player-photo' src={PhotoUrl} alt='Bio Card' />
         <div className='player-vitals'>
           <div className='player-bio'>
-            <p className='player-header-number'>#{playerData?.Jersey} | {playerData?.Position}</p>
-            <p className='player-header-name'>{playerData?.FirstName}</p>
-            <p className='player-header-name'>{playerData?.LastName}</p>
+            <p className='player-header-number'><a href={`/${Team}`}>{Team}</a> | #{Jersey} | {Position}</p>
+            <p className='player-header-name'>{FirstName}</p>
+            <p className='player-header-name'>{LastName}</p>
           </div>
           <section className='player-data'>
             <div className='player-height'>
@@ -88,7 +92,7 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>WEIGHT</p>
-                  <p className='players-weight'>{playerData?.Weight}lb ({convetFromPoundsToKG}kg)</p>
+                  <p className='players-weight'>{Weight}lb ({convetFromPoundsToKG}kg)</p>
                 </div>
               </ul>
             </div>
@@ -96,7 +100,7 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>COUNTRY</p>
-                  <p className='players-weight'>{playerData?.BirthCountry}</p>
+                  <p className='players-weight'>{BirthCountry}</p>
                 </div>
               </ul>
             </div>
@@ -104,7 +108,7 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>CITY</p>
-                  <p className='players-city'>{playerData?.BirthCity}</p>
+                  <p className='players-city'>{BirthCity}</p>
                 </div>
               </ul>
             </div>
@@ -122,7 +126,7 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>AGE</p>
-                  <p className='players-age'>{year - playerData?.BirthDate.split("-")[0]} Years</p>
+                  <p className='players-age'>{year - BirthDate.split("-")[0]} Years</p>
                 </div>
               </ul>
             </div>
@@ -138,7 +142,7 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>EXPERIENCE</p>
-                  <p className='players-weight'>{playerData?.Experience}</p>
+                  <p className='players-weight'>{Experience}</p>
                 </div>
               </ul>
             </div>
@@ -153,10 +157,10 @@ const Player = () => {
             <div className='player-college'>
               <ul className='player-info'>
                 <div>
-                  <p>{playerData?.College !== "None" ? "College" : playerData?.HighSchool ? "High School" : "No School"}</p>
-                  <p className='players-college'> {playerData?.College !== "None" ? <li>
-                    {playerData?.College}
-                  </li> : playerData.HighSchool ? playerData?.HighSchool : "None"}</p>
+                  <p>{College !== "None" ? "College" : HighSchool ? "High School" : "No School"}</p>
+                  <p className='players-college'> {College !== "None" ? <li>
+                    {College}
+                  </li> : HighSchool ? HighSchool : "None"}</p>
                 </div>
               </ul>
             </div>

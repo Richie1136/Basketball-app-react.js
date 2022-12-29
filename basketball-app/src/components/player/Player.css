@@ -160,3 +160,7 @@ div {
 .players-college {
   flex-wrap: nowrap;
 }
+
+.player-header-number a {
+  color: #fff;
+}
