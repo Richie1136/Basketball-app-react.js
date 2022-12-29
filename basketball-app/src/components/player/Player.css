@@ -109,8 +109,6 @@ width: max-content;
 }
 
 .player-data {
-  /* width: 778px; */
-  /* width: 1189px; */
   width: 932px;
   height: 119px;
   padding: 0 80px;
@@ -150,7 +148,7 @@ div {
 .player-vitals ul {
   font-size: 1.145rem;
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  /* line-height: 1.2; */
+  line-height: 1.2;
   float: left;
   list-style-type: none;
   border-right: 1px solid #ffffff;
@@ -159,6 +157,7 @@ div {
 
 .players-college {
   flex-wrap: nowrap;
+  margin-left: -20px;
 }
 
 .player-header-number a {
