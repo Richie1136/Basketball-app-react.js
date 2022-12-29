@@ -5,7 +5,6 @@ import { Routes, Route } from 'react-router-dom'
 import Navigation from "./navigation/Navigation";
 import Standings from "./standings/Standings";
 
-
 const AllRoutes = () => (
   <>
     <Navigation />
@@ -14,7 +13,6 @@ const AllRoutes = () => (
       <Route path='/:team' element={<TeamRoster />} />
       <Route path="/player/:playerid" element={<Player />} />
       <Route path='/standings' element={<Standings />} />
-      {/* <Route path="/standings/:Key" element={<TeamRoster />} /> */}
     </Routes>
   </>
 )
