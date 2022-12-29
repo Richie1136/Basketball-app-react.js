@@ -76,11 +76,11 @@ const League = () => {
       <label>
         <select value={filteredResults} onChange={handleChange}>
           <option multiple={false} value={"ALL"}>ALL</option>
-          <option multiple={false} value={"East"}>East</option>
+          <option multiple={false} value={"East"}>Eastern Conference</option>
           <option multiple={false} value={"Atlantic"}>Atlantic Division</option>
           <option multiple={false} value={"Central"}>Central Division</option>
           <option multiple={false} value={"Southeast"}>Southeast Division</option>
-          <option multiple={false} value={"West"}>West</option>
+          <option multiple={false} value={"West"}>Western Conference</option>
           <option multiple={false} value={"Northwest"}>Northwest Division</option>
           <option multiple={false} value={"Pacific"}>Pacific Division</option>
           <option multiple={false} value={"Southwest"}>Southwest Division</option>
