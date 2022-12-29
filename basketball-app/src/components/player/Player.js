@@ -30,8 +30,6 @@ const Player = () => {
 
   if (!playerData) return <Loading />
 
-  console.log(playerData)
-
   const { Salary, BirthState, Team, BirthCity, BirthCountry, BirthDate, Jersey, Position, FirstName, LastName, Weight, PhotoUrl, Experience, HighSchool, College, Height } = playerData
 
   let grabHeight = Number(Height / 12).toFixed(1)

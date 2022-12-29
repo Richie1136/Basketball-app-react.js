@@ -30,9 +30,6 @@ const Standings = () => {
   let Eastern = getStandings?.filter((east) => east.Conference === 'Eastern').sort((a, b) => b.Percentage - a.Percentage)
   let Western = getStandings?.filter((west) => west.Conference === 'Western').sort((a, b) => b.Percentage - a.Percentage)
 
-  console.log(getStandings)
-
-
   let headers = (
     <>
       <th className='wins'>
@@ -142,7 +139,6 @@ const Standings = () => {
             <Row key={Key} Key={Key} Name={Name} City={City} Losses={Losses} Wins={Wins} StreakDescription={StreakDescription} Percentage={Percentage} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} />
           ))}
         </table>
-
       </div>
     </>
   )
