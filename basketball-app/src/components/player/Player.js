@@ -4,17 +4,13 @@ import { baseurL } from '../../api/Api'
 import './Player.css'
 import Loading from '../loading/Loading'
 
-
-const APIKEY = process.env.REACT_APP_API_KEY
-
 const Player = () => {
   const [playerData, setPlayerData] = useState()
+
+  const APIKEY = process.env.REACT_APP_API_KEY
+
   const params = useParams()
-
   const obj = new URLSearchParams(params);
-
-
-
   const playerid = obj.get('playerid')
 
   let results = `${baseurL}/Player/${playerid}?key=${APIKEY}`
@@ -32,30 +28,22 @@ const Player = () => {
     playerData()
   }, [results])
 
-  console.log(playerData)
-
   if (!playerData) return <Loading />
 
+  console.log(playerData)
 
   const { Salary, BirthState, Team, BirthCity, BirthCountry, BirthDate, Jersey, Position, FirstName, LastName, Weight, PhotoUrl, Experience, HighSchool, College, Height } = playerData
-
 
   let grabHeight = Number(Height / 12).toFixed(1)
   let feet = grabHeight.split(".")[0]
   let inches = grabHeight.split(".")[1]
-
   let date = BirthDate
 
   let objectDate = new Date(date).toLocaleDateString('em-US', { month: 'long' })
-
   date = new Date(date).toLocaleDateString()
-
   let getBirth = date.split("/")
   let birthDay = getBirth[1]
   let birthYear = getBirth[2]
-
-
-
   let playerSalary = Salary ? Salary.toLocaleString('en-US') : <p className='noSalaryFound'>No Salary Found</p>
   let playerState = BirthState ? BirthState : <p>No State</p>
 
@@ -66,7 +54,6 @@ const Player = () => {
   let convertInches = inches * 2.54
   let resultOfBoth = convertInches + convertToCm
   let value = resultOfBoth / 100
-
   let convetFromPoundsToKG = Math.round(Weight / 2.2046)
 
   return (

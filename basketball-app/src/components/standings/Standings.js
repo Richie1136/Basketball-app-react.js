@@ -4,13 +4,11 @@ import './Standings.css'
 import Row from '../row/Row'
 import Loading from '../loading/Loading'
 
-
 const Standings = () => {
 
   const [getStandings, setGetStadings] = useState()
 
   const APIKEY = process.env.REACT_APP_API_KEY
-
 
   let result = `${baseurL}/Standings/2023?key=${APIKEY}`
 
@@ -26,7 +24,6 @@ const Standings = () => {
     }
     getStandings()
   }, [])
-
 
   if (!getStandings) return <Loading />
 
@@ -88,7 +85,7 @@ const Standings = () => {
           <span>Home</span>
         </span>
       </th>
-      <th className='road'>
+      <th className='road-record'>
         <span className='span'>
           <span>Road</span>
         </span>
@@ -126,8 +123,8 @@ const Standings = () => {
             </tr>
           </tbody>
           {Eastern?.map(({ City, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, ConferenceLosses, DivisionWins, DivisionLosses, PointsPerGameFor,
-            PointsPerGameAgainst, Key, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak, Team }) => (
-            <Row Key={Key} Name={Name} Team={Team} City={City} Losses={Losses} Wins={Wins} Percentage={Percentage} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} Streak={Streak} />
+            PointsPerGameAgainst, Key, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, StreakDescription, Team }) => (
+            <Row key={Key} Name={Name} Team={Team} City={City} Losses={Losses} Wins={Wins} Percentage={Percentage} StreakDescription={StreakDescription} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} />
           ))}
           <br />
           <h2 className='conference-west'>Western Conference</h2>
@@ -141,8 +138,8 @@ const Standings = () => {
               {headers}
             </tr>
           </tbody>
-          {Western?.map(({ City, Key, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, ConferenceLosses, DivisionWins, DivisionLosses, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak, PointsPerGameFor, PointsPerGameAgainst }) => (
-            <Row Key={Key} Name={Name} City={City} Losses={Losses} Wins={Wins} Percentage={Percentage} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} Streak={Streak} />
+          {Western?.map(({ City, Key, Name, Losses, Wins, StreakDescription, Percentage, GamesBack, ConferenceWins, ConferenceLosses, DivisionWins, DivisionLosses, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak, PointsPerGameFor, PointsPerGameAgainst }) => (
+            <Row key={Key} Name={Name} City={City} Losses={Losses} Wins={Wins} StreakDescription={StreakDescription} Percentage={Percentage} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} />
           ))}
         </table>
 

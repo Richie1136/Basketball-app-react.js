@@ -9,11 +9,9 @@ const League = () => {
   const [initialTeams, setIntialTeams] = useState(leagueData)
   const [filteredResults, setFilteredResults] = useState(undefined)
 
-
   const APIKEY = process.env.REACT_APP_API_KEY
 
   let result = `${baseurL}/teams?key=${APIKEY}`
-
 
   useEffect(() => {
     const leagueData = async () => {
@@ -28,12 +26,8 @@ const League = () => {
     leagueData()
   }, [result])
 
-
   let allTeams = leagueData
   let displayData = allTeams
-
-  console.log(leagueData)
-
 
   let West = leagueData?.filter((team) => team.Conference === 'Western')
   let East = leagueData?.filter((team) => team.Conference === 'Eastern')
@@ -43,7 +37,6 @@ const League = () => {
   let Central = leagueData?.filter((team) => team.Division === 'Central')
   let NorthWest = leagueData?.filter((team) => team.Division === 'Northwest')
   let Pacific = leagueData?.filter((team) => team.Division === 'Pacific')
-
 
   const handleChange = (event) => {
     setIntialTeams(event.target.value)
@@ -77,7 +70,6 @@ const League = () => {
   if (initialTeams === 'Southwest') {
     displayData = Southwest
   }
-
 
   return (
     <div className='container'>

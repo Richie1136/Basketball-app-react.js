@@ -77,10 +77,16 @@ th span {
   text-align: justify;
 }
 
-.road {
-  width: 86.34px;
-  height: 41px;
+.road-record {
   text-align: justify;
+  vertical-align: top;
+  font-family: Roboto Condensed,Arial,sans-serif;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  font-size: 10px;
+  padding: 14px 6px;
+  width: 94.84px;
+  height: 41px;
 }
 
 .division-title {

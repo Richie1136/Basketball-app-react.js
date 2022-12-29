@@ -1,15 +1,12 @@
 import './Row.css'
 
 const Row = ({ City, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, PointsPerGameFor,
-  PointsPerGameAgainst, Key, ConferenceLosses, DivisionWins, DivisionLosses, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak }) => {
-  let posorNegStreak = Streak < 1 ? "L" + Streak.toString().split("-")[1] : "W" + Streak
+  PointsPerGameAgainst, StreakDescription, Key, ConferenceLosses, DivisionWins, DivisionLosses, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak }) => {
   let convertPercentage = "." + Percentage.toFixed(3).split(".")[1]
 
   let pointsScored = Math.round(PointsPerGameFor * 10) / 10
   let OpponentsScored = Math.round(PointsPerGameAgainst * 10) / 10
-
   let pointDiff = (pointsScored - OpponentsScored).toFixed(1)
-
 
   return (
     <tbody>
@@ -27,7 +24,8 @@ const Row = ({ City, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, 
         <td className='home'>{HomeWins}-{HomeLosses}</td>
         <td className='road'>{AwayWins}-{AwayLosses}</td>
         <td className='last10'>{LastTenWins}-{LastTenLosses}</td>
-        <td className='streak'>{posorNegStreak}</td>
+        <td className='streak'>{StreakDescription}</td>
+
       </tr>
     </tbody>
   )
