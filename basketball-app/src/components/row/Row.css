@@ -63,6 +63,10 @@ font-weight: 400;
     border-bottom: 2px solid #ebe9e7;
   }
 
+  tbody:last-child {
+    border-bottom: none;
+  }
+
   tbody:nth-child(11) {
     border-bottom: 2px dashed #0268d6;
   }
