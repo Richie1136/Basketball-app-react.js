@@ -1,8 +1,7 @@
 import { baseurL } from '../../api/Api'
 import { useState, useEffect } from 'react'
 import './Standings.css'
-import Row from '../row/Row'
-import Loading from '../loading/Loading'
+import { Row, Loading } from '../index'
 
 const Standings = () => {
 
