@@ -2,14 +2,18 @@ import { baseurL } from '../../api/Api'
 import { useState, useEffect } from 'react'
 import './Standings.css'
 import { Row, Loading } from '../index'
+import { useParams } from 'react-router-dom'
 
 const Standings = () => {
 
   const [getStandings, setGetStadings] = useState()
 
   const APIKEY = process.env.REACT_APP_API_KEY
+  const params = useParams()
+  const obj = new URLSearchParams(params);
+  const season = obj.get('season')
 
-  let result = `${baseurL}/Standings/2023?key=${APIKEY}`
+  let result = `${baseurL}/Standings/${season}?key=${APIKEY}`
 
   useEffect(() => {
     const getStandings = async () => {

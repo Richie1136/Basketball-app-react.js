@@ -37,8 +37,11 @@ const Player = () => {
   let inches = grabHeight.split(".")[1]
   let date = BirthDate
 
+
   let objectDate = new Date(date).toLocaleDateString('em-US', { month: 'long' })
   date = new Date(date).toLocaleDateString()
+  console.log(objectDate)
+  console.log(date)
   let getBirth = date.split("/")
   let birthDay = getBirth[1]
   let birthYear = getBirth[2]
@@ -47,6 +50,10 @@ const Player = () => {
 
   const today = new Date();
   const year = today.getFullYear();
+  const month = today.toLocaleDateString().split("/")[0]
+  const convertMonth = BirthDate.split("-")[1]
+
+  let age = year - BirthDate.split("-")[0]
 
   let convertToCm = feet * 30.48
   let convertInches = inches * 2.54
@@ -111,7 +118,7 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>AGE</p>
-                  <p className='players-age'>{year - BirthDate.split("-")[0]} Years</p>
+                  <p className='players-age'>{month < convertMonth ? age - 1 : age} Years</p>
                 </div>
               </ul>
             </div>
@@ -127,7 +134,7 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>EXPERIENCE</p>
-                  <p className='players-weight'>{Experience}</p>
+                  <p className='players-weight'>{Experience} Years</p>
                 </div>
               </ul>
             </div>

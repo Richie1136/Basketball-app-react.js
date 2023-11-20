@@ -17,6 +17,7 @@ const TeamRoster = () => {
 
   let result = `${baseurL}/Players/${term}?key=${APIKEY}`
 
+
   useEffect(() => {
     const rosterData = async () => {
       try {
@@ -29,6 +30,8 @@ const TeamRoster = () => {
     }
     rosterData()
   }, [])
+
+
 
   let active = roster?.filter((status) => status.Status === 'Active').sort((a, b) => a.Jersey - b.Jersey)
 

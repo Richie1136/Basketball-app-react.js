@@ -88,8 +88,8 @@ const League = () => {
       </label>
       {displayData?.map(({ City, WikipediaLogoUrl, Name, Conference, Division, Key, PrimaryColor, SecondaryColor }) => (
         <Card key={Key}>
-          <div className='league-info' style={{ 'backgroundColor': '#' + SecondaryColor }}>
-            <h2><a style={{ 'color': '#' + PrimaryColor }} href={`/${Key}`}>{City} {Name}</a></h2>
+          <div className='league-info' style={{ 'backgroundColor': '#' + PrimaryColor }}>
+            <h2><a style={{ 'color': '#' + SecondaryColor }} href={`/${Key}`}>{City} {Name}</a></h2>
             <img className='team-photo' src={WikipediaLogoUrl} alt='All teams in the NBA' />
           </div>
         </Card>

@@ -5,6 +5,7 @@
   margin-left: 5px;
   background-color: white;
 }
+
 h2 {
   text-align: center;
 }
@@ -25,6 +26,10 @@ label select {
 
 h2 a {
   text-decoration: none;
+}
+
+label {
+  position: fixed;
 }
 
 @media only screen and (max-width: 420px) {

@@ -1,6 +1,8 @@
-*, ::before, ::after {
+*,
+::before,
+::after {
   box-sizing: border-box;
-    border: 0 solid;
+  border: 0 solid;
 }
 
 
@@ -50,18 +52,19 @@ p {
 .player-header-summary {
   width: 225.37px;
   height: 20px;
- font: 16px Roboto, Arial, sans-serif;
-    color: #fff;
+  font: 16px Roboto, Arial, sans-serif;
+  color: #fff;
 }
+
 .player-header-name {
   height: 48px;
   font: 60px 'Knockout Wide', sans-serif;
   color: #ffffff;
   font-weight: 400;
   text-transform: uppercase;
-margin: 0;
-padding: 0;
-width: max-content;
+  margin: 0;
+  padding: 0;
+  width: max-content;
 }
 
 .player-photo {
@@ -75,9 +78,9 @@ width: max-content;
 .player-header-number {
   width: 225.37px;
   height: 20px;
- font: 16px Roboto, Arial, sans-serif;
-    color: #fff;
-    margin-top: 60px;
+  font: 16px Roboto, Arial, sans-serif;
+  color: #fff;
+  margin-top: 60px;
 }
 
 .player-header {
@@ -157,7 +160,8 @@ div {
 
 .players-college {
   flex-wrap: nowrap;
-  margin-left: -20px;
+  /* margin-left: -20px; */
+  /* text-align: center; */
 }
 
 .player-header-number a {
