@@ -40,18 +40,20 @@ const Player = () => {
 
   let objectDate = new Date(date).toLocaleDateString('em-US', { month: 'long' })
   date = new Date(date).toLocaleDateString()
-  console.log(objectDate)
-  console.log(date)
+
   let getBirth = date.split("/")
   let birthDay = getBirth[1]
   let birthYear = getBirth[2]
   let playerSalary = Salary ? Salary.toLocaleString('en-US') : <p className='noSalaryFound'>No Salary Found</p>
   let playerState = BirthState ? BirthState : <p>No State</p>
 
+
   const today = new Date();
   const year = today.getFullYear();
   const month = today.toLocaleDateString().split("/")[0]
   const convertMonth = BirthDate.split("-")[1]
+
+  let lengthofBirth = objectDate.length + birthYear.length + birthDay.length
 
   let age = year - BirthDate.split("-")[0]
 
@@ -60,6 +62,8 @@ const Player = () => {
   let resultOfBoth = convertInches + convertToCm
   let value = resultOfBoth / 100
   let convetFromPoundsToKG = Math.round(Weight / 2.2046)
+
+  let KGgreaternumbgreaterthan2 = convetFromPoundsToKG.toString().length
 
   return (
     <>
@@ -83,8 +87,8 @@ const Player = () => {
             <div className='player-weight'>
               <ul className='player-info'>
                 <div>
-                  <p>WEIGHT</p>
-                  <p className='players-weight'>{Weight}lb ({convetFromPoundsToKG}kg)</p>
+                  <p className={KGgreaternumbgreaterthan2 > 2 ? 'heavier' : 'players-weight'}>WEIGHT</p>
+                  <p className={KGgreaternumbgreaterthan2 > 2 ? 'heavier' : 'players-weight'}>{Weight}lbs ({convetFromPoundsToKG}kg)</p>
                 </div>
               </ul>
             </div>
@@ -100,7 +104,7 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>CITY</p>
-                  <p className='players-city'>{BirthCity}</p>
+                  <p className={BirthCity.length === 15 ? '' : 'players-city'}>{BirthCity}</p>
                 </div>
               </ul>
             </div>
@@ -126,7 +130,8 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>BIRTHDATE</p>
-                  <h4 className='players-birthday'>{objectDate} {birthDay}, {birthYear}</h4>
+                  <h4 className={lengthofBirth < 12 ? 'players-Short' : 'players-birthday'}>{objectDate} {birthDay}, {birthYear}</h4>
+
                 </div>
               </ul>
             </div>
@@ -134,7 +139,7 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>EXPERIENCE</p>
-                  <p className='players-weight'>{Experience} Years</p>
+                  <p className='players-weight'>{Experience === 0 ? 'Rookie' : Experience === 1 ? Experience + ' Year' : Experience + ' Years'}</p>
                 </div>
               </ul>
             </div>
@@ -149,10 +154,13 @@ const Player = () => {
             <div className='player-college'>
               <ul className='player-info'>
                 <div>
-                  <p>{College !== "None" ? "College" : HighSchool ? "High School" : "No School"}</p>
-                  <p className='players-college'> {College !== "None" ? <li>
+                  <p>{College !== "None" ? "College" : HighSchool ? "High School" : "School"}</p>
+                  {/* <p className='players-college'> {College !== "None" ? <li>
                     {College}
-                  </li> : HighSchool ? HighSchool : "None"}</p>
+                  </li> : HighSchool ? HighSchool : "None"}</p> */}
+                  <p className={College.length === 19 ? 'players-college-long' : 'players-college'}> {College !== "None" ? <li>
+                    {College}
+                  </li> : HighSchool ? HighSchool : "No School"}</p>
                 </div>
               </ul>
             </div>

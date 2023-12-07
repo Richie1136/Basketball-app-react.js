@@ -40,6 +40,7 @@ const Standings = () => {
     number += 1
   ))
 
+
   let results = Eastern?.map((o, i) => ({ ...o, rank: ranks[i] }))
 
   let teamRanks = Western?.map((o, i) => ({ ...o, rank: ranks[i] }))

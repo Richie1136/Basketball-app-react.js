@@ -26,24 +26,29 @@ const League = () => {
     leagueData()
   }, [result])
 
+
   let allTeams = leagueData
   let displayData = allTeams
 
-  let West = leagueData?.filter((team) => team.Conference === 'Western')
+  console.log(leagueData)
+
+  let sortTeams = leagueData?.sort((a, b) => a.Key.localeCompare(b.Key))
   let East = leagueData?.filter((team) => team.Conference === 'Eastern')
-  let Southeast = leagueData?.filter((team) => team.Division === 'Southeast')
-  let Southwest = leagueData?.filter((team) => team.Division === 'Southwest')
   let Atlantic = East?.filter((team) => team.Division === 'Atlantic')
-  let Central = leagueData?.filter((team) => team.Division === 'Central')
-  let NorthWest = leagueData?.filter((team) => team.Division === 'Northwest')
-  let Pacific = leagueData?.filter((team) => team.Division === 'Pacific')
+  let Central = East?.filter((team) => team.Division === 'Central')
+  let Southeast = East?.filter((team) => team.Division === 'Southeast')
+  let West = leagueData?.filter((team) => team.Conference === 'Western')
+  let Southwest = West?.filter((team) => team.Division === 'Southwest')
+  let Northwest = West?.filter((team) => team.Division === 'Northwest')
+  let Pacific = West?.filter((team) => team.Division === 'Pacific')
+
 
   const handleChange = (event) => {
     setIntialTeams(event.target.value)
   }
 
   if (initialTeams === "ALL") {
-    displayData = leagueData
+    displayData = sortTeams
   }
 
   if (initialTeams === 'East') {
@@ -62,13 +67,13 @@ const League = () => {
     displayData = West
   }
   if (initialTeams === 'Northwest') {
-    displayData = NorthWest
-  }
-  if (initialTeams === 'Pacific') {
-    displayData = Pacific
+    displayData = Northwest
   }
   if (initialTeams === 'Southwest') {
     displayData = Southwest
+  }
+  if (initialTeams === 'Pacific') {
+    displayData = Pacific
   }
 
   return (
@@ -86,15 +91,18 @@ const League = () => {
           <option multiple={false} value={"Southwest"}>Southwest Division</option>
         </select>
       </label>
-      {displayData?.map(({ City, WikipediaLogoUrl, Name, Conference, Division, Key, PrimaryColor, SecondaryColor }) => (
-        <Card key={Key}>
+
+      {displayData?.map(({ City, HeadCoach, QuaternaryColor, TertiaryColor, WikipediaLogoUrl, Name, Conference, Division, Key, PrimaryColor, SecondaryColor }) => (
+        <Card key={Key} style={{ backgroundColor: '#' + TertiaryColor }}>
           <div className='league-info' style={{ 'backgroundColor': '#' + PrimaryColor }}>
+            <h2 style={{ 'color': '#' + SecondaryColor, backgroundColor: '#' + PrimaryColor }}>Head Coach: {HeadCoach}</h2>
             <h2><a style={{ 'color': '#' + SecondaryColor }} href={`/${Key}`}>{City} {Name}</a></h2>
             <img className='team-photo' src={WikipediaLogoUrl} alt='All teams in the NBA' />
           </div>
         </Card>
-      ))}
-    </div>
+      )
+      )}
+    </div >
   )
 }
 

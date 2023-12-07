@@ -6,7 +6,7 @@ const Navigation = () => (
     <NavLink to='/'>
       <span>League</span>
     </NavLink>
-    <NavLink to='/standings/2020'>
+    <NavLink to='/standings/2024'>
       <span>Standings</span>
     </NavLink>
   </nav>
