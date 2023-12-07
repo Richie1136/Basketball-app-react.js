@@ -30,8 +30,6 @@ const League = () => {
   let allTeams = leagueData
   let displayData = allTeams
 
-  console.log(leagueData)
-
   let sortTeams = leagueData?.sort((a, b) => a.Key.localeCompare(b.Key))
   let East = leagueData?.filter((team) => team.Conference === 'Eastern')
   let Atlantic = East?.filter((team) => team.Division === 'Atlantic')
@@ -95,8 +93,8 @@ const League = () => {
       {displayData?.map(({ City, HeadCoach, QuaternaryColor, TertiaryColor, WikipediaLogoUrl, Name, Conference, Division, Key, PrimaryColor, SecondaryColor }) => (
         <Card key={Key} style={{ backgroundColor: '#' + TertiaryColor }}>
           <div className='league-info' style={{ 'backgroundColor': '#' + PrimaryColor }}>
-            <h2 style={{ 'color': '#' + SecondaryColor, backgroundColor: '#' + PrimaryColor }}>Head Coach: {HeadCoach}</h2>
             <h2><a style={{ 'color': '#' + SecondaryColor }} href={`/${Key}`}>{City} {Name}</a></h2>
+            <h2 style={{ 'color': '#' + SecondaryColor, backgroundColor: '#' + PrimaryColor }}>Head Coach: {HeadCoach}</h2>
             <img className='team-photo' src={WikipediaLogoUrl} alt='All teams in the NBA' />
           </div>
         </Card>
