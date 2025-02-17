@@ -1,0 +1,42 @@
+thead>tr>th {
+  white-space: pre-line;
+}
+
+.stats-container {
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.playerStatSection {
+  margin-bottom: 20px;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+}
+
+.stats-table th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 500;
+  border-bottom: 1px solid #333;
+}
+
+.stats-table td {
+  border-bottom: 1px solid #222;
+}
+
+.season-year {
+  font-size: 14px;
+  border-right: 1px solid #222;
+  border-left: 1px solid #222;
+}
+
+.players-Average {
+  font-size: 14px;
+  font-weight: 400;
+  border-right: 1px solid #222;
+}

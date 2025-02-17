@@ -10,27 +10,13 @@ body {
   color: #333;
 }
 
-.player-photo {
-  width: 285.83px;
-  height: 208.87px;
-  margin: 96px 28.5859px 0px;
-  display: block;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  border-style: solid;
-}
-
 .player-vitals {
   width: 686px;
   height: 304.87px;
-  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
+  margin-left: 480px;
 }
 
 .player-bio {
@@ -49,17 +35,10 @@ p {
   margin-inline-end: 0px;
 }
 
-.player-header-summary {
-  width: 225.37px;
-  height: 20px;
-  font: 16px Roboto, Arial, sans-serif;
-  color: #fff;
-}
-
 .player-header-name {
   height: 48px;
-  font: 60px 'Knockout Wide', sans-serif;
-  color: #ffffff;
+  font: 36px 'Knockout Wide', sans-serif;
+  color: white;
   font-weight: 400;
   text-transform: uppercase;
   margin: 0;
@@ -67,13 +46,16 @@ p {
   width: max-content;
 }
 
-.player-photo {
-  width: 285.83px;
-  height: 208.87px;
-  margin: 96px 28.5859px 0px;
-  display: block;
+.nameAndStats {
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
 
+
+.player-name {
+  margin-bottom: 50px;
+}
 
 .player-header-number {
   width: 225.37px;
@@ -92,8 +74,6 @@ p {
   margin-top: 40px;
 }
 
-
-
 .player-info {
   width: 153.35px;
   color: #ffffff;
@@ -108,7 +88,8 @@ p {
   padding: 0 80px;
   position: relative;
   color: #fff;
-  margin-top: -35px;
+  margin-top: -25px;
+  margin-left: -80px;
 }
 
 .player-data {
@@ -118,8 +99,20 @@ p {
   position: relative;
   color: #fff;
   margin-top: 70px;
-  border-bottom: 1px solid gray;
   display: inline-block;
+  margin-left: -80px;
+}
+
+.player-data .player-info {
+  border-bottom: 1px solid gray;
+  border-top: 1px solid gray;
+  width: 153.35px;
+}
+
+.player-data>div:first-child .player-info,
+.player-age .player-info {
+  border-left: 1px solid gray;
+
 }
 
 li {
@@ -127,17 +120,16 @@ li {
 }
 
 h4.players-birthday {
-  width: 200px;
   font-size: 16px;
   display: flex;
-  margin-left: -38px;
+  justify-self: self-end;
+  width: max-content;
 }
 
 h4.players-Short {
   width: 200px;
   font-size: 16px;
   display: flex;
-  /* margin-left: -38px; */
 }
 
 .noSalaryFound {
@@ -155,7 +147,7 @@ div {
   display: block;
 }
 
-.player-vitals ul {
+.player-vitals .player-info {
   font-size: 1.145rem;
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   line-height: 1.2;
@@ -168,7 +160,8 @@ div {
 .players-college-long {
   flex-wrap: nowrap;
   width: 200px;
-  margin-left: -40px;
+  margin-left: -30px;
+  font-size: 16px;
 }
 
 .players-college {
@@ -183,6 +176,7 @@ div {
   width: max-content;
 }
 
-.heavier {
-  margin-left: -10px;
+p.heavierWeight {
+  justify-self: self-end;
+  width: max-content;
 }

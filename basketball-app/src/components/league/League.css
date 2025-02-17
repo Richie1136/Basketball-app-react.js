@@ -22,6 +22,7 @@ label select {
   border: 1px solid orange;
   width: 100%;
   justify-content: center;
+  margin-top: 15px;
 }
 
 h2 a {

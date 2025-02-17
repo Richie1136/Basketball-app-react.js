@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { baseurL } from '../../api/Api'
 import './Player.css'
 import Loading from '../loading/Loading'
+import PlayerStats from '../playerStats/PlayerStats'
 
 const Player = () => {
   const [playerData, setPlayerData] = useState()
@@ -12,8 +13,8 @@ const Player = () => {
   const params = useParams()
   const obj = new URLSearchParams(params);
   const playerid = obj.get('playerid')
-
   let results = `${baseurL}/Player/${playerid}?key=${APIKEY}`
+
 
   useEffect(() => {
     const playerData = async () => {
@@ -21,6 +22,7 @@ const Player = () => {
         const response = await fetch(results)
         const data = await response.json()
         setPlayerData(data)
+
       } catch (error) {
         console.log(error)
       }
@@ -28,9 +30,10 @@ const Player = () => {
     playerData()
   }, [results])
 
-  if (!playerData) return <Loading />
 
-  const { Salary, BirthState, Team, BirthCity, BirthCountry, BirthDate, Jersey, Position, FirstName, LastName, Weight, PhotoUrl, Experience, HighSchool, College, Height } = playerData
+  if (!playerData) return <Loading />
+  const { Salary, BirthState, Team, BirthCity, BirthCountry, BirthDate, Jersey, Position, FirstName, LastName, Weight, Experience, HighSchool, College, Height } = playerData
+
 
   let grabHeight = Number(Height / 12).toFixed(1)
   let feet = grabHeight.split(".")[0]
@@ -66,14 +69,17 @@ const Player = () => {
   let KGgreaternumbgreaterthan2 = convetFromPoundsToKG.toString().length
 
   return (
-    <>
+    <div>
       <div className='player-header'>
-        <img className='player-photo' src={PhotoUrl} alt='Bio Card' />
         <div className='player-vitals'>
           <div className='player-bio'>
             <p className='player-header-number'><a href={`/${Team}`}>{Team}</a> | #{Jersey} | {Position}</p>
-            <p className='player-header-name'>{FirstName}</p>
-            <p className='player-header-name'>{LastName}</p>
+            <div className='nameAndStats'>
+              <div className='player-name'>
+                <p className='player-header-name'>{FirstName}</p>
+                <p className='player-header-name'>{LastName}</p>
+              </div>
+            </div>
           </div>
           <section className='player-data'>
             <div className='player-height'>
@@ -88,7 +94,7 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p className={KGgreaternumbgreaterthan2 > 2 ? 'heavier' : 'players-weight'}>WEIGHT</p>
-                  <p className={KGgreaternumbgreaterthan2 > 2 ? 'heavier' : 'players-weight'}>{Weight}lbs ({convetFromPoundsToKG}kg)</p>
+                  <p className={KGgreaternumbgreaterthan2 > 2 ? 'heavierWeight' : 'players-weight'}>{Weight}lbs ({convetFromPoundsToKG}kg)</p>
                 </div>
               </ul>
             </div>
@@ -155,9 +161,6 @@ const Player = () => {
               <ul className='player-info'>
                 <div>
                   <p>{College !== "None" ? "College" : HighSchool ? "High School" : "School"}</p>
-                  {/* <p className='players-college'> {College !== "None" ? <li>
-                    {College}
-                  </li> : HighSchool ? HighSchool : "None"}</p> */}
                   <p className={College.length === 19 ? 'players-college-long' : 'players-college'}> {College !== "None" ? <li>
                     {College}
                   </li> : HighSchool ? HighSchool : "No School"}</p>
@@ -166,8 +169,9 @@ const Player = () => {
             </div>
           </section>
         </div>
-      </div >
-    </>
+      </div>
+      <PlayerStats data={playerData} />
+    </div>
   )
 }
 

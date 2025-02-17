@@ -27,7 +27,7 @@ const Standings = () => {
       }
     }
     getStandings()
-  }, [])
+  }, [result])
 
   if (!getStandings) return <Loading />
 
