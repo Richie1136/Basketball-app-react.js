@@ -11,6 +11,10 @@ const Row = ({ City, Seeding, Name, rank, all, seeding, Num, num, index, num2, L
   let addZeroDecimalpointsScored = String(pointsScored).length === 3 ? pointsScored + ".0" : pointsScored
   let addZeroDecimalOpponentsScored = String(OpponentsScored).length === 3 ? OpponentsScored + ".0" : OpponentsScored
 
+  let convertToString = String(GamesBack)
+  let splitDecimal = convertToString.split(".")
+  let addZeroToGamesBackIfOnlyOneNumberOr2NumbersWithNoDecimal = GamesBack.length === 1 || splitDecimal[1] === undefined ? GamesBack + ".0" : GamesBack
+
   return (
     <tbody>
       <tr className='stats-standings'>
@@ -18,7 +22,7 @@ const Row = ({ City, Seeding, Name, rank, all, seeding, Num, num, index, num2, L
         <td className='team-winorl'>{Wins}</td>
         <td className='team-winorl'>{Losses}</td>
         <td className='winper'>{convertPercentage}</td>
-        <td className='gamesback'>{GamesBack === 0 ? '-' : GamesBack}</td>
+        <td className='gamesback'>{GamesBack === 0 ? '-' : addZeroToGamesBackIfOnlyOneNumberOr2NumbersWithNoDecimal}</td>
         <td className='conrecord'>{ConferenceWins}-{ConferenceLosses}</td>
         <td className='divrecord'>{DivisionWins}-{DivisionLosses}</td>
         <td className='pointsFor'>{addZeroDecimalpointsScored}</td>
