@@ -23,7 +23,6 @@ const PlayerInfo = ({ data }) => (
       </thead>
 
       {data?.map((yearlyStats, index) => {
-        console.log(yearlyStats)
         const { points, games, assists, fieldPercent, ftPercent, blocks, minutesPg, personalFouls, steals, threePercent, totalRb, turnovers, season } = yearlyStats || {}
         let gamesPlayedIn = games
         let minutesPerGame = (minutesPg / games).toFixed(1)

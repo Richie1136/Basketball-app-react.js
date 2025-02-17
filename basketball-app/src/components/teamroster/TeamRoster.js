@@ -31,8 +31,6 @@ const TeamRoster = () => {
     rosterData()
   }, [result])
 
-  console.log(roster)
-
   let active = roster?.filter((status) => status.Status === 'Active').sort((a, b) => a.Jersey - b.Jersey)
 
   if (!roster) return <Loading />
