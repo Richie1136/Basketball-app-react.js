@@ -1,9 +1,9 @@
-import { baseurL } from '../../api/Api'
+import { baseUrl } from '../../api/Api'
 import Card from '../card/Card'
 import { useState, useEffect } from 'react'
 import './TeamRoster.css'
 import Loading from '../loading/Loading'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 const TeamRoster = () => {
   const [roster, setRoster] = useState()
@@ -15,7 +15,7 @@ const TeamRoster = () => {
   const obj = new URLSearchParams(params);
   const term = obj.get('team')
 
-  let result = `${baseurL}/Players/${term}?key=${APIKEY}`
+  const result = `${baseUrl}/Players/${term}?key=${APIKEY}`
 
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const TeamRoster = () => {
     rosterData()
   }, [result])
 
-  let active = roster?.filter((status) => status.Status === 'Active').sort((a, b) => a.Jersey - b.Jersey)
+  const active = roster?.filter((status) => status.Status === 'Active').sort((a, b) => a.Jersey - b.Jersey)
 
   if (!roster) return <Loading />
 
@@ -39,7 +39,7 @@ const TeamRoster = () => {
     <div className='team-container'>
       {active?.map(({ Jersey, FirstName, LastName, PlayerID, Position }) => (
         <Card key={PlayerID}>
-          <h2><a href={`/player/${PlayerID}`}>{FirstName} {LastName}</a></h2>
+          <h2><Link to={`/player/${PlayerID}`}>{FirstName} {LastName}</Link></h2>
           <h4>{Jersey}</h4>
           <h5>{Position}</h5>
         </Card>

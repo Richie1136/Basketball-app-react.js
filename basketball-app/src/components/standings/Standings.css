@@ -83,7 +83,6 @@ th span {
 
 .road-record {
   text-align: justify;
-  vertical-align: top;
   font-family: Roboto Condensed, Arial, sans-serif;
   white-space: nowrap;
   letter-spacing: 1px;
@@ -102,7 +101,7 @@ th span {
   z-index: 5;
   text-align: left;
   font: 10px "Roboto Condensed", Arial, sans-serif;
-  padding: 14px 6px;
+  padding: 6px 6px;
   background-color: #fff;
   text-align: right;
   letter-spacing: 1px;
@@ -116,7 +115,6 @@ th span {
 th {
   font: 10px "Roboto Condensed", Arial, sans-serif;
   color: #343232;
-  padding: 14px 6px;
   background-color: #ffffff;
   text-align: center;
   letter-spacing: 1px;
@@ -130,7 +128,7 @@ th {
   white-space: nowrap;
   letter-spacing: 1px;
   font-size: 10px;
-  padding: 14px 6px;
+  padding: 6px 6px;
 }
 
 .conference-title {
@@ -143,8 +141,23 @@ th {
   font-family: Knockout Wide, sans-serif;
   font-size: 1.25rem;
   font-weight: 400;
-  padding-top: 70px;
+  /* padding-top: 70px; */
   margin-top: 10px;
   color: #ffffff;
   margin-left: 20px;
+}
+
+.season-select-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+  width: 100%;
+  margin-top: 40px;
+  margin-left: 10px;
+}
+.season-label {
+  margin: 0px;
+  color: #ffffff;
 }

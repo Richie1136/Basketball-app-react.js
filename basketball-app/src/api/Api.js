@@ -27,4 +27,4 @@
 
 // Base Url that every endpoint starts with
 
-export const baseurL = "https://api.sportsdata.io/v3/nba/scores/json"
+export const baseUrl = "https://api.sportsdata.io/v3/nba/scores/json"

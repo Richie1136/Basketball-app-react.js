@@ -1,15 +1,19 @@
 import { NavLink } from 'react-router-dom'
 import './Navigation.css'
+import { useCurrentSeason } from '../../utils/getCurrentSeason'
 
-const Navigation = () => (
-  <nav className='nav'>
-    <NavLink to='/'>
-      <span>League</span>
-    </NavLink>
-    <NavLink to='/standings/2025'>
-      <span>Standings</span>
-    </NavLink>
-  </nav>
-)
+const Navigation = () => {
+  const currentSeason = useCurrentSeason()
+  return (
+    <nav className='nav'>
+      <NavLink to='/'>
+        <span>League</span>
+      </NavLink>
+      <NavLink to={`/standings/${currentSeason}`}>
+        <span>Standings</span>
+      </NavLink>
+    </nav>
+  )
+}
 
 export default Navigation

@@ -12,10 +12,9 @@ body {
 
 .player-vitals {
   width: 686px;
-  height: 304.87px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   margin-left: 480px;
 }
 
@@ -36,7 +35,7 @@ p {
 }
 
 .player-header-name {
-  height: 48px;
+  /* height: 48px; */
   font: 36px 'Knockout Wide', sans-serif;
   color: white;
   font-weight: 400;
@@ -49,12 +48,12 @@ p {
 .nameAndStats {
   display: flex;
   align-items: center;
-  gap: 30px;
+  margin-top: 15px;
 }
 
 
 .player-name {
-  margin-bottom: 50px;
+  margin-bottom: 12px;
 }
 
 .player-header-number {
@@ -62,16 +61,19 @@ p {
   height: 20px;
   font: 16px Roboto, Arial, sans-serif;
   color: #fff;
-  margin-top: 60px;
+  margin-bottom: 14px;
 }
 
 .player-header {
   width: 1360px;
-  height: 350px;
+  min-height: 320px;
+  height: auto;
   padding: 0 80px;
   display: flex;
   background-color: black;
   margin-top: 40px;
+  position: relative;
+
 }
 
 .player-info {
@@ -82,37 +84,26 @@ p {
   line-height: 1.25;
 }
 
-.player-details {
-  width: 1189px;
-  height: 119px;
-  padding: 0 80px;
-  position: relative;
-  color: #fff;
-  margin-top: -25px;
-  margin-left: -80px;
+.player-photo-container {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 400px;
+  /* no border-radius */
+  overflow: visible; /* or remove if you want */
+  background-color: #222;
+  z-index: 10;
+  border: none;
 }
 
-.player-data {
-  width: 932px;
-  height: 119px;
-  padding: 0 80px;
-  position: relative;
-  color: #fff;
-  margin-top: 70px;
-  display: inline-block;
-  margin-left: -80px;
-}
-
-.player-data .player-info {
-  border-bottom: 1px solid gray;
-  border-top: 1px solid gray;
-  width: 153.35px;
-}
-
-.player-data>div:first-child .player-info,
-.player-age .player-info {
-  border-left: 1px solid gray;
-
+.player-photo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0; /* important */
 }
 
 li {
@@ -126,10 +117,70 @@ h4.players-birthday {
   width: max-content;
 }
 
-h4.players-Short {
-  width: 200px;
-  font-size: 16px;
-  display: flex;
+.middleburg {
+  margin-left: -7px;
+}
+
+.pontiac {
+  margin-left: 5px;
+}
+
+.nicaragua {
+  margin-left: -3px;
+}
+
+.baylor {
+  margin-left: 10px;
+}
+
+.lisieux {
+  margin-left: 7px;
+}
+
+.san-diego-state {
+  width: max-content;
+  margin-left: -28px;
+}
+
+.san-diego {
+  margin-left: -2px;
+}
+
+.nevada {
+  margin-left: 6px;
+}
+
+.chester {
+  margin-left: 7px;
+}
+
+.unlv {
+  margin-left: 15px;
+}
+
+.serbia {
+  margin-left: 10px;
+}
+
+.new-london {
+  margin-left: -11px;
+}
+
+.providence {
+  margin-left: -7px;
+}
+
+.gary {
+  margin-left: 15px;
+}
+
+.rolling-meadows {
+  width: max-content;
+  margin-left: -33px;
+}
+
+.stanford {
+  margin-left: 5px;
 }
 
 .noSalaryFound {
@@ -147,36 +198,540 @@ div {
   display: block;
 }
 
-.player-vitals .player-info {
-  font-size: 1.145rem;
-  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+.player-data-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns */
+  width: 100%;
+  max-width: 932px;
+  margin-top: 40px;
+  border: 1px solid #fff;
+  background: transparent;
+  border-radius: 0;
+  overflow: visible; /* allow cells to grow */
+  color: #fff;
+  gap: 0; /* spacing controlled in cells */
+}
+
+.vital-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 12px 10px;   /* smaller padding to fit text */
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  min-width: 0;          /* prevents overflow in flex/grid */
+  min-height: 0;
+  height: auto;          /* allow expansion */
+  overflow: visible;     /* prevent clipping of text */
+}
+.vital-cell:nth-child(5n) {
+  border-right: none;
+}
+.vital-cell:nth-child(n+6) {
+  border-bottom: none;
+}
+
+.vital-label {
+  font-size: 12px;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 10px;       /* space below label */
   line-height: 1.2;
-  float: left;
-  list-style-type: none;
-  border-right: 1px solid #ffffff;
-  margin-left: 1px;
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
+.vital-value,
+.vital-value--wrap {
+  display: block;
+  font-weight: 600;
+  font-size: 16px;          /* adjust to taste */
+  line-height: 1.25;        /* slightly tighter for wrapping */
+  text-align: center;
+  white-space: normal;       /* allow multiple lines */
+  word-break: normal;    /* break long words if needed */
+  overflow-wrap: break-word;   /* break anywhere if too long */
+  max-width: 100%;           /* stay inside the cell */
+  margin: 0;
+  width: 100%;                 /* reset margin */
+}
+.vital-value--no-wrap {
+  width: 150px;
+    min-width: 150px;
+  max-width: 150px;
+}
+.vital-value--muted {
+  font-weight: 500;
+  opacity: 0.88;
+}
+
+.vital-birthdate {
+  margin: 0;
+  color: #fff;
+  width: max-content;
+}
+
+.player-vitals-grid .vital-cell .vital-birthdate {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  align-self: center;
+}
+
+.player-vitals-grid .vital-cell .vital-value.player-short-dollars,
+.player-vitals-grid .vital-cell .vital-value.players-dollars {
+  margin: 0;
+  width: 100%;
+  text-align: center;
 }
 
 .players-college-long {
-  flex-wrap: nowrap;
-  width: 200px;
-  margin-left: -0px;
   font-size: 16px;
+  margin-left: 5px; /* Added this for Southern California college */
+}
+
+.virginia-commonwealth {
+  font-size: 16px;
+  margin-left: -40px; /* Added this for Virginia Commonwealth college */
+  text-align: center;
+  text-align-last: center;
 }
 
 .players-college {
   flex-wrap: nowrap;
+  margin-left: -10px; /* Added this for Virginia Tech college */
+}
+
+.players-college-small {
+  margin-left: 15px;
+}
+
+.kansas { /* Added this for Kansas college */
+  margin-left: 7px;
+}
+
+.players-college-mid { /* Added this for Oklahoma college */
+  /* margin-left: -5px; */
+
+  /* width: 125px;
+  margin-left: -20px; Added this for north carolina as a college */
+
+}
+
+.wichita-state {
+  margin-left: -15px;
+}
+
+.washington { /* Added this for Washington college */
+  margin-left: -10px;
+}
+
+.lengthOf6College { /* Added this for Auburn college */
+  margin-left: 8px;
+}
+
+.vandy {
+  margin-left: -3px;
+}
+
+.mizzou {
+  margin-left: 3px;
+}
+
+.texas-am {
+  margin-left: -7px;
+}
+
+.huntsville {
+  margin-left: -3px;
+}
+
+.belmont {
+  margin-left: 5px;
+}
+
+.georgetown {
+  margin-left: -12px;
+}
+
+.portsmouth {
+  margin-left: -9px;
+}
+
+.uconn { /* Added this for UConn college */
+ margin-left: -11px;
+}
+
+.players-college-large { /* Added this for Wheeling Jesuit college */
+  margin-left: 7px;
+}
+
+.middyCollege { /* Added this for Wichita State college */
+  margin-left: -15px;
 }
 
 .player-header-number a {
   color: #fff;
 }
 
-.players-weight {
+.player-short-dollars {
+  margin-left: 6px;
+}
+
+
+.bosAndHerz {
+  margin-bottom: 7.5px;
+  margin-left: -7px;
+}
+
+.cameroon {
+  margin-left: -3px;
+}
+
+.new-mexico-state {
+  margin-left: -39px;
   width: max-content;
 }
 
-p.heavierWeight {
+.midmid {
+  display: flex;
   justify-self: self-end;
   width: max-content;
+  margin-right: 20px;
+}
+
+.players-weight {
+  width: max-content;
+  margin-left: -16px;
+}
+
+.large-birth-country {
+  width: 200px;
+  margin-left: -20px;
+}
+
+.mid-small-country {
+  margin-left: -7px;
+}
+
+.small-country {
+  margin-left: 20px;
+}
+
+.japan {
+  margin-left: 10px; /* Added this for Japan */
+}
+
+.israel {
+  margin-left: 15px; /* Added this for Israel */
+}
+
+.country-length-6 {
+  margin-left: 15px; /* For 6-character countries like Israel */
+  width: max-content;
+}
+
+.france {
+  margin-left: 12px; /* France needs less margin due to wider 'F' character */
+  width: max-content;
+}
+.canada {
+  margin-left: 5px; /* Added this for Canada */
+  width: max-content;
+}
+.mid-size-country {
+  margin-left: 4px; /* Added this for Australia */
+}
+
+.creteil {
+  margin-left: 10px; /* Added this for Creteil city */
+}
+
+.birth-country-very-large {
+ margin-bottom: 4px;
+ margin-top: -8px;
+}
+
+.high-school-very-large {
+     margin-left: -26px;
+     font-size: 16px;
+}
+
+.high-school-mid {
+  font-size: 16px;
+  margin-top: -10px;
+}
+
+.high-school-short {
+  width: 180px;
+  margin-left: -20px;
+}
+
+.high-school-mid-small {
+  margin-top: -14px;
+}
+
+.high-school-small {
+  margin-left: -10px;
+}
+
+p.heavierWeight {
+  width: max-content;
+  margin-left: -20px;
+}
+
+.largeCity {
+  width: 200px;
+  margin-left: -32px; /* Made this change for middleton*/
+  /* font-size: 17px;
+  margin-top: 21px; */
+}
+
+.watson {
+  width: 200px;
+  margin-left: -8px;
+}
+
+.zona {
+  margin-left: 6px;
+}
+
+.melbourne {
+  margin-left: -5px;
+}
+
+.okstate {
+  width: max-content;
+  margin-left: -27px;
+}
+
+.duncanville {
+  width: max-content;
+  margin-left: -27px;
+}
+
+.thompsonTwins {
+  width: max-content;
+  margin-left: -18px;
+}
+
+.verysmall {
+  margin-left: 20px;
+}
+
+.missState {
+  width: max-content;
+      margin-left: -33px;
+}
+
+.OregonState {
+  margin-left: -14px;
+}
+
+.florida {
+  margin-left: 11px;
+}
+
+.None {
+  margin-left: 15px;
+}
+
+.southern-california {
+  margin-left: 5px
+}
+
+.marquette {
+}
+
+.davidson {
+
+}
+
+.akron {
+  margin-left: 14px;
+}
+
+.duke {
+  margin-left: 18px;
+}
+
+.ucla {
+  margin-left: 15px;
+}
+
+.houston {
+  margin-left: 3px;
+}
+
+.birthCityLengthOf7 {
+  margin-left: 3px;
+}
+
+.newZealand {
+  margin-left: -16px;
+}
+
+.bama {
+  margin-left: 5px;
+}
+
+.bradley {
+  margin-left: 10px;
+}
+
+.texas {
+  margin-left: 15px;
+}
+
+.lengthOf10 {
+}
+
+.iowa-state {
+  margin-left: -5px;
+}
+
+.bc {
+  width: max-content;
+  margin-left: -24px;
+}
+
+.amsterdam {
+  margin-left: -8px;
+}
+
+.michigan-state {
+  margin-left: -20px;
+}
+
+.saginaw {
+  margin-left: 4px;
+}
+
+.brasilia {
+  margin-left: 8px;
+}
+
+.veryLarge {
+  width: 200px;
+  margin-left: -32px;
+  font-size: 17px;
+  margin-top: 21px;
+}
+
+.midCity {
+  margin-left: -31px;
+  margin-top: 18px;
+  width: 200px;
+}
+
+.small-city {
+  margin-left: 10px;
+}
+
+.players-middle {
+  width: 200px;
+  margin-left: -20px;
+}
+
+.players-dollars {
+  margin-left: -7px;
+}
+
+.lsu {
+  margin-left: -25px;
+}
+
+.nigeria {
+  margin-left: 10px;
+}
+
+.lagos {
+  margin-left: 10px;
+}
+
+.louisiana-tech {
+  margin-left: -23px;
+}
+
+.turkey {
+  margin-left: 11px;
+}
+
+.midLargeCity {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.switzerland {
+  margin-left: -7px;
+}
+
+.geneva {
+  margin-left: 5px;
+}
+
+.liberty {
+  margin-left: 10px;
+}
+
+.russellville {
+  margin-left: -7px;
+}
+
+.aurora {
+  margin-left: 10px;
+}
+
+.lengthOfSix {
+  margin-left: 7px;
+}
+
+.usa {
+  margin-left: 18px;
+}
+
+.atl {
+  margin-left: 10px;
+}
+
+.mid-small-city {
+  margin-left: -5px;
+}
+.mid-mid-cty {
+  margin-left: -10px;
+}
+/* Default city class: keep within ~153px column; 200px was wider than the cell and looked left-shifted (e.g. Jacksonville). */
+.players-city {
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.illinois {
+  margin-left: 10px; /* Added this for Illinois college */
+}
+
+.cityOfJones {
+  margin-left: -8px; /* Added this for Apple Valley city */
+}
+
+.players-age {
+  margin-left: 28px;
+}
+
+.players-height {
+  margin-left: -8px;
 }

@@ -6,6 +6,10 @@
   color: #d00;
 }
 
+.Neutral {
+  color: #000;
+}
+
 .city-name {
   width: 200px;
   align-items: center;
@@ -13,23 +17,52 @@
   flex-wrap: nowrap;
   flex-direction: row;
   align-items: center;
-
 }
 
 td.city-name a {
   color: #06c
 }
 
-.team-winorl {
+.team-win {
   width: 58.03px;
+  padding-left: 7px;
+}
+.team-lose {
+  width: 58.03px;
+}
+
+.pointsFor {
+  text-align: center;
+  padding-right: 7px;
+}
+.pointsAgainst {
+  text-align: center;
+}
+
+.home {
+  padding-left: 7px;
+}
+.road {
+  padding-left: 7px;
+}
+.last10 {
+  padding-left: 7px;
 }
 
 .winper {
   width: 86.98px;
+  text-align: center;
+  padding-left: 13px;
+}
+
+.oneHundred {
+  width: 86.98px;
+  text-align: center;
 }
 
 .conrecord {
   width: 85.28px;
+  padding-left: 7px;
 }
 
 
@@ -42,7 +75,7 @@ td.city-name a {
 }
 
 td {
-  padding: 8px 6px;
+  /* padding: 8px 6px; */
   font: 14px "Roboto Condensed", Arial, sans-serif;
   background-color: white;
   height: 41px;
@@ -56,6 +89,7 @@ td {
   white-space: nowrap;
   color: #000;
   font-stretch: condensed;
+  padding-left: 5px;
 }
 
 tbody {

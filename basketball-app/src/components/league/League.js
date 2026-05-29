@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
-import { baseurL } from '../../api/Api'
+import { baseUrl } from '../../api/Api'
 import Card from '../card/Card'
+import { Link } from 'react-router-dom'
 import './League.css'
 
 const League = () => {
 
   const [leagueData, setLeagueData] = useState([])
-  const [initialTeams, setIntialTeams] = useState(leagueData)
-  const [filteredResults, setFilteredResults] = useState(undefined)
+  const [initialTeams, setIntialTeams] = useState("ALL Teams")
 
   const APIKEY = process.env.REACT_APP_API_KEY
 
-  let result = `${baseurL}/teams?key=${APIKEY}`
+  const result = `${baseUrl}/teams?key=${APIKEY}`
 
   useEffect(() => {
     const leagueData = async () => {
@@ -24,83 +24,75 @@ const League = () => {
       }
     }
     leagueData()
-  }, [result])
+  }, [])
 
 
-  let allTeams = leagueData
-  let displayData = allTeams
+  const allTeams = leagueData
 
-  let sortTeams = leagueData?.sort((a, b) => a.Key.localeCompare(b.Key))
-  let East = leagueData?.filter((team) => team.Conference === 'Eastern')
-  let Atlantic = East?.filter((team) => team.Division === 'Atlantic')
-  let Central = East?.filter((team) => team.Division === 'Central')
-  let Southeast = East?.filter((team) => team.Division === 'Southeast')
-  let West = leagueData?.filter((team) => team.Conference === 'Western')
-  let Southwest = West?.filter((team) => team.Division === 'Southwest')
-  let Northwest = West?.filter((team) => team.Division === 'Northwest')
-  let Pacific = West?.filter((team) => team.Division === 'Pacific')
+  const sortByKey = (teams) => [...(teams ?? [])].sort((a, b) => a.Key.localeCompare(b.Key))
+
+  const sortTeams = sortByKey(leagueData)
+
+  const East = sortByKey(leagueData?.filter((team) => team.Conference === 'Eastern'))
+  const Atlantic = sortByKey(East?.filter((team) => team.Division === 'Atlantic'))
+  const Central = sortByKey(East?.filter((team) => team.Division === 'Central'))
+  const Southeast = sortByKey(East?.filter((team) => team.Division === 'Southeast'))
+
+  const West = sortByKey(leagueData?.filter((team) => team.Conference === 'Western'))
+  const Southwest = sortByKey(West?.filter((team) => team.Division === 'Southwest'))
+  const Northwest = sortByKey(West?.filter((team) => team.Division === 'Northwest'))
+  const Pacific = sortByKey(West?.filter((team) => team.Division === 'Pacific'))
+
+  const filterMap = {
+    "ALL Teams": sortTeams,
+    East,
+    Atlantic,
+    Central,
+    Southeast,
+    West,
+    Southwest,
+    Northwest,
+    Pacific
+  }
+
+  const displayData = filterMap[initialTeams] || allTeams;
 
 
   const handleChange = (event) => {
     setIntialTeams(event.target.value)
   }
 
-  if (initialTeams === "ALL") {
-    displayData = sortTeams
-  }
-
-  if (initialTeams === 'East') {
-    displayData = East
-  }
-  if (initialTeams === 'Atlantic') {
-    displayData = Atlantic
-  }
-  if (initialTeams === "Central") {
-    displayData = Central
-  }
-  if (initialTeams === 'Southeast') {
-    displayData = Southeast
-  }
-  if (initialTeams === "West") {
-    displayData = West
-  }
-  if (initialTeams === 'Northwest') {
-    displayData = Northwest
-  }
-  if (initialTeams === 'Southwest') {
-    displayData = Southwest
-  }
-  if (initialTeams === 'Pacific') {
-    displayData = Pacific
-  }
-
   return (
     <div className='container'>
-      <label>
-        <select value={filteredResults} onChange={handleChange}>
-          <option multiple={false} value={"ALL"}>ALL</option>
-          <option multiple={false} value={"East"}>Eastern Conference</option>
-          <option multiple={false} value={"Atlantic"}>Atlantic Division</option>
-          <option multiple={false} value={"Central"}>Central Division</option>
-          <option multiple={false} value={"Southeast"}>Southeast Division</option>
-          <option multiple={false} value={"West"}>Western Conference</option>
-          <option multiple={false} value={"Northwest"}>Northwest Division</option>
-          <option multiple={false} value={"Pacific"}>Pacific Division</option>
-          <option multiple={false} value={"Southwest"}>Southwest Division</option>
-        </select>
-      </label>
+      <div className='select-container'>
+        <label>
+          <select value={initialTeams} onChange={handleChange}>
+            <option value={"ALL Teams"}>ALL Teams</option>
+            <option value={"East"}>Eastern Conference</option>
+            <option value={"Atlantic"}>Atlantic Division</option>
+            <option value={"Central"}>Central Division</option>
+            <option value={"Southeast"}>Southeast Division</option>
+            <option value={"West"}>Western Conference</option>
+            <option value={"Northwest"}>Northwest Division</option>
+            <option value={"Pacific"}>Pacific Division</option>
+            <option value={"Southwest"}>Southwest Division</option>
+          </select>
+        </label>
+      </div>
 
-      {displayData?.map(({ City, HeadCoach, QuaternaryColor, TertiaryColor, WikipediaLogoUrl, Name, Conference, Division, Key, PrimaryColor, SecondaryColor }) => (
-        <Card key={Key} style={{ backgroundColor: '#' + TertiaryColor }}>
-          <div className='league-info' style={{ 'backgroundColor': '#' + PrimaryColor }}>
-            <h2><a style={{ 'color': '#' + SecondaryColor }} href={`/${Key}`}>{City} {Name}</a></h2>
-            <h2 style={{ 'color': '#' + SecondaryColor, backgroundColor: '#' + PrimaryColor }}>Head Coach: {HeadCoach}</h2>
-            <img className='team-photo' src={WikipediaLogoUrl} alt='All teams in the NBA' />
-          </div>
-        </Card>
-      )
-      )}
-    </div >
+      <div className='cards-wrapper'>
+        {displayData?.map(({ City, HeadCoach, TertiaryColor, WikipediaLogoUrl, Name, Conference, Division, Key, PrimaryColor, SecondaryColor }) => (
+          <Card key={Key} style={{ backgroundColor: Name === 'Jazz' ? '#' + PrimaryColor : '#' + TertiaryColor }}>
+            <div className='league-info' style={{ 'backgroundColor': Name === 'Jazz' ? '#' + TertiaryColor : '#' + PrimaryColor }}>
+              <h2><Link style={{ 'color': '#' + SecondaryColor }} to={`/${Key}`}>{City} {Name}</Link></h2>
+              <h2 style={{ 'color': '#' + SecondaryColor, backgroundColor: Name === 'Jazz' ? '#' + TertiaryColor : '#' + PrimaryColor }}>Head Coach: {HeadCoach}</h2>
+              <img className='team-photo' src={WikipediaLogoUrl} alt={`${City} ${Name} logo}`} />
+            </div>
+          </Card>
+        )
+        )}
+      </div>
+    </div>
   )
 }
 

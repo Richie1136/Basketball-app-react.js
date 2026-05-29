@@ -1,23 +1,28 @@
-import { baseurL } from '../../api/Api'
+import { baseUrl } from '../../api/Api'
 import { useState, useEffect } from 'react'
 import './Standings.css'
 import { Row, Loading } from '../index'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
+
+const allowedSeasons = ["2026", "2025"]
 
 const Standings = () => {
 
   const [getStandings, setGetStadings] = useState()
 
   const APIKEY = process.env.REACT_APP_API_KEY
-  const params = useParams()
-  const obj = new URLSearchParams(params);
-  const season = obj.get('season')
+  const navigate = useNavigate()
+  const { season } = useParams()
 
-  let result = `${baseurL}/Standings/${season}?key=${APIKEY}`
+  const selectedSeason = season || "2026"
 
+  const result = `${baseUrl}/Standings/${selectedSeason}?key=${APIKEY}`
 
   useEffect(() => {
     const getStandings = async () => {
+      if (!allowedSeasons.includes(selectedSeason)) {
+        return
+      }
       try {
         const data = await fetch(result)
         const response = await data.json()
@@ -27,13 +32,12 @@ const Standings = () => {
       }
     }
     getStandings()
-  }, [result])
+  }, [result, allowedSeasons, selectedSeason])
 
   if (!getStandings) return <Loading />
 
-  let Eastern = getStandings?.filter((east) => east.Conference === 'Eastern').sort((a, b) => b.Percentage - a.Percentage)
-  let Western = getStandings?.filter((west) => west.Conference === 'Western').sort((a, b) => b.Percentage - a.Percentage)
-  console.log(Eastern)
+  const Eastern = getStandings?.filter((east) => east.Conference === 'Eastern').sort((a, b) => b.Percentage - a.Percentage)
+  const Western = getStandings?.filter((west) => west.Conference === 'Western').sort((a, b) => b.Percentage - a.Percentage)
 
   let number = 0
 
@@ -41,13 +45,16 @@ const Standings = () => {
     number += 1
   ))
 
-  let results = Eastern?.map((o, i) => ({ ...o, rank: ranks[i] }))
-  console.log(results)
+  const EasternTeams = Eastern?.map((o, i) => ({ ...o, rank: ranks[i] }))
 
+  const WesternTeams = Western?.map((o, i) => ({ ...o, rank: ranks[i] }))
 
-  let teamRanks = Western?.map((o, i) => ({ ...o, rank: ranks[i] }))
+  const handleChange = (e) => {
+    const selectedSeason = e.target.value
+    navigate('/standings/' + selectedSeason)
+  }
 
-  let headers = (
+  const headers = (
     <>
       <th className='wins'>
         <span className='divisionspan'>
@@ -61,7 +68,7 @@ const Standings = () => {
       </th>
       <th className='pct'>
         <span className='runs'>
-          <span>WIN%</span>
+          <span style={{ marginLeft: '20px' }}>WIN%</span>
         </span>
       </th>
       <th className='gb'>
@@ -81,7 +88,7 @@ const Standings = () => {
       </th>
       <th className='div'>
         <span className='runs'>
-          <span>PPG</span>
+          <span style={{ textAlign: 'center', marginLeft: '10px' }}>PPG</span>
         </span>
       </th>
       <th className='div'>
@@ -99,8 +106,8 @@ const Standings = () => {
           <span>Home</span>
         </span>
       </th>
-      <th className='road-record'>
-        <span className='span'>
+      <th className='home'>
+        <span className='runs'>
           <span>Road</span>
         </span>
       </th>
@@ -120,6 +127,13 @@ const Standings = () => {
   return (
     <>
       <div className='background-container'>
+        <div className="season-select-wrap">
+          <label className="season-label" htmlFor="season">Season:</label>
+          <select id="season" className='season-select' value={selectedSeason} onChange={handleChange}>
+            <option value="2026">2025-26</option>
+            <option value="2025">2024-25</option>
+          </select>
+        </div>
         <h2 className='conference-title'>Eastern Conference</h2>
         <table>
           <colgroup className='col1' span='6'></colgroup>
@@ -136,7 +150,7 @@ const Standings = () => {
               {headers}
             </tr>
           </tbody>
-          {results?.map(({ City, rank, Conference, ConferenceRank, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, ConferenceLosses, DivisionWins, DivisionLosses, PointsPerGameFor,
+          {EasternTeams?.map(({ City, rank, Conference, ConferenceRank, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, ConferenceLosses, DivisionWins, DivisionLosses, PointsPerGameFor,
             PointsPerGameAgainst, Key, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, StreakDescription, Team }) => (
             <Row key={Key} rank={rank} Conference={Conference} ConferenceRank={ConferenceRank} Key={Key} Name={Name} Team={Team} City={City} Losses={Losses} Wins={Wins} Percentage={Percentage} StreakDescription={StreakDescription} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} />
           ))}
@@ -157,7 +171,7 @@ const Standings = () => {
               {headers}
             </tr>
           </tbody>
-          {teamRanks?.map(({ City, Key, Name, Conference, Losses, rank, Wins, StreakDescription, Percentage, GamesBack, ConferenceWins, ConferenceLosses, DivisionWins, DivisionLosses, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak, PointsPerGameFor, PointsPerGameAgainst }) => (
+          {WesternTeams?.map(({ City, Key, Name, Conference, Losses, rank, Wins, StreakDescription, Percentage, GamesBack, ConferenceWins, ConferenceLosses, DivisionWins, DivisionLosses, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak, PointsPerGameFor, PointsPerGameAgainst }) => (
             <Row key={Key} Key={Key} Conference={Conference} Name={Name} rank={rank} City={City} Losses={Losses} Wins={Wins} StreakDescription={StreakDescription} Percentage={Percentage} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} />
           ))}
         </table>

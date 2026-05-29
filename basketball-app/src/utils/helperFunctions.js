@@ -1,0 +1,2 @@
+export const averagePlayerStats = (value, games) => (games > 0 ? (value / games).toFixed(1) : '0.0');
+export const averagePlayerPercentage = (value) => (typeof value === 'number' ? (value * 100).toFixed(1) : '0.0');
