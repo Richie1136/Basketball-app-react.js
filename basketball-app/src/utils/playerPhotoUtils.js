@@ -46,9 +46,40 @@ export const getBasketballReferenceId = (firstName, lastName) => {
   const firstNameGreaterThanOne = firstName.split(" ")[1]?.toLowerCase()
   const fullFirstName = firstName === 'Yang' && firstName.trim().toLowerCase();
 
+  const getPlayerSuffix = (firstName, lastName) => {
+    const fullName = `${firstName} ${lastName}`;
+    const suffix2 = new Set([
+      'Malachi Smith', 'Will Richard', 'Gary Payton II', 'Miles Kelly', 'Ron Harper Jr.', 'Devin Carter',
+      'Keegan Murray', 'Terence Davis', 'Harrison Barnes', 'Julian Champagnie', 'Andrew Carr', 'Jared Butler',
+      'Marcus Bagley', 'Jase Richardson', 'Trey Murphy III', 'Jaylen Clark', 'Jaden McDaniels', 'Tyler Smith',
+      'Taurean Prince', 'Kevin Porter Jr.', 'Gary Trent Jr.', 'Jaren Jackson Jr.', 'Scotty Pippen Jr.', 'Jaxson Hayes',
+      'Bronny James Jr.', 'TyTy Washington Jr.', 'Cam Christie', 'Derrick Jones Jr.', 'Jordan Miller', 'Jarace Walker',
+      'Jeff Green', 'Trayce Jackson-Davis', 'Tobias Harris', 'Colby Jones', 'Brice Williams', 'Javonte Green', 'Jalen Pickett',
+      'Cameron Johnson', 'Kessler Edwards', 'Tim Hardaway Jr.', 'Caleb Martin', 'Anthony Davis', 'Jaden Hardy', 'Max Christie',
+      'Larry Nance Jr.', 'Brandon Miller', 'Josh Green', 'Miles Bridges', 'Jaylen Brown', 'Cam Thomas', 'Ziaire Williams'
+    ])
+    const suffix3 = new Set([
+      'Kam Jones', 'Tre Johnson', 'Coleman Hawkins', 'Brandon Williams', 'Jalen Wilson'])
+    const suffix4 = new Set(['Kenyon Martin Jr.', 'Cody Williams', 'Keldon Johnson', 'Robert Williams III', 'Kenrich Williams', 'Jalen Smith'])
+    const suffix5 = new Set(['Jalen Green', 'Jahmir Young', 'Jabari Smith Jr.', 'Jalen Johnson', 'Tolu Smith'])
+    const suffix6 = new Set(['Marcus Williams', 'Jalen Williams', 'David Jones-Garcia', 'Chaney Johnson'])
+    const suffix7 = new Set(['Mark Williams', 'Jaylin Williams', 'Keon Johnson'])
+    const suffix10 = new Set(['Keshad Johnson'])
 
 
-  return `${firstName === 'Yang' ? fullFirstName : cleanedLastName === 'Niederhauser' ? firstNameGreaterThanOne : cleanedLastName === 'Đjurišić' ? last : cleanedFirstName === 'NFaly' || 'Nikola' && cleanedLastName === 'Đjurišić' ? first : cleanedLastName === 'Kleber' ? finalName : lastName === 'da Silva' ? lastNameLengthGreaterThanOne : last}${cleanedFirstName === 'Clint' && cleanedLastName === 'Capela' || cleanedLastName === 'Dante' || cleanedLastName === 'Hansen' ? last2 : cleanedFirstName === 'Elijah' && cleanedLastName === 'Harkless' ? replaceWithNewLetter : first}${firstName === 'Jalen' && lastName === 'Johnson' || firstName === 'Tolu' && lastName === 'Smith' || firstName === 'Jabari' && lastName === 'Smith Jr.' || firstName === 'Jahmir' && lastName === 'Young' || firstName === 'Jalen' && lastName === 'Green' ? '05' : firstName === 'Ziaire' && lastName === 'Williams' || firstName === 'Cam' && lastName === 'Thomas' || firstName === 'Jaylen' && lastName === 'Brown' || firstName === 'Miles' && lastName === 'Bridges' || firstName === 'Josh' && lastName === 'Green' || firstName === 'Brandon' && lastName === 'Miller' || firstName === 'Larry' && lastName === 'Nance Jr.' || firstName === 'Max' && lastName === 'Christie' || firstName === 'Jaden' && lastName === 'Hardy' || firstName === 'Anthony' && lastName === 'Davis' || firstName === 'Caleb' && lastName === 'Martin' || firstName === 'Tim' && lastName === 'Hardaway Jr.' || firstName === 'Kessler' && lastName === 'Edwards' || firstName === 'Cameron' && lastName === 'Johnson' || firstName === 'Jalen' && lastName === 'Pickett' || firstName === 'Javonte' && lastName === 'Green' || firstName === 'Brice' && lastName === 'Williams' || firstName === 'Colby' && lastName === 'Jones' || firstName === 'Tobias' && lastName === 'Harris' || firstName === 'Trayce' && lastName === 'Jackson-Davis' || firstName === 'Jeff' && lastName === 'Green' || firstName === 'Jarace' && lastName === 'Walker' || firstName === 'Jordan' && lastName === 'Miller' || firstName === 'Derrick' && lastName === 'Jones Jr.' || firstName === 'Cam' && lastName === 'Christie' || firstName === 'TyTy' && lastName === 'Washington Jr.' || firstName === 'Bronny' && lastName === 'James Jr.' || firstName === 'Jaxson' && lastName === 'Hayes' || firstName === 'Scotty' && lastName === 'Pippen Jr.' || firstName === 'Jaren' && lastName === 'Jackson Jr.' || firstName === 'Gary' && lastName === 'Trent Jr.' || firstName === 'Kevin' && lastName === 'Porter Jr.' || firstName === 'Taurean' && lastName === 'Prince' || firstName === 'Tyler' && lastName === 'Smith' || firstName === 'Jaden' && lastName === 'McDaniels' || firstName === 'Jaylen' && lastName === 'Clark' || firstName === 'Trey' && lastName === 'Murphy III' || firstName === 'Jase' && lastName === 'Richardson' || firstName === 'Marcus' && lastName === 'Bagley' || firstName === 'Jared' && lastName === 'Butler' || firstName === 'Andrew' && lastName === 'Carr' || firstName === 'Julian' && lastName === 'Champagnie' || firstName === 'Harrison' && lastName === 'Barnes' || firstName === 'Terence' && lastName === 'Davis' || firstName === 'Keegan' && lastName === 'Murray' || firstName === 'Devin' && lastName === 'Carter' || firstName === 'Ron' && lastName === 'Harper Jr.' || firstName === 'Miles' && lastName === 'Kelly' || firstName === 'Gary' && lastName === 'Payton II' || firstName === 'Will' && lastName === 'Richard' || firstName === 'Malachi' && lastName === 'Smith' ? '02' : firstName === 'Jalen' && lastName === 'Wilson' || firstName === 'Brandon' && lastName === 'Williams' || firstName === 'Coleman' && lastName === 'Hawkins' || firstName === 'Tre' && lastName === 'Johnson' || firstName === 'Kam' && lastName === 'Jones' ? '03' : firstName === 'Keon' && lastName === 'Johnson' || firstName === 'Jaylin' && lastName === 'Williams' || firstName === 'Mark' && lastName === 'Williams' ? '07' : firstName === 'Jalen' && lastName === 'Smith' || firstName === 'Kenrich' && lastName === 'Williams' || firstName === 'Robert' && lastName === 'Williams III' || firstName === 'Keldon' && lastName === 'Johnson' || firstName === 'Cody' && lastName === 'Williams' || firstName === 'Kenyon' && lastName === 'Martin Jr.' ? '04' : firstName === 'Marcus' && lastName === 'Williams' || firstName === 'Jalen' && lastName === 'Williams' || firstName === 'David' && lastName === 'Jones-Garcia' || firstName === 'Chaney' && lastName === 'Johnson' ? '06' : firstName === 'Keshad' && lastName === 'Johnson' ? '10' : '01'}`;
+    if (suffix2.has(fullName)) return '02'
+    if (suffix3.has(fullName)) return '03'
+    if (suffix4.has(fullName)) return '04'
+    if (suffix5.has(fullName)) return '05'
+    if (suffix6.has(fullName)) return '06'
+    if (suffix7.has(fullName)) return '07'
+    if (suffix10.has(fullName)) return '10'
+
+    return '01';
+  }
+
+
+  return `${firstName === 'Yang' ? fullFirstName : cleanedLastName === 'Niederhauser' ? firstNameGreaterThanOne : cleanedLastName === 'Đjurišić' ? last : ((cleanedFirstName === 'NFaly' || cleanedFirstName === 'Nikola') && cleanedLastName === 'Đjurišić') ? first : cleanedLastName === 'Kleber' ? finalName : lastName === 'da Silva' ? lastNameLengthGreaterThanOne : last}${((cleanedFirstName === 'Clint' && cleanedLastName === 'Capela') || cleanedLastName === 'Dante' || cleanedLastName === 'Hansen') ? last2 : (cleanedFirstName === 'Elijah' && cleanedLastName === 'Harkless') ? replaceWithNewLetter : first}${getPlayerSuffix(firstName, lastName)}`;
 }
 
 export const getBBRefPhotoUrl = (cleanedFirstName, cleanedLastName) => {
