@@ -78,8 +78,35 @@ export const getBasketballReferenceId = (firstName, lastName) => {
     return '01';
   }
 
+  const lastNamePart =
+    firstName === 'Yang'
+      ? fullFirstName
+      : cleanedLastName === 'Niederhauser'
+        ? firstNameGreaterThanOne
+        : cleanedLastName === 'Đjurišić'
+          ? last
+          : ((cleanedFirstName === 'NFaly' || cleanedFirstName === 'Nikola') &&
+            cleanedLastName === 'Đjurišić')
+            ? first
+            : cleanedLastName === 'Kleber'
+              ? finalName
+              : lastName === 'da Silva'
+                ? lastNameLengthGreaterThanOne
+                : last;
 
-  return `${firstName === 'Yang' ? fullFirstName : cleanedLastName === 'Niederhauser' ? firstNameGreaterThanOne : cleanedLastName === 'Đjurišić' ? last : ((cleanedFirstName === 'NFaly' || cleanedFirstName === 'Nikola') && cleanedLastName === 'Đjurišić') ? first : cleanedLastName === 'Kleber' ? finalName : lastName === 'da Silva' ? lastNameLengthGreaterThanOne : last}${((cleanedFirstName === 'Clint' && cleanedLastName === 'Capela') || cleanedLastName === 'Dante' || cleanedLastName === 'Hansen') ? last2 : (cleanedFirstName === 'Elijah' && cleanedLastName === 'Harkless') ? replaceWithNewLetter : first}${getPlayerSuffix(firstName, lastName)}`;
+  const firstNamePart =
+    ((cleanedFirstName === 'Clint' && cleanedLastName === 'Capela') ||
+      cleanedLastName === 'Dante' ||
+      cleanedLastName === 'Hansen')
+      ? last2
+      : (cleanedFirstName === 'Elijah' && cleanedLastName === 'Harkless')
+        ? replaceWithNewLetter
+        : first;
+
+  const suffix = getPlayerSuffix(firstName, lastName);
+
+
+  return `${lastNamePart}${firstNamePart}${suffix}`
 }
 
 export const getBBRefPhotoUrl = (cleanedFirstName, cleanedLastName) => {
