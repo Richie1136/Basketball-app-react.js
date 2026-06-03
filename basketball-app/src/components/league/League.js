@@ -85,7 +85,7 @@ const League = () => {
           <Card key={Key} style={{ backgroundColor: Name === 'Jazz' ? '#' + PrimaryColor : '#' + TertiaryColor }}>
             <div className='league-info' style={{ 'backgroundColor': Name === 'Jazz' ? '#' + TertiaryColor : '#' + PrimaryColor }}>
               <h2><Link style={{ 'color': '#' + SecondaryColor }} to={`/${Key}`}>{City} {Name}</Link></h2>
-              <h2 style={{ 'color': '#' + SecondaryColor, backgroundColor: Name === 'Jazz' ? '#' + TertiaryColor : '#' + PrimaryColor }}>Head Coach: {HeadCoach}</h2>
+              <h2 style={{ 'color': '#' + SecondaryColor, backgroundColor: Name === 'Jazz' ? '#' + TertiaryColor : '#' + PrimaryColor }}>Head Coach: {HeadCoach !== null ? HeadCoach : 'N/A'}</h2>
               <img className='team-photo' src={WikipediaLogoUrl} alt={`${City} ${Name} logo}`} />
             </div>
           </Card>
