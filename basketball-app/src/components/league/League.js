@@ -24,7 +24,7 @@ const League = () => {
       }
     }
     leagueData()
-  }, [])
+  }, [result])
 
 
   const allTeams = leagueData
