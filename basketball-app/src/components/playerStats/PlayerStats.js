@@ -8,6 +8,7 @@ const statsCache = new Map()
 
 // Helper functions for sessionStorage cache (persists across page reloads)
 const getCachedStats = (cacheKey) => {
+  if (typeof window === 'undefined') return null
   try {
     const cached = sessionStorage.getItem(`playerStats_${cacheKey}`)
     if (cached) {
@@ -31,6 +32,8 @@ const PlayerStats = ({ data }) => {
   const [playerStats, setPlayerStats] = useState(null)
   const [hasFetched, setHasFetched] = useState(false)
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const playerStatsInfo = async () => {
       try {
@@ -52,7 +55,7 @@ const PlayerStats = ({ data }) => {
                 let season = null
                 if (stat.SEASON_ID) {
                   const seasonParts = stat.SEASON_ID.split('-')
-                  if (seasonParts.length === 2) {
+                  if (seasonParts?.length === 2) {
                     const startYear = parseInt(seasonParts[0])
                     season = startYear + 1
                   } else {
@@ -88,7 +91,7 @@ const PlayerStats = ({ data }) => {
               .filter(stat => stat !== null)
           }
           try {
-            const backendResponse = await fetch(`http://localhost:5001/api/player_stats?firstName=${encodeURIComponent(data.FirstName === 'Nicolas' && data.LastName === 'Claxton' ? 'Nic' : data.FirstName)}&lastName=${encodeURIComponent(lastNameGreaterThanOne)}`)
+            const backendResponse = await fetch(`${API_BASE_URL}/api/player_stats?firstName=${encodeURIComponent(data.FirstName === 'Nicolas' && data.LastName === 'Claxton' ? 'Nic' : data.FirstName)}&lastName=${encodeURIComponent(lastNameGreaterThanOne)}`)
             if (backendResponse.ok) {
               const backendData = await backendResponse.json()
               statsData = transformBackendData(backendData)
@@ -99,7 +102,7 @@ const PlayerStats = ({ data }) => {
             console.log('Backend fetch failed:', backendError)
             statsData = null
           }
-          const finalStats = statsData && Array.isArray(statsData) && statsData.length > 0 ? statsData : null
+          const finalStats = statsData && Array.isArray(statsData) && statsData?.length > 0 ? statsData : null
 
           if (finalStats) {
             statsCache.set(cacheKey, finalStats) // cacheKey is the player name
@@ -215,7 +218,7 @@ const PlayerStats = ({ data }) => {
     return 0;
   });
 
-  const totalGames = playerStats?.reduce((sum, stat) => sum + stat.games, 0);
+  const totalGames = playerStats?.reduce((sum, stat) => sum + (stat.games ?? 0), 0);
   const grabSeasons = playerStats?.map(stat => stat.season);
 
   const convertToSet = new Set(grabSeasons);
