@@ -32,7 +32,7 @@ const Standings = () => {
       }
     }
     getStandings()
-  }, [result, allowedSeasons, selectedSeason])
+  }, [result, selectedSeason])
 
   if (!getStandings) return <Loading />
 

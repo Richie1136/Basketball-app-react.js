@@ -165,10 +165,7 @@ const Player = () => {
     convertMonth,
     objectDate,
     birthDay,
-    birthYear,
-    lengthofBirth,
-    monthNameLength,
-    dayLength,
+    birthYear
   } = computeAgeAndBirthdateMetrics(BirthDate)
 
   const schoolLabel =

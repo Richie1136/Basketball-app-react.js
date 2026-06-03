@@ -120,7 +120,7 @@ const PlayerStats = ({ data }) => {
       }
     }
     playerStatsInfo()
-  }, [data?.FirstName, data?.LastName])
+  }, [data?.FirstName, data?.LastName, API_BASE_URL])
 
 
   let minutes = 0
