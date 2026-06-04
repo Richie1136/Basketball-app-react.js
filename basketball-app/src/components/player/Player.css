@@ -35,7 +35,6 @@ p {
 }
 
 .player-header-name {
-  /* height: 48px; */
   font: 36px 'Knockout Wide', sans-serif;
   color: white;
   font-weight: 400;
@@ -91,8 +90,7 @@ p {
   transform: translateY(-50%);
   width: 400px;
   height: 400px;
-  /* no border-radius */
-  overflow: visible; /* or remove if you want */
+  overflow: visible;
   background-color: #222;
   z-index: 10;
   border: none;
@@ -103,7 +101,8 @@ p {
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 0; /* important */
+  border-radius: 0;
+  /* important */
 }
 
 li {
@@ -200,16 +199,19 @@ div {
 
 .player-data-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 columns */
+  grid-template-columns: repeat(5, 1fr);
+  /* 5 columns */
   width: 100%;
   max-width: 932px;
   margin-top: 40px;
   border: 1px solid #fff;
   background: transparent;
   border-radius: 0;
-  overflow: visible; /* allow cells to grow */
+  overflow: visible;
+  /* allow cells to grow */
   color: #fff;
-  gap: 0; /* spacing controlled in cells */
+  gap: 0;
+  /* spacing controlled in cells */
 }
 
 .vital-cell {
@@ -218,17 +220,23 @@ div {
   align-items: center;
   justify-content: flex-start;
   text-align: center;
-  padding: 12px 10px;   /* smaller padding to fit text */
+  padding: 12px 10px;
+  /* smaller padding to fit text */
   border-right: 1px solid #fff;
   border-bottom: 1px solid #fff;
-  min-width: 0;          /* prevents overflow in flex/grid */
+  min-width: 0;
+  /* prevents overflow in flex/grid */
   min-height: 0;
-  height: auto;          /* allow expansion */
-  overflow: visible;     /* prevent clipping of text */
+  height: auto;
+  /* allow expansion */
+  overflow: visible;
+  /* prevent clipping of text */
 }
+
 .vital-cell:nth-child(5n) {
   border-right: none;
 }
+
 .vital-cell:nth-child(n+6) {
   border-bottom: none;
 }
@@ -240,7 +248,8 @@ div {
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: #fff;
-  margin: 0 0 10px;       /* space below label */
+  margin: 0 0 10px;
+  /* space below label */
   line-height: 1.2;
   width: 100%;
   text-align: center;
@@ -251,21 +260,30 @@ div {
 .vital-value--wrap {
   display: block;
   font-weight: 600;
-  font-size: 16px;          /* adjust to taste */
-  line-height: 1.25;        /* slightly tighter for wrapping */
+  font-size: 16px;
+  /* adjust to taste */
+  line-height: 1.25;
+  /* slightly tighter for wrapping */
   text-align: center;
-  white-space: normal;       /* allow multiple lines */
-  word-break: normal;    /* break long words if needed */
-  overflow-wrap: break-word;   /* break anywhere if too long */
-  max-width: 100%;           /* stay inside the cell */
+  white-space: normal;
+  /* allow multiple lines */
+  word-break: normal;
+  /* break long words if needed */
+  overflow-wrap: break-word;
+  /* break anywhere if too long */
+  max-width: 100%;
+  /* stay inside the cell */
   margin: 0;
-  width: 100%;                 /* reset margin */
+  width: 100%;
+  /* reset margin */
 }
+
 .vital-value--no-wrap {
   width: 150px;
-    min-width: 150px;
+  min-width: 150px;
   max-width: 150px;
 }
+
 .vital-value--muted {
   font-weight: 500;
   opacity: 0.88;
@@ -296,30 +314,35 @@ div {
 
 .players-college-long {
   font-size: 16px;
-  margin-left: 5px; /* Added this for Southern California college */
+  margin-left: 5px;
+  /* Added this for Southern California college */
 }
 
 .virginia-commonwealth {
   font-size: 16px;
-  margin-left: -40px; /* Added this for Virginia Commonwealth college */
+  margin-left: -40px;
+  /* Added this for Virginia Commonwealth college */
   text-align: center;
   text-align-last: center;
 }
 
 .players-college {
   flex-wrap: nowrap;
-  margin-left: -10px; /* Added this for Virginia Tech college */
+  margin-left: -10px;
+  /* Added this for Virginia Tech college */
 }
 
 .players-college-small {
   margin-left: 15px;
 }
 
-.kansas { /* Added this for Kansas college */
+.kansas {
+  /* Added this for Kansas college */
   margin-left: 7px;
 }
 
-.players-college-mid { /* Added this for Oklahoma college */
+.players-college-mid {
+  /* Added this for Oklahoma college */
   /* margin-left: -5px; */
 
   /* width: 125px;
@@ -331,11 +354,13 @@ div {
   margin-left: -15px;
 }
 
-.washington { /* Added this for Washington college */
+.washington {
+  /* Added this for Washington college */
   margin-left: -10px;
 }
 
-.lengthOf6College { /* Added this for Auburn college */
+.lengthOf6College {
+  /* Added this for Auburn college */
   margin-left: 8px;
 }
 
@@ -367,15 +392,18 @@ div {
   margin-left: -9px;
 }
 
-.uconn { /* Added this for UConn college */
- margin-left: -11px;
+.uconn {
+  /* Added this for UConn college */
+  margin-left: -11px;
 }
 
-.players-college-large { /* Added this for Wheeling Jesuit college */
+.players-college-large {
+  /* Added this for Wheeling Jesuit college */
   margin-left: 7px;
 }
 
-.middyCollege { /* Added this for Wichita State college */
+.middyCollege {
+  /* Added this for Wichita State college */
   margin-left: -15px;
 }
 
@@ -428,42 +456,51 @@ div {
 }
 
 .japan {
-  margin-left: 10px; /* Added this for Japan */
+  margin-left: 10px;
+  /* Added this for Japan */
 }
 
 .israel {
-  margin-left: 15px; /* Added this for Israel */
+  margin-left: 15px;
+  /* Added this for Israel */
 }
 
 .country-length-6 {
-  margin-left: 15px; /* For 6-character countries like Israel */
+  margin-left: 15px;
+  /* For 6-character countries like Israel */
   width: max-content;
 }
 
 .france {
-  margin-left: 12px; /* France needs less margin due to wider 'F' character */
+  margin-left: 12px;
+  /* France needs less margin due to wider 'F' character */
   width: max-content;
 }
+
 .canada {
-  margin-left: 5px; /* Added this for Canada */
+  margin-left: 5px;
+  /* Added this for Canada */
   width: max-content;
 }
+
 .mid-size-country {
-  margin-left: 4px; /* Added this for Australia */
+  margin-left: 4px;
+  /* Added this for Australia */
 }
 
 .creteil {
-  margin-left: 10px; /* Added this for Creteil city */
+  margin-left: 10px;
+  /* Added this for Creteil city */
 }
 
 .birth-country-very-large {
- margin-bottom: 4px;
- margin-top: -8px;
+  margin-bottom: 4px;
+  margin-top: -8px;
 }
 
 .high-school-very-large {
-     margin-left: -26px;
-     font-size: 16px;
+  margin-left: -26px;
+  font-size: 16px;
 }
 
 .high-school-mid {
@@ -491,7 +528,8 @@ p.heavierWeight {
 
 .largeCity {
   width: 200px;
-  margin-left: -32px; /* Made this change for middleton*/
+  margin-left: -32px;
+  /* Made this change for middleton*/
   /* font-size: 17px;
   margin-top: 21px; */
 }
@@ -530,7 +568,7 @@ p.heavierWeight {
 
 .missState {
   width: max-content;
-      margin-left: -33px;
+  margin-left: -33px;
 }
 
 .OregonState {
@@ -549,12 +587,9 @@ p.heavierWeight {
   margin-left: 5px
 }
 
-.marquette {
-}
+.marquette {}
 
-.davidson {
-
-}
+.davidson {}
 
 .akron {
   margin-left: 14px;
@@ -592,8 +627,7 @@ p.heavierWeight {
   margin-left: 15px;
 }
 
-.lengthOf10 {
-}
+.lengthOf10 {}
 
 .iowa-state {
   margin-left: -5px;
@@ -709,9 +743,11 @@ p.heavierWeight {
 .mid-small-city {
   margin-left: -5px;
 }
+
 .mid-mid-cty {
   margin-left: -10px;
 }
+
 /* Default city class: keep within ~153px column; 200px was wider than the cell and looked left-shifted (e.g. Jacksonville). */
 .players-city {
   width: 100%;
@@ -721,11 +757,13 @@ p.heavierWeight {
 }
 
 .illinois {
-  margin-left: 10px; /* Added this for Illinois college */
+  margin-left: 10px;
+  /* Added this for Illinois college */
 }
 
 .cityOfJones {
-  margin-left: -8px; /* Added this for Apple Valley city */
+  margin-left: -8px;
+  /* Added this for Apple Valley city */
 }
 
 .players-age {

@@ -14,15 +14,15 @@
 table {
   border-spacing: 0;
   border-collapse: collapse;
-  table-layout: fixed;
+  table-layout: auto;
   border-right: none;
   border-left: none;
   border-top: none;
-  /* margin-top: 30px; */
-  margin-left: 20px;
+  margin-left: 0px;
+  width: 100%;
 }
 
-.division-name {
+.conference-name {
   width: 170px;
   height: 32px;
   color: #ffffff;
@@ -36,7 +36,7 @@ th span {
 }
 
 
-.division-name span {
+.conference-name span {
   text-align: left;
 }
 
@@ -92,7 +92,7 @@ th span {
   height: 41px;
 }
 
-.division-title {
+.conference-team-title {
   width: 200px;
   height: 41px;
   color: #000;
@@ -126,9 +126,9 @@ th {
   vertical-align: bottom;
   text-align: right;
   white-space: nowrap;
-  letter-spacing: 1px;
-  font-size: 10px;
-  padding: 6px 6px;
+  letter-spacing: 0.3px;
+  font-size: 9px;
+  padding: 8px 10px;
 }
 
 .conference-title {
@@ -139,12 +139,11 @@ th {
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   font-family: Knockout Wide, sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  /* padding-top: 70px; */
+  font-size: 32px;
+  font-weight: 600;
   margin-top: 10px;
   color: #ffffff;
-  margin-left: 20px;
+  justify-content: center;
 }
 
 .season-select-wrap {
@@ -157,7 +156,41 @@ th {
   margin-top: 40px;
   margin-left: 10px;
 }
+
 .season-label {
   margin: 0px;
   color: #ffffff;
+}
+
+.standings-layout {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.conference-standings {
+  flex: 1;
+  min-width: 650px;
+  max-width: 900px;
+  overflow-x: auto;
+}
+
+.conference-standings table {
+  width: 100%;
+}
+
+@media only screen and (max-width: 1200px) {
+  .standings-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .conference-standings {
+    width: 100%;
+    max-width: 900px;
+  }
 }

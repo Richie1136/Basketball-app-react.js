@@ -149,13 +149,6 @@ const Player = () => {
 
   const salaryString =
     Salary != null && Salary !== '' ? Salary.toLocaleString('en-US') : null
-  // const salaryValueExtraClass = salaryString
-  //   ? salaryString.length === 7
-  //     ? 'player-short-dollars'
-  //     : salaryString.length >= 10
-  //       ? 'players-dollars'
-  //       : ''
-  //   : ''
 
   const { feet, inches, metersValue } = computeHeightMetrics(Height)
   const { weightKg } = computeWeightMetrics(Weight)
@@ -182,7 +175,7 @@ const Player = () => {
           <div className='player-photo-bio-wrapper'>
             <PlayerPhoto photoUrl={photoUrl} altText={`${FirstName} ${LastName}`} data={playerData} />
             <div className='player-bio'>
-              <p className='player-header-number'><Link to={`/${Team}`}>{Team}</Link> {Jersey !== null && `| ${Jersey}`} | {Position}</p>
+              <p className='player-header-number'><Link to={`/${Team}`}>{Team}</Link> {Jersey !== null && `| #${Jersey}`} | {Position}</p>
               <div className='nameAndStats'>
                 <div className='player-name'>
                   <p className='player-header-name'>{FirstName}</p>

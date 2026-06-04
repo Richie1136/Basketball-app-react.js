@@ -20,7 +20,7 @@ thead>tr>th {
 
 .stats-table th {
   text-align: left;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   border-bottom: 1px solid #333;
 }
@@ -39,4 +39,9 @@ thead>tr>th {
   font-size: 14px;
   font-weight: 400;
   border-right: 1px solid #222;
+}
+
+.stats-table th,
+.stats-table td {
+  text-align: center;
 }

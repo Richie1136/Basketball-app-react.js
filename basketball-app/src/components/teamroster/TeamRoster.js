@@ -35,15 +35,65 @@ const TeamRoster = () => {
 
   if (!roster) return <Loading />
 
+  const positionMap = {
+    PG: 'Point Guard',
+    SG: 'Shooting Guard',
+    SF: 'Small Forward',
+    PF: 'Power Forward',
+    C: 'Center'
+  }
+
+  const teamMap = {
+    ATL: 'Atlanta Hawks',
+    BKN: 'Brooklyn Nets',
+    BOS: 'Boston Celtics',
+    CHA: 'Charlotte Hornets',
+    CHI: 'Chicago Bulls',
+    CLE: 'Cleveland Cavaliers',
+    DAL: 'Dallas Mavericks',
+    DEN: 'Denver Nuggets',
+    DET: 'Detroit Pistons',
+    GS: 'Golden State Warriors',
+    HOU: 'Houston Rockets',
+    IND: 'Indiana Pacers',
+    LAC: 'Los Angeles Clippers',
+    LAL: 'Los Angeles Lakers',
+    MEM: 'Memphis Grizzlies',
+    MIA: 'Miami Heat',
+    MIL: 'Milwaukee Bucks',
+    MIN: 'Minnesota Timberwolves',
+    NO: 'New Orleans Pelicans',
+    NY: 'New York Knicks',
+    OKC: 'Oklahoma City Thunder',
+    ORL: 'Orlando Magic',
+    PHI: 'Philadelphia 76ers',
+    PHO: 'Phoenix Suns',
+    POR: 'Portland Trail Blazers',
+    SA: 'San Antonio Spurs',
+    SAC: 'Sacremento Kings',
+    TOR: 'Toronto Raptors',
+    UTA: 'Utah Jazz',
+    WAS: 'Washington Wizards'
+  }
+
   return (
-    <div className='team-container'>
-      {active?.map(({ Jersey, FirstName, LastName, PlayerID, Position }) => (
-        <Card key={PlayerID}>
-          <h2><Link to={`/player/${PlayerID}`}>{FirstName} {LastName}</Link></h2>
-          <h4>{Jersey}</h4>
-          <h5>{Position}</h5>
-        </Card>
-      ))}
+    <div className="roster-page">
+      <div className="roster-header">
+        <h1>{teamMap[term] || term} Active Roster</h1>
+      </div>
+      <div className='team-container'>
+        {active?.map(({ Jersey, FirstName, LastName, PlayerID, Position }) => {
+          return (
+            <Link to={`/player/${PlayerID}`} key={PlayerID} className='card-link'>
+              <Card>
+                <h2>{FirstName} {LastName}</h2>
+                <p className='jersey-number'>#{Jersey}</p>
+                <p className='position'>{positionMap[Position] || Position}</p>
+              </Card>
+            </Link>
+          )
+        })}
+      </div>
     </div>
   )
 }

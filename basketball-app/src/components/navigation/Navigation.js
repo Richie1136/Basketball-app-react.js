@@ -6,10 +6,10 @@ const Navigation = () => {
   const currentSeason = useCurrentSeason()
   return (
     <nav className='nav'>
-      <NavLink to='/'>
+      <NavLink to='/' className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
         <span>League</span>
       </NavLink>
-      <NavLink to={`/standings/${currentSeason}`}>
+      <NavLink to={`/standings/${currentSeason}`} className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
         <span>Standings</span>
       </NavLink>
     </nav>

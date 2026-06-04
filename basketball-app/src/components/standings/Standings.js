@@ -38,7 +38,7 @@ const Standings = () => {
 
   const Eastern = getStandings?.filter((east) => east.Conference === 'Eastern').sort((a, b) => b.Percentage - a.Percentage)
   const Western = getStandings?.filter((west) => west.Conference === 'Western').sort((a, b) => b.Percentage - a.Percentage)
-
+  console.log(getStandings)
   let number = 0
 
   let ranks = Eastern?.map(() => (
@@ -134,47 +134,53 @@ const Standings = () => {
             <option value="2025">2024-25</option>
           </select>
         </div>
-        <h2 className='conference-title'>Eastern Conference</h2>
-        <table>
-          <colgroup className='col1' span='6'></colgroup>
-          <colgroup className='col2' span='2'></colgroup>
-          <colgroup className='col3' span='4'></colgroup>
-          <colgroup className='col4' span='3'></colgroup>
-          <tbody>
-            <tr className='division-row'>
-              <th className='division-name'>
-                <span>
-                  <span className='division-title'>TEAM</span>
-                </span>
-              </th>
-              {headers}
-            </tr>
-          </tbody>
-          {EasternTeams?.map(({ City, rank, Conference, ConferenceRank, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, ConferenceLosses, DivisionWins, DivisionLosses, PointsPerGameFor,
-            PointsPerGameAgainst, Key, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, StreakDescription, Team }) => (
-            <Row key={Key} rank={rank} Conference={Conference} ConferenceRank={ConferenceRank} Key={Key} Name={Name} Team={Team} City={City} Losses={Losses} Wins={Wins} Percentage={Percentage} StreakDescription={StreakDescription} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} />
-          ))}
-        </table>
-        <h2 className='conference-title'>Western Conference</h2>
-        <table>
-          <colgroup className='col1' span='6'></colgroup>
-          <colgroup className='col2' span='2'></colgroup>
-          <colgroup className='col3' span='4'></colgroup>
-          <colgroup className='col4' span='3'></colgroup>
-          <tbody>
-            <tr className='division-row'>
-              <th className='division-name'>
-                <span>
-                  <span className='division-title'>TEAM</span>
-                </span>
-              </th>
-              {headers}
-            </tr>
-          </tbody>
-          {WesternTeams?.map(({ City, Key, Name, Conference, Losses, rank, Wins, StreakDescription, Percentage, GamesBack, ConferenceWins, ConferenceLosses, DivisionWins, DivisionLosses, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak, PointsPerGameFor, PointsPerGameAgainst }) => (
-            <Row key={Key} Key={Key} Conference={Conference} Name={Name} rank={rank} City={City} Losses={Losses} Wins={Wins} StreakDescription={StreakDescription} Percentage={Percentage} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} />
-          ))}
-        </table>
+        <div className='standings-layout'>
+          <div className='conference-standings'>
+            <h2 className='conference-title'>Eastern Conference</h2>
+            <table>
+              <colgroup className='col1' span='6'></colgroup>
+              <colgroup className='col2' span='2'></colgroup>
+              <colgroup className='col3' span='4'></colgroup>
+              <colgroup className='col4' span='3'></colgroup>
+              <tbody>
+                <tr className='conference-row'>
+                  <th className='conference-name'>
+                    <span>
+                      <span className='conference-team-title'>TEAM</span>
+                    </span>
+                  </th>
+                  {headers}
+                </tr>
+              </tbody>
+              {EasternTeams?.map(({ City, rank, Conference, ConferenceRank, Name, Losses, Wins, Percentage, GamesBack, ConferenceWins, ConferenceLosses, DivisionWins, DivisionLosses, PointsPerGameFor,
+                PointsPerGameAgainst, Key, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, StreakDescription, Team }) => (
+                <Row key={Key} rank={rank} Conference={Conference} ConferenceRank={ConferenceRank} Key={Key} Name={Name} Team={Team} City={City} Losses={Losses} Wins={Wins} Percentage={Percentage} StreakDescription={StreakDescription} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} />
+              ))}
+            </table>
+          </div>
+          <div className='conference-standings'>
+            <h2 className='conference-title'>Western Conference</h2>
+            <table>
+              <colgroup className='col1' span='6'></colgroup>
+              <colgroup className='col2' span='2'></colgroup>
+              <colgroup className='col3' span='4'></colgroup>
+              <colgroup className='col4' span='3'></colgroup>
+              <tbody>
+                <tr className='conference-row'>
+                  <th className='conference-name'>
+                    <span>
+                      <span className='conference-team-title'>TEAM</span>
+                    </span>
+                  </th>
+                  {headers}
+                </tr>
+              </tbody>
+              {WesternTeams?.map(({ City, Key, Name, Conference, Losses, rank, Wins, StreakDescription, Percentage, GamesBack, ConferenceWins, ConferenceLosses, DivisionWins, DivisionLosses, HomeWins, HomeLosses, AwayWins, AwayLosses, LastTenWins, LastTenLosses, Streak, PointsPerGameFor, PointsPerGameAgainst }) => (
+                <Row key={Key} Key={Key} Conference={Conference} Name={Name} rank={rank} City={City} Losses={Losses} Wins={Wins} StreakDescription={StreakDescription} Percentage={Percentage} GamesBack={GamesBack} ConferenceLosses={ConferenceLosses} ConferenceWins={ConferenceWins} DivisionLosses={DivisionLosses} DivisionWins={DivisionWins} PointsPerGameFor={PointsPerGameFor} PointsPerGameAgainst={PointsPerGameAgainst} HomeLosses={HomeLosses} HomeWins={HomeWins} AwayLosses={AwayLosses} AwayWins={AwayWins} LastTenLosses={LastTenLosses} LastTenWins={LastTenWins} />
+              ))}
+            </table>
+          </div>
+        </div>
       </div>
     </>
   )

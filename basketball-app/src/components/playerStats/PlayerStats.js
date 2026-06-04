@@ -124,7 +124,7 @@ const PlayerStats = ({ data }) => {
 
 
   let minutes = 0
-  let games2 = 0
+  let careerGames = 0
   let totalPoints = 0
   let totalRebounds = 0
   let totalAssists = 0
@@ -150,7 +150,7 @@ const PlayerStats = ({ data }) => {
       } = stats
       // Adding secondary check just in case for some reason we have the stats component showing up but a certain stat we dont have a value for
       minutes += minutesPg ?? 0;
-      games2 += games ?? 0;
+      careerGames += games ?? 0;
       totalPoints += points ?? 0;
       totalFieldGoalsMade += fieldGoals ?? 0;
       totalFieldGoalsAttempted += fieldAttempts ?? 0;
@@ -231,7 +231,7 @@ const PlayerStats = ({ data }) => {
       ) : playerStats === null || playerStats.length === 0 ? (
         <h4>No Player Stats</h4>
       ) : (
-        <PlayerInfo data={sortedStats} games={games2} minutes={minutes} points={totalPoints} rebounds={totalRebounds} assists={totalAssists} steals={totalSteals} blocks={totalBlocks} fieldGoal={careerFgPercent} threePoint={careerThreePercent} freeThrow={careerFtPercent} turnovers={totalTurnovers} fouls={totalFouls} gamesPlayed={totalGames} seasons={uniqueSeasons} />
+        <PlayerInfo data={sortedStats} games={careerGames} minutes={minutes} points={totalPoints} rebounds={totalRebounds} assists={totalAssists} steals={totalSteals} blocks={totalBlocks} fieldGoal={careerFgPercent} threePoint={careerThreePercent} freeThrow={careerFtPercent} turnovers={totalTurnovers} fouls={totalFouls} gamesPlayed={totalGames} seasons={uniqueSeasons} />
       )}
     </div>
   )
