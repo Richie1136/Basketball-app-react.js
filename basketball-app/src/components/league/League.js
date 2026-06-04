@@ -58,7 +58,7 @@ const League = () => {
     };
 
     getStandings();
-  }, []);
+  }, [teamStandings]);
 
   const allTeams = leagueData
 
