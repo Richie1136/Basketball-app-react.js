@@ -1,70 +1,144 @@
-# Getting Started with Create React App
+# NBA Basketball Stats App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack NBA statistics application built with React and Python/Flask that provides player statistics, team information, standings, and career data using the nba_api package and custom data transformation logic.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Player Statistics
 
-### `npm start`
+* Retrieves player career statistics using nba_api
+* Displays season-by-season performance data
+* Calculates career totals and averages
+* Handles traded-player seasons and team history
+* Displays player photos and biographical information
+* Supports player name normalization for accented characters and special naming conventions
+* Implements custom data transformation and sorting logic for season statistics, career totals, and multi-team seasons
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### League Information
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* NBA team directory
+* Conference and division filtering
+* Current league standings
+* Team details and records
 
-### `npm test`
+### Performance Optimizations
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* Backend caching for faster responses
+* Frontend session storage caching
+* Efficient API data transformations
 
-### `npm run build`
+## Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Frontend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* React
+* React Router
+* JavaScript
+* CSS
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Backend
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* Python
+* Flask
+* Flask-CORS
+* nba_api
 
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+* Vercel (Frontend)
+* Render (Backend)
 
-### `npm run build` fails to minify
+## Key Features Implemented
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Implemented player name normalization to support accented characters and special naming conventions.
+* Developed custom data transformation and aggregation logic for career statistics and multi-team seasons.
+* Built backend caching to improve API performance and reduce redundant requests.
+* Implemented dynamic conference and division filtering for NBA teams.
+* Developed dynamic standings pages using React and React Router.
+* Designed a responsive user interface for desktop and mobile devices.
+
+
+## Project Structure
+
+```text
+src/
+├── api/
+├── components/
+├── utils/
+├── App.jsx
+├── index.css
+└── index.jsx
+
+
+backend/
+├── venv/
+├── database.py
+├── fetch_stats.py
+├── nba.db
+├── requirements.txt
+└── server.py
+```
+
+## Local Development
+
+### Frontend
+
+```bash
+
+npm install
+npm start
+```
+
+### Backend
+
+```bash
+cd backend
+
+python3 -m venv venv
+source venv/bin/activate
+
+pip install -r requirements.txt
+
+python3 server.py
+```
+
+## Live Demo
+
+Frontend:
+https://basketball-app-react-js.vercel.app
+
+Backend:
+https://basketball-app-backend.onrender.com 
+
+## API Endpoints
+
+### Get Player Statistics
+
+```http
+GET /api/player_stats?firstName={firstName}&lastName={lastName}
+```
+
+#### Example
+
+```http
+GET /api/player_stats?firstName=LeBron&lastName=James
+```
+
+#### Response
+
+Returns player career statistics including:
+
+- Season information
+- Team history
+- Games played
+- Points per game
+- Rebounds per game
+- Assists per game
+- Additional career statistics
+
+## Author
+
+Richard Hagenah
+
+GitHub: https://github.com/Richie1136
+LinkedIn: https://www.linkedin.com/in/richardthagenah
