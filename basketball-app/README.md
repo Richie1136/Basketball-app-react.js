@@ -10,7 +10,7 @@ A full-stack NBA statistics application built with React and Python/Flask that p
 * Displays season-by-season performance data
 * Calculates career totals and averages
 * Handles traded-player seasons and team history
-* Displays player photos and profile information
+* Displays player photos and biographical information
 * Supports player name normalization for accented characters and special naming conventions
 * Implements custom data transformation and sorting logic for season statistics, career totals, and multi-team seasons
 
