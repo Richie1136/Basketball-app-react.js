@@ -136,9 +136,6 @@ Returns player career statistics including:
 - Assists per game
 - Additional career statistics
 
-## Author
-
-Richard Hagenah
 
 GitHub: https://github.com/Richie1136
 LinkedIn: https://www.linkedin.com/in/richardthagenah
