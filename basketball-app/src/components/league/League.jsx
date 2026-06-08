@@ -132,7 +132,7 @@ const League = () => {
             <Card key={Key} style={{ backgroundColor: Name === 'Jazz' ? '#' + PrimaryColor : '#' + TertiaryColor }}>
               <div className='league-info' style={{ 'backgroundColor': Name === 'Jazz' ? '#' + TertiaryColor : '#' + PrimaryColor }}>
                 {teamStanding && (
-                  <div className='team-standing-info'>
+                  <div>
                     <p className='team-record'>
                       {teamStanding.Wins} - {teamStanding.Losses}
                     </p>

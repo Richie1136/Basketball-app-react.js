@@ -4,6 +4,9 @@
   justify-content: center;
   margin-left: 5px;
   background-color: white;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 h2 {
@@ -26,13 +29,6 @@ h2 {
   /* spacing between cards */
   width: 100%;
   max-width: 1200px;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
 }
 
 .select-container {

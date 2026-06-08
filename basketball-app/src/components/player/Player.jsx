@@ -70,50 +70,36 @@ const computeAgeAndBirthdateMetrics = (birthDateRaw) => {
   if (!birthDateRaw) {
     return {
       age: null,
-      month: null,
-      convertMonth: null,
       objectDate: '',
       birthDay: '',
       birthYear: '',
-      lengthofBirth: 0,
-      monthNameLength: 0,
-      dayLength: 0,
     }
   }
 
   const today = new Date()
-  const year = today.getFullYear()
-  const month = Number(today.toLocaleDateString().split('/')[0])
+  const birthDate = new Date(birthDateRaw)
+  let age = today.getFullYear() - birthDate.getFullYear()
 
-  const birthYearFromIso = Number(birthDateRaw.split('-')[0])
-  const convertMonth = Number(birthDateRaw.split('-')[1])
+  const monthDifference = today.getMonth() - birthDate.getMonth()
 
-  const objectDate = new Date(birthDateRaw).toLocaleDateString('em-US', {
+  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+    age--
+  }
+
+  const objectDate = new Date(birthDateRaw).toLocaleDateString('en-US', {
     month: 'long',
   })
 
-  let date = new Date(birthDateRaw).toLocaleDateString()
+  const date = birthDate.toLocaleDateString()
   const getBirth = date.split('/')
   const birthDay = getBirth[1]
   const birthYear = getBirth[2]
 
-  const birthdateFullString = `${objectDate} ${birthDay}, ${birthYear}`
-  const lengthofBirth = birthdateFullString.length
-  const monthNameLength = objectDate.length
-  const dayLength = birthDay.length
-
-  const age = year - birthYearFromIso
-
   return {
     age,
-    month,
-    convertMonth,
     objectDate,
     birthDay,
-    birthYear,
-    lengthofBirth,
-    monthNameLength,
-    dayLength,
+    birthYear
   }
 }
 
@@ -154,8 +140,6 @@ const Player = () => {
   const { weightKg } = computeWeightMetrics(Weight)
   const {
     age,
-    month,
-    convertMonth,
     objectDate,
     birthDay,
     birthYear
@@ -172,11 +156,11 @@ const Player = () => {
     <div>
       <div className='player-header'>
         <div className='player-vitals'>
-          <div className='player-photo-bio-wrapper'>
+          <div>
             <PlayerPhoto photoUrl={photoUrl} altText={`${FirstName} ${LastName}`} data={playerData} />
             <div className='player-bio'>
               <p className='player-header-number'><Link to={`/${Team}`}>{Team}</Link> {Jersey !== null && `| #${Jersey}`} | {Position}</p>
-              <div className='nameAndStats'>
+              <div className='name-and-stats'>
                 <div className='player-name'>
                   <p className='player-header-name'>{FirstName}</p>
                   <p className='player-header-name'>{LastName}</p>
@@ -213,7 +197,7 @@ const Player = () => {
               <span className="vital-label">AGE</span>
               {BirthDate !== null ? (
                 <span className="vital-value">
-                  {month < convertMonth ? age - 1 : age}
+                  {age}
                 </span>
               ) : (
                 <span className="vital-value">No Age Found</span>
