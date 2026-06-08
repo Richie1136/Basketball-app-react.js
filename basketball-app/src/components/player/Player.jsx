@@ -121,7 +121,7 @@ const Player = () => {
   const [playerData, setPlayerData] = useState(null)
   const [photoUrl, setPhotoUrl] = useState(null);
 
-  const APIKEY = process.env.REACT_APP_API_KEY
+  const APIKEY = import.meta.env.VITE_APP_API_KEY
 
   const params = useParams()
   const obj = new URLSearchParams(params);

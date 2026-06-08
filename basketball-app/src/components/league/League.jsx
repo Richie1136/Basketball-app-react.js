@@ -11,7 +11,7 @@ const League = () => {
   const [searchTerm, setSearchTerm] = useState("")
   const [standings, setStandings] = useState([]);
 
-  const APIKEY = process.env.REACT_APP_API_KEY
+  const APIKEY = import.meta.env.VITE_APP_API_KEY
 
   const result = `${baseUrl}/teams?key=${APIKEY}`
   const teamStandings = `${baseUrl}/Standings/2026?key=${APIKEY}`

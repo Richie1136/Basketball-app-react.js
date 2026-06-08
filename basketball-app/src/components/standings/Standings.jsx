@@ -10,7 +10,7 @@ const Standings = () => {
 
   const [getStandings, setGetStadings] = useState()
 
-  const APIKEY = process.env.REACT_APP_API_KEY
+  const APIKEY = import.meta.env.VITE_APP_API_KEY
   const navigate = useNavigate()
   const { season } = useParams()
 
