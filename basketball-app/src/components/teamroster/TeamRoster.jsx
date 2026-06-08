@@ -8,7 +8,7 @@ import { useParams, Link } from 'react-router-dom'
 const TeamRoster = () => {
   const [roster, setRoster] = useState()
 
-  const APIKEY = process.env.REACT_APP_API_KEY
+  const APIKEY = import.meta.env.VITE_APP_API_KEY
 
   const params = useParams()
 
