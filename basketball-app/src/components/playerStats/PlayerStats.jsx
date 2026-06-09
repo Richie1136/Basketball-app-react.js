@@ -175,7 +175,7 @@ const PlayerStats = ({ data }) => {
   careerThreePercent = total3PointAttempted > 0 ? total3PointMade / total3PointAttempted : 0
 
   // Sort the stats so that "TOT" or "2TM" entries appear first for each season, followed by other teams.
-  // If player got traded, in the offseason so for examole end of 2024 season into 2025 season, then 
+  // If player got traded, in the offseason so for example end of 2024 season into 2025 season, then 
   // the last team before TOT in 2024 season should be old team and new team should be first in 2025 season
 
   const getPrevSeasonTeams = (stats, season) => {
@@ -188,9 +188,6 @@ const PlayerStats = ({ data }) => {
     // Different seasons: newest first
     if (a.season !== b.season) return b.season - a.season; // Sorted newest to oldest
 
-    // Same season:
-    // || a.team === "2TM" if find player who has 2TM then add it back to the conditional
-    // || b.team === "2TM" if find player who has 2TM then add it back to the conditional
     const aIsTot = a.team === "TOT";
     const bIsTot = b.team === "TOT";
     const currentTeam = data?.Team;

@@ -6,7 +6,7 @@ import Loading from '../loading/Loading'
 import { useParams, Link } from 'react-router-dom'
 
 const TeamRoster = () => {
-  const [roster, setRoster] = useState()
+  const [roster, setRoster] = useState(null)
 
   const APIKEY = import.meta.env.VITE_APP_API_KEY
 
@@ -22,7 +22,7 @@ const TeamRoster = () => {
     const rosterData = async () => {
       try {
         const response = await fetch(result)
-        let rosterInfo = await response.json()
+        const rosterInfo = await response.json()
         setRoster(rosterInfo)
       } catch (error) {
         console.log(error)
@@ -31,9 +31,9 @@ const TeamRoster = () => {
     rosterData()
   }, [result])
 
-  const active = roster?.filter((status) => status.Status === 'Active').sort((a, b) => a.Jersey - b.Jersey)
-
   if (!roster) return <Loading />
+
+  const active = roster?.filter((player) => player.Status === 'Active').sort((a, b) => a.Jersey - b.Jersey)
 
   const positionMap = {
     PG: 'Point Guard',
@@ -70,7 +70,7 @@ const TeamRoster = () => {
     PHO: 'Phoenix Suns',
     POR: 'Portland Trail Blazers',
     SA: 'San Antonio Spurs',
-    SAC: 'Sacremento Kings',
+    SAC: 'Sacramento Kings',
     TOR: 'Toronto Raptors',
     UTA: 'Utah Jazz',
     WAS: 'Washington Wizards'

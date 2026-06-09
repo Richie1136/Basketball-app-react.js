@@ -12,11 +12,6 @@
 
 .city-name {
   width: 200px;
-  align-items: center;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  align-items: center;
 }
 
 td.city-name a {
@@ -27,6 +22,7 @@ td.city-name a {
   width: 58.03px;
   padding-left: 7px;
 }
+
 .team-lose {
   width: 58.03px;
 }
@@ -35,6 +31,7 @@ td.city-name a {
   text-align: center;
   padding-right: 7px;
 }
+
 .pointsAgainst {
   text-align: center;
 }
@@ -42,9 +39,11 @@ td.city-name a {
 .home {
   padding-left: 7px;
 }
+
 .road {
   padding-left: 7px;
 }
+
 .last10 {
   padding-left: 7px;
 }
@@ -72,10 +71,10 @@ td.city-name a {
 
 .streak {
   width: 112.19px;
+  padding-left: 10px;
 }
 
 td {
-  /* padding: 8px 6px; */
   font: 14px "Roboto Condensed", Arial, sans-serif;
   background-color: white;
   height: 41px;
@@ -115,4 +114,8 @@ tbody:nth-child(30) {
 
 tbody:nth-child(34) {
   border-bottom: 2px solid #0268d6;
+}
+
+.rank-number {
+  margin-right: 5px
 }
