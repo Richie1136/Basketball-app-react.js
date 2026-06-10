@@ -1,9 +1,15 @@
 import './PlayerPhoto.css';
 
+const Photo = "/defaultPhoto.png"
+
 const PlayerPhoto = ({ photoUrl, altText = 'Player Photo' }) => {
   return (
     <div className="player-photo-container">
-      <img src={photoUrl} alt={altText} className="player-photo" />
+      <img src={photoUrl || Photo} alt={altText} className="player-photo"
+        onError={(e) => {
+          e.currentTarget.src = Photo;
+        }}
+      />
     </div>
   );
 };

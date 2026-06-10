@@ -43,7 +43,7 @@ def get_player_id(first_name, last_name):
         (player for player in static_matches if player["is_active"]),
         static_matches[0]
     )
-    return active_player["id"]
+        return active_player["id"]
 
     current_season = "2025-26"
     season_players = commonallplayers.CommonAllPlayers(
