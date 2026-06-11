@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import PlayerInfo from '../playerInfo/PlayerInfo'
 import Loading from '../loading/Loading'
+import { grabPlayerStats } from '../../utils/grabPlayerStats'
 
 // Cache for player stats - stores data by player name
 const statsCache = new Map()
@@ -33,6 +34,10 @@ const PlayerStats = ({ data }) => {
   const [hasFetched, setHasFetched] = useState(false)
 
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+
+  const careerStats = grabPlayerStats(playerStats || [])
+
+  const { totalAssists, totalBlocks, careerFgPercent, careerFtPercent, careerThreePercent, totalFouls, careerGames, minutes, totalPoints, totalRebounds, totalSteals, totalTurnovers } = careerStats
 
   useEffect(() => {
     const playerStatsInfo = async () => {
@@ -122,58 +127,6 @@ const PlayerStats = ({ data }) => {
     playerStatsInfo()
   }, [data?.FirstName, data?.LastName, API_BASE_URL])
 
-
-  let minutes = 0
-  let careerGames = 0
-  let totalPoints = 0
-  let totalRebounds = 0
-  let totalAssists = 0
-  let totalSteals = 0
-  let totalBlocks = 0
-  let totalTurnovers = 0
-  let totalFouls = 0
-  let careerFgPercent = 0
-  let careerFtPercent = 0
-  let careerThreePercent = 0
-  let totalFieldGoalsMade = 0
-  let totalFieldGoalsAttempted = 0
-  let totalFtMake = 0
-  let totalFtAttempted = 0
-  let total3PointMade = 0
-  let total3PointAttempted = 0
-
-  for (let i = 0; i < playerStats?.length; i++) {
-    const stats = playerStats[i];
-    if (playerStats[i]?.team !== 'TOT') {
-      const { minutesPg, games, points, fieldGoals, fieldAttempts, ft, ftAttempts, threeFg, threeAttempts, totalRb, assists, steals,
-        blocks, turnovers, personalFouls, threePercent
-      } = stats
-      // Adding secondary check just in case for some reason we have the stats component showing up but a certain stat we dont have a value for
-      minutes += minutesPg ?? 0;
-      careerGames += games ?? 0;
-      totalPoints += points ?? 0;
-      totalFieldGoalsMade += fieldGoals ?? 0;
-      totalFieldGoalsAttempted += fieldAttempts ?? 0;
-      totalFtMake += ft ?? 0
-      totalFtAttempted += ftAttempts ?? 0
-      total3PointMade += threeFg ?? 0
-      total3PointAttempted += threeAttempts ?? 0
-      totalRebounds += totalRb ?? 0;
-      totalAssists += assists ?? 0;
-      totalSteals += steals ?? 0;
-      totalBlocks += blocks ?? 0;
-      totalTurnovers += turnovers ?? 0;
-      totalFouls += personalFouls ?? 0;
-      careerThreePercent += threePercent ?? 0
-    }
-  }
-
-  // Grabbing the career shooting stats for player
-  // Just make sure we get a value
-  careerFgPercent = totalFieldGoalsAttempted > 0 ? totalFieldGoalsMade / totalFieldGoalsAttempted : 0;
-  careerFtPercent = totalFtAttempted > 0 ? totalFtMake / totalFtAttempted : 0;
-  careerThreePercent = total3PointAttempted > 0 ? total3PointMade / total3PointAttempted : 0
-
   // Sort the stats so that "TOT" or "2TM" entries appear first for each season, followed by other teams.
   // If player got traded, in the offseason so for example end of 2024 season into 2025 season, then 
   // the last team before TOT in 2024 season should be old team and new team should be first in 2025 season
@@ -184,7 +137,7 @@ const PlayerStats = ({ data }) => {
       .map(s => s.team);
   }
 
-  const sortedStats = playerStats?.sort((a, b) => {
+  const sortedStats = [...(playerStats || [])].sort((a, b) => {
     // Different seasons: newest first
     if (a.season !== b.season) return b.season - a.season; // Sorted newest to oldest
 
@@ -205,7 +158,7 @@ const PlayerStats = ({ data }) => {
     }
 
     // Find previous season teams
-    const prevTeams = getPrevSeasonTeams(playerStats, a.season);
+    const prevTeams = getPrevSeasonTeams(playerStats || [], a.season);
     const aIsPrev = prevTeams.includes(a.team);
     const bIsPrev = prevTeams.includes(b.team);
 
@@ -215,8 +168,7 @@ const PlayerStats = ({ data }) => {
     return 0;
   });
 
-  const totalGames = playerStats?.reduce((sum, stat) => sum + (stat.games ?? 0), 0);
-  const grabSeasons = playerStats?.map(stat => stat.season);
+  const grabSeasons = (playerStats || []).map(stat => stat.season);
 
   const convertToSet = new Set(grabSeasons);
   const uniqueSeasons = Array.from(convertToSet);
@@ -228,7 +180,7 @@ const PlayerStats = ({ data }) => {
       ) : playerStats === null || playerStats.length === 0 ? (
         <h4>No Player Stats</h4>
       ) : (
-        <PlayerInfo data={sortedStats} games={careerGames} minutes={minutes} points={totalPoints} rebounds={totalRebounds} assists={totalAssists} steals={totalSteals} blocks={totalBlocks} fieldGoal={careerFgPercent} threePoint={careerThreePercent} freeThrow={careerFtPercent} turnovers={totalTurnovers} fouls={totalFouls} gamesPlayed={totalGames} seasons={uniqueSeasons} />
+        <PlayerInfo data={sortedStats} games={careerGames} minutes={minutes} points={totalPoints} rebounds={totalRebounds} assists={totalAssists} steals={totalSteals} blocks={totalBlocks} fieldGoal={careerFgPercent} threePoint={careerThreePercent} freeThrow={careerFtPercent} turnovers={totalTurnovers} fouls={totalFouls} seasons={uniqueSeasons} />
       )}
     </div>
   )

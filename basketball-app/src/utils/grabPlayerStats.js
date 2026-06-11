@@ -1,51 +1,56 @@
-export const grabPlayerStats = (playerStats) => {
-  let totals = {
-    games: 0,
-    minutes: 0,
-    points: 0,
-    rebounds: 0,
-    assists: 0,
-    steals: 0,
-    blocks: 0,
-    turnovers: 0,
-    fouls: 0,
-    fieldGoalsMade: 0,
-    fieldGoalsAttempted: 0,
-    threeMade: 0,
-    threeAttempted: 0,
-    ftMade: 0,
-    ftAttempted: 0,
-  };
+export const grabPlayerStats = (playerStats = []) => {
+  let minutes = 0
+  let careerGames = 0
+  let totalPoints = 0
+  let totalRebounds = 0
+  let totalAssists = 0
+  let totalSteals = 0
+  let totalBlocks = 0
+  let totalTurnovers = 0
+  let totalFouls = 0
+  let totalFieldGoalsMade = 0
+  let totalFieldGoalsAttempted = 0
+  let totalFtMake = 0
+  let totalFtAttempted = 0
+  let total3PointMade = 0
+  let total3PointAttempted = 0
 
-  playerStats.forEach((stat) => {
-    if (stat.TEAM_ABBREVIATION !== 'TOT') { // ignore 'TOT' entries if needed
-      totals.games += stat.GP ?? 0;
-      totals.minutes += stat.MIN ?? 0;
-      totals.points += stat.PTS ?? 0;
-      totals.rebounds += stat.REB ?? 0;
-      totals.assists += stat.AST ?? 0;
-      totals.steals += stat.STL ?? 0;
-      totals.blocks += stat.BLK ?? 0;
-      totals.turnovers += stat.TOV ?? 0;
-      totals.fouls += stat.PF ?? 0;
-      totals.fieldGoalsMade += stat.FGM ?? 0;
-      totals.fieldGoalsAttempted += stat.FGA ?? 0;
-      totals.threeMade += stat.FG3M ?? 0;
-      totals.threeAttempted += stat.FG3A ?? 0;
-      totals.ftMade += stat.FTM ?? 0;
-      totals.ftAttempted += stat.FTA ?? 0;
+  for (let i = 0; i < playerStats.length; i++) {
+    const stats = playerStats[i];
+    if (stats.team !== 'TOT') {
+      const { minutesPg, games, points, fieldGoals, fieldAttempts, ft, ftAttempts, threeFg, threeAttempts, totalRb, assists, steals,
+        blocks, turnovers, personalFouls
+      } = stats
+      // Default missing stat value to 0 
+      minutes += minutesPg ?? 0;
+      careerGames += games ?? 0;
+      totalPoints += points ?? 0;
+      totalFieldGoalsMade += fieldGoals ?? 0;
+      totalFieldGoalsAttempted += fieldAttempts ?? 0;
+      totalFtMake += ft ?? 0
+      totalFtAttempted += ftAttempts ?? 0
+      total3PointMade += threeFg ?? 0
+      total3PointAttempted += threeAttempts ?? 0
+      totalRebounds += totalRb ?? 0;
+      totalAssists += assists ?? 0;
+      totalSteals += steals ?? 0;
+      totalBlocks += blocks ?? 0;
+      totalTurnovers += turnovers ?? 0;
+      totalFouls += personalFouls ?? 0;
     }
-  });
-
+  }
   return {
-    ...totals,
-    fieldGoalPct:
-      totals.fieldGoalsAttempted > 0
-        ? totals.fieldGoalsMade / totals.fieldGoalsAttempted
-        : 0,
-    threePct:
-      totals.threeAttempted > 0 ? totals.threeMade / totals.threeAttempted : 0,
-    freeThrowPct:
-      totals.ftAttempted > 0 ? totals.ftMade / totals.ftAttempted : 0,
-  };
+    minutes,
+    careerGames,
+    totalPoints,
+    totalRebounds,
+    totalAssists,
+    totalSteals,
+    totalBlocks,
+    totalTurnovers,
+    totalFouls,
+    careerFgPercent: totalFieldGoalsAttempted > 0 ? totalFieldGoalsMade / totalFieldGoalsAttempted : 0,
+    careerFtPercent: totalFtAttempted > 0 ? totalFtMake / totalFtAttempted : 0,
+    careerThreePercent: total3PointAttempted > 0 ? total3PointMade / total3PointAttempted : 0
+  }
 };
