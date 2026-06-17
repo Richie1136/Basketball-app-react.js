@@ -4,6 +4,8 @@ import Card from '../card/Card'
 import { Link } from 'react-router-dom'
 import './League.css'
 
+const defaultPhoto = '/defaultTeam.png'
+
 const League = () => {
 
   const [leagueData, setLeagueData] = useState([])
@@ -141,7 +143,9 @@ const League = () => {
                 )}
                 <h2><Link style={{ 'color': '#' + SecondaryColor }} to={`/${Key}`}>{City} {Name}</Link></h2>
                 <h2 style={{ 'color': '#' + SecondaryColor, backgroundColor: Name === 'Jazz' ? '#' + TertiaryColor : '#' + PrimaryColor }}>Head Coach: {HeadCoach !== null ? HeadCoach : 'N/A'}</h2>
-                <img className='team-photo' src={WikipediaLogoUrl} alt={`${City} ${Name} logo}`} />
+                <img className='team-photo' src={WikipediaLogoUrl || defaultPhoto} alt={`${City} ${Name} logo`} onError={(e) => {
+                  e.currentTarget.src = defaultPhoto;
+                }} />
               </div>
             </Card>
           )
