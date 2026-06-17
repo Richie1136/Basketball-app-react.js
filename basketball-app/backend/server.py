@@ -4,6 +4,8 @@ from nba_api.stats.static import players
 from nba_api.stats.endpoints import playercareerstats, commonallplayers
 import time
 import unicodedata
+import os
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -16,6 +18,9 @@ def home():
 
 cache = {}
 
+CACHE_DIR = "cache"
+os.makedirs(CACHE_DIR, exist_ok=True)
+
 
 def normalize_name(value):
     normalized = unicodedata.normalize("NFKD", value or "")
@@ -24,6 +29,21 @@ def normalize_name(value):
     )
     return " ".join(without_accents.lower().split())
 
+def cache_file_path(key):
+    safe_key = normalize_name(key).replace(" ", "_").replace(".", "")
+    return os.path.join(CACHE_DIR, f"{safe_key}.json")
+
+def get_file_cache(key):
+    path = cache_file_path(key)
+    if os.path.exists(path):
+        with open(path, "r") as file:
+            return json.load(file)
+    return None
+
+def save_file_cache(key, data):
+    path = cache_file_path(key)
+    with open(path, "w") as file:
+        json.dump(data, file)
 
 def get_player_id(first_name, last_name):
     normalized_first_name = normalize_name(first_name)
@@ -87,8 +107,14 @@ def get_player_stats():
     key = f"{first_name} {last_name}"
     # Cache hit
     if key in cache:
-        print("Cache hit for:", key)
+        print("Memory cache hit for:", key)
         return jsonify(cache[key])
+
+    file_cached = get_file_cache(key)
+    if file_cached:
+        print("File cache hit for:", key)
+        cache[key] = file_cached
+        return jsonify(file_cached)
 
     print("Searching for:", first_name, last_name)
     player_id = get_player_id(first_name, last_name)
@@ -114,6 +140,7 @@ def get_player_stats():
 
             # ✅ Cache AFTER success
             cache[key] = stats
+            save_file_cache(key, stats)
 
             print("Fetched + cached:", key)
             return jsonify(stats)

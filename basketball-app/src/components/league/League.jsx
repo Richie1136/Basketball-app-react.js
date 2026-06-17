@@ -14,9 +14,23 @@ const League = () => {
   const [standings, setStandings] = useState([]);
 
   const APIKEY = import.meta.env.VITE_APP_API_KEY
+  const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+
 
   const result = `${baseUrl}/teams?key=${APIKEY}`
   const teamStandings = `${baseUrl}/Standings/2026?key=${APIKEY}`
+
+  useEffect(() => {
+    const wakeUpBackend = async () => {
+      if (!API_BASE_URL) return
+      try {
+        await fetch(`${API_BASE_URL}/`)
+      } catch (error) {
+        console.log("Backend wake-up failed", error)
+      }
+    }
+    wakeUpBackend()
+  }, [])
 
   useEffect(() => {
     const leagueData = async () => {
