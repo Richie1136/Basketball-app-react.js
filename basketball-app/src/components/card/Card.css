@@ -5,6 +5,7 @@
   width: 350px;
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 170px;
 }
 
 .card:hover {

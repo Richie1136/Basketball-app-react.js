@@ -87,7 +87,7 @@ const TeamRoster = () => {
             <Link to={`/player/${PlayerID}`} key={PlayerID} className='card-link'>
               <Card>
                 <h2>{FirstName} {LastName}</h2>
-                <p className='jersey-number'>#{Jersey}</p>
+                <p className='jersey-number'>{Jersey !== null && `#${Jersey}`}</p>
                 <p className='position'>{positionMap[Position] || Position}</p>
               </Card>
             </Link>
