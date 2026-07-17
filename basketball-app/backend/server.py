@@ -122,14 +122,14 @@ def get_player_stats():
     if not player_id:
         return jsonify({"error": "Player not found"}), 404
 
-    retries = 2
+    retries = 1
     retry_delay = 1
 
     for attempt in range(retries):
         try:
             career = playercareerstats.PlayerCareerStats(
                 player_id=player_id,
-                timeout=10
+                timeout=20
             )
 
             data = career.get_data_frames()
