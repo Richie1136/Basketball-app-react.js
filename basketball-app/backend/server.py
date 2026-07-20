@@ -135,7 +135,7 @@ def get_player_stats():
         try:
             career = playercareerstats.PlayerCareerStats(
                 player_id=player_id,
-                timeout=40
+                timeout=10
                 )
             data = career.get_data_frames()
             if not data or len(data) == 0:
@@ -154,13 +154,15 @@ def get_player_stats():
             print("Fetched + cached:", key)
             return jsonify(stats)
 
-        except Exception as e:
-            print(f"Error (attempt {attempt + 1}):", e)
+        except Exception as error:
+            print(f"Player stats error (attempt {attempt + 1}):", 
+                  repr(error))
             if attempt < retries - 1:
                 time.sleep(retry_delay)
-
-    return jsonify({"error": "Failed to fetch player stats"}), 500
-
+            else:
+                return jsonify({
+                    "error": "NBA stats request timed out"
+                }), 504
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
