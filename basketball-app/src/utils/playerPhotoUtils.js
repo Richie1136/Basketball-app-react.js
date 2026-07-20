@@ -6,10 +6,11 @@ const suffix2 = new Set([
   'Bronny James Jr.', 'TyTy Washington Jr.', 'Cam Christie', 'Derrick Jones Jr.', 'Jordan Miller', 'Jarace Walker',
   'Jeff Green', 'Trayce Jackson-Davis', 'Tobias Harris', 'Colby Jones', 'Brice Williams', 'Javonte Green', 'Jalen Pickett',
   'Cameron Johnson', 'Kessler Edwards', 'Tim Hardaway Jr.', 'Caleb Martin', 'Anthony Davis', 'Jaden Hardy', 'Max Christie',
-  'Larry Nance Jr.', 'Brandon Miller', 'Josh Green', 'Miles Bridges', 'Jaylen Brown', 'Cam Thomas', 'Ziaire Williams'
+  'Larry Nance Jr.', 'Brandon Miller', 'Josh Green', 'Miles Bridges', 'Jaylen Brown', 'Cam Thomas', 'Ziaire Williams', 'Mikel Brown Jr.',
+  'Christian Anderson', 'Robert McCray V', 'Cameron Boozer'
 ])
 const suffix3 = new Set([
-  'Kam Jones', 'Tre Johnson', 'Coleman Hawkins', 'Brandon Williams', 'Jalen Wilson'])
+  'Kam Jones', 'Tre Johnson', 'Coleman Hawkins', 'Brandon Williams', 'Jalen Wilson', 'Lajae Jones'])
 const suffix4 = new Set(['Kenyon Martin Jr.', 'Cody Williams', 'Keldon Johnson', 'Robert Williams III', 'Kenrich Williams', 'Jalen Smith'])
 const suffix5 = new Set(['Jalen Green', 'Jahmir Young', 'Jabari Smith Jr.', 'Jalen Johnson', 'Tolu Smith'])
 const suffix6 = new Set(['Marcus Williams', 'Jalen Williams', 'David Jones-Garcia', 'Chaney Johnson'])
@@ -18,6 +19,8 @@ const suffix10 = new Set(['Keshad Johnson'])
 
 const getPlayerSuffix = (firstName, lastName) => {
   const fullName = `${firstName} ${lastName}`
+  console.log(fullName)
+
 
   if (suffix2.has(fullName)) return '02'
   if (suffix3.has(fullName)) return '03'

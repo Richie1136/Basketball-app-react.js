@@ -6,20 +6,15 @@ import time
 import unicodedata
 import os
 import json
-from nba_api.live.nba.endpoints import scoreboard
-
+import sys 
+import nba_api
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/api/test_nba_live")
-def test_nba_live():
-    try:
-        games = scoreboard.ScoreBoard()
-        return games.get_dict(), 200
-    except Exception as error:
-        print(f"NBA live test failed: {error}")
-        return {"error": str(error)}, 500
+print("Python env", sys.executable)
+print("Nba api", nba_api.__file__)
+
 
 @app.route("/")
 def home():
@@ -140,14 +135,17 @@ def get_player_stats():
         try:
             career = playercareerstats.PlayerCareerStats(
                 player_id=player_id,
-                timeout=20            
+                timeout=40
                 )
-
             data = career.get_data_frames()
             if not data or len(data) == 0:
                 return jsonify({"error": "No stats found"}), 404
 
             stats = data[0].to_dict(orient='records')
+
+            if not stats:
+                print("No NBA career stats returned for:", key)
+                return jsonify({"error": "NBA career stats unavailable"}), 404
 
             # ✅ Cache AFTER success
             cache[key] = stats
