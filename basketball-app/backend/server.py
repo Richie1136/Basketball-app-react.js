@@ -127,7 +127,7 @@ def get_player_stats():
         try:
             career = playercareerstats.PlayerCareerStats(
                 player_id=player_id,
-                timeout=10
+                timeout=3
                 )
             data = career.get_data_frames()
             if not data or len(data) == 0:
@@ -179,12 +179,15 @@ def get_player_stats():
                     if season:
                         season_stats.append(season)
 
-                return jsonify({
+                response_data = {
                     "message": "Basketball Reference fallback succeeded",
                     "bbrefId": bbref_id,
                     "status": response.status_code,
                     "seasonStats": season_stats
-                }), 200
+                }
+                cache[key] = response_data
+                save_file_cache(key, response_data)
+                return jsonify(response_data), 200
             except Exception as error:
                 print(f"Player stats error (attempt {attempt + 1}):", 
                   repr(error))
