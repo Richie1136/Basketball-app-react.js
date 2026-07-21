@@ -19,8 +19,6 @@ const suffix10 = new Set(['Keshad Johnson'])
 
 const getPlayerSuffix = (firstName, lastName) => {
   const fullName = `${firstName} ${lastName}`
-  console.log(fullName)
-
 
   if (suffix2.has(fullName)) return '02'
   if (suffix3.has(fullName)) return '03'

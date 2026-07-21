@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import PlayerInfo from '../playerInfo/PlayerInfo'
 import Loading from '../loading/Loading'
 import { grabPlayerStats } from '../../utils/grabPlayerStats'
+import { getBasketballReferenceId } from '../../utils/playerPhotoUtils'
 
 // Cache for player stats - stores data by player name
 const statsCache = new Map()
@@ -55,48 +56,98 @@ const PlayerStats = ({ data }) => {
           }
 
           const transformBackendData = (backendData, filterSeason = null) => {
-            return backendData
+            const statsArray = backendData.seasonStats ?? backendData
+            return statsArray
               .map(stat => {
+                const seasonId = stat.SEASON_ID ?? stat.year_id
                 let season = null
-                if (stat.SEASON_ID) {
-                  const seasonParts = stat.SEASON_ID.split('-')
+                if (seasonId) {
+                  const seasonParts = seasonId.split('-')
                   if (seasonParts?.length === 2) {
                     const startYear = parseInt(seasonParts[0])
                     season = startYear + 1
                   } else {
-                    season = parseInt(stat.SEASON_ID) || null
+                    season = parseInt(seasonId) || null
                   }
                 }
                 if (filterSeason !== null && season !== filterSeason) {
                   return null
                 }
+                const games = Number(stat.GP ?? stat.games ?? 0)
+                const isBasketballReference = Boolean(stat.year_id)
                 return {
-                  season: season,
-                  team: stat.TEAM_ABBREVIATION || '',
-                  games: stat.GP || 0,
-                  minutesPg: stat.MIN || 0,
-                  points: stat.PTS || 0,
-                  totalRb: stat.REB || 0,
-                  assists: stat.AST || 0,
-                  steals: stat.STL || 0,
-                  blocks: stat.BLK || 0,
-                  turnovers: stat.TOV || 0,
-                  personalFouls: stat.PF || 0,
-                  fieldGoals: stat.FGM || 0,
-                  fieldAttempts: stat.FGA || 0,
-                  fieldPercent: stat.FG_PCT || 0,
-                  ft: stat.FTM || 0,
-                  ftAttempts: stat.FTA || 0,
-                  ftPercent: stat.FT_PCT || 0,
-                  threeFg: stat.FG3M || 0,
-                  threeAttempts: stat.FG3A || 0,
-                  threePercent: stat.FG3_PCT || 0
+                  season,
+                  team: stat.TEAM_ABBREVIATION || stat.team_name_abbr || '',
+                  games,
+
+                  minutesPg: isBasketballReference ? Number(stat.mp_per_g ?? 0) * games : Number(stat.MIN ?? 0),
+
+                  points: isBasketballReference
+                    ? Number(stat.pts_per_g ?? 0) * games
+                    : Number(stat.PTS ?? 0),
+
+                  totalRb: isBasketballReference
+                    ? Number(stat.trb_per_g ?? 0) * games
+                    : Number(stat.REB ?? 0),
+
+                  assists: isBasketballReference
+                    ? Number(stat.ast_per_g ?? 0) * games
+                    : Number(stat.AST ?? 0),
+
+                  steals: isBasketballReference
+                    ? Number(stat.stl_per_g ?? 0) * games
+                    : Number(stat.STL ?? 0),
+
+                  blocks: isBasketballReference
+                    ? Number(stat.blk_per_g ?? 0) * games
+                    : Number(stat.BLK ?? 0),
+
+                  turnovers: isBasketballReference
+                    ? Number(stat.tov_per_g ?? 0) * games
+                    : Number(stat.TOV ?? 0),
+
+                  personalFouls: isBasketballReference
+                    ? Number(stat.pf_per_g ?? 0) * games
+                    : Number(stat.PF ?? 0),
+
+                  fieldGoals: isBasketballReference
+                    ? Number(stat.fg_per_g ?? 0) * games
+                    : Number(stat.FGM ?? 0),
+
+                  fieldAttempts: isBasketballReference
+                    ? Number(stat.fga_per_g ?? 0) * games
+                    : Number(stat.FGA ?? 0),
+                  fieldPercent: isBasketballReference ? Number(stat.fg_pct ?? 0) : Number(stat.FG_PCT ?? 0),
+
+                  ft: isBasketballReference
+                    ? Number(stat.ft_per_g ?? 0) * games
+                    : Number(stat.FTM ?? 0),
+
+                  ftAttempts: isBasketballReference
+                    ? Number(stat.fta_per_g ?? 0) * games
+                    : Number(stat.FTA ?? 0),
+
+                  ftPercent: isBasketballReference ? Number(stat.ft_pct ?? 0) : Number(stat.FT_PCT ?? 0),
+
+                  threeFg: isBasketballReference
+                    ? Number(stat.fg3_per_g ?? 0) * games
+                    : Number(stat.FG3M ?? 0),
+
+                  threeAttempts: isBasketballReference
+                    ? Number(stat.fg3a_per_g ?? 0) * games
+                    : Number(stat.FG3A ?? 0),
+
+                  threePercent: isBasketballReference ? Number(stat.fg3_pct ?? 0) : Number(stat.FG3_PCT ?? 0)
                 }
               })
               .filter(stat => stat !== null)
           }
+
+          const basketballReferenceId = getBasketballReferenceId(data.FirstName, lastNameGreaterThanOne)
+
           try {
-            const backendResponse = await fetch(`${API_BASE_URL}/api/player_stats?firstName=${encodeURIComponent(data.FirstName === 'Nicolas' && data.LastName === 'Claxton' ? 'Nic' : data.FirstName)}&lastName=${encodeURIComponent(lastNameGreaterThanOne)}`)
+            const backendResponse = await fetch(`${API_BASE_URL}/api/player_stats?firstName=${encodeURIComponent(data.FirstName === 'Nicolas' && data.LastName === 'Claxton' ? 'Nic' : data.FirstName)}
+            &lastName=${encodeURIComponent(lastNameGreaterThanOne)}&bbrefId=${encodeURIComponent(basketballReferenceId)}`)
             if (backendResponse.ok) {
               const backendData = await backendResponse.json()
               statsData = transformBackendData(backendData)

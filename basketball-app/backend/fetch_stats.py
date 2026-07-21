@@ -44,8 +44,6 @@ if not games.empty:
         except Exception as e:
             print("Box score error:", game_id, e)
 
-print(f"Players who played yesterday: {len(played_players)}")
-
 # -----------------------------
 # UPDATE DATABASE
 # -----------------------------
@@ -69,8 +67,6 @@ for player in active_players:
         if c.fetchone():
             print("Skipping (already exists):", player["full_name"])
             continue
-
-        print("Fetching:", player["full_name"])
 
         career = playercareerstats.PlayerCareerStats(
             player_id=player_id,

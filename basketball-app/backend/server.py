@@ -6,15 +6,11 @@ import time
 import unicodedata
 import os
 import json
-import sys 
-import nba_api
+import requests
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 CORS(app)
-
-print("Python env", sys.executable)
-print("Nba api", nba_api.__file__)
-
 
 @app.route("/")
 def home():
@@ -63,7 +59,6 @@ def get_player_id(first_name, last_name):
             if normalize_name(player["full_name"]) == normalized_full_name
 
     ]
-    print("Static matches:", static_matches)
     if static_matches:
         active_player = next(
         (player for player in static_matches if player["is_active"]),
@@ -86,8 +81,8 @@ def get_player_id(first_name, last_name):
 
 @app.route('/api/player_stats', methods=['GET'])
 def get_player_stats():
-    first_name = request.args.get('firstName')
-    last_name = request.args.get('lastName')
+    first_name = request.args.get('firstName', "").strip()
+    last_name = request.args.get('lastName', "").strip()
 
     if not first_name or not last_name:
         return jsonify({"error": "Missing firstName or lastName"}), 400
@@ -113,16 +108,13 @@ def get_player_stats():
     key = f"{first_name} {last_name}"
     # Cache hit
     if key in cache:
-        print("Memory cache hit for:", key)
         return jsonify(cache[key])
 
     file_cached = get_file_cache(key)
     if file_cached:
-        print("File cache hit for:", key)
         cache[key] = file_cached
         return jsonify(file_cached)
 
-    print("Searching for:", first_name, last_name)
     player_id = get_player_id(first_name, last_name)
 
     if not player_id:
@@ -145,7 +137,7 @@ def get_player_stats():
 
             if not stats:
                 print("No NBA career stats returned for:", key)
-                return jsonify({"error": "NBA career stats unavailable"}), 404
+                raise ValueError("NBA career stats unavailable")
 
             # ✅ Cache AFTER success
             cache[key] = stats
@@ -153,9 +145,48 @@ def get_player_stats():
 
             print("Fetched + cached:", key)
             return jsonify(stats)
+        except Exception as nba_error:
+            print("NBA API failed", repr(nba_error))
+            try:
+                bbref_id = request.args.get("bbrefId", "").strip()
+                if not bbref_id:
+                    raise ValueError("Missing Basketball Reference ID")
+                lastNameFirstLetter = bbref_id[0]
+                bbref_url = f"https://www.basketball-reference.com/players/{lastNameFirstLetter}/{bbref_id}.html"
+                response = requests.get(bbref_url, timeout=10)
+                response.raise_for_status()
+                soup = BeautifulSoup(response.text, "html.parser")
+                per_game_table = soup.find("table", id="per_game_stats")
+                if not per_game_table:
+                    raise ValueError("Per game stats table not found")
+                
+                table_body = per_game_table.find("tbody")
+                if not table_body:
+                    raise ValueError("Per game stats table body not found")
+                rows = table_body.find_all("tr")
 
-        except Exception as error:
-            print(f"Player stats error (attempt {attempt + 1}):", 
+                season_stats = []
+
+                for row in rows:
+                    season = {}
+                    cells = row.find_all(["th", "td"])
+
+                    for cell in cells:
+                        data_stat = cell.get("data-stat")
+
+                        if data_stat:
+                            season[data_stat] = cell.get_text(strip=True)
+                    if season:
+                        season_stats.append(season)
+
+                return jsonify({
+                    "message": "Basketball Reference fallback succeeded",
+                    "bbrefId": bbref_id,
+                    "status": response.status_code,
+                    "seasonStats": season_stats
+                }), 200
+            except Exception as error:
+                print(f"Player stats error (attempt {attempt + 1}):", 
                   repr(error))
             if attempt < retries - 1:
                 time.sleep(retry_delay)
