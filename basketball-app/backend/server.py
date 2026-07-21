@@ -23,6 +23,9 @@ cache = {}
 CACHE_DIR = "cache"
 os.makedirs(CACHE_DIR, exist_ok=True)
 
+API_KEY = os.getenv('VITE_APP_API_KEY')
+
+
 
 def normalize_name(value):
     normalized = unicodedata.normalize("NFKD", value or "")
@@ -154,6 +157,7 @@ def get_player_stats():
                 lastNameFirstLetter = bbref_id[0]
                 bbref_url = f"https://www.basketball-reference.com/players/{lastNameFirstLetter}/{bbref_id}.html"
                 response = requests.get(bbref_url, timeout=10)
+
                 response.raise_for_status()
                 soup = BeautifulSoup(response.text, "html.parser")
                 per_game_table = soup.find("table", id="per_game_stats")
@@ -197,6 +201,28 @@ def get_player_stats():
                 return jsonify({
                     "error": "NBA stats request timed out"
                 }), 504
+            
+
+@app.route('/api/player_info', methods=['GET'])
+def get_player_info():
+        player_id = request.args.get('playerId', "").strip()
+        if not player_id:
+            return jsonify({"error": "No Player ID found"}), 400
+        player_info_url = f"https://api.sportsdata.io/v3/nba/scores/json/Player/{player_id}?key={API_KEY}"
+        response = requests.get(player_info_url, timeout=10)
+        print(response.json())
+        return jsonify(response.json())
+
+@app.route('/api/team_roster', methods=['GET'])
+def get_team_roster():
+    team = request.args.get('team', "").strip()
+    if not team:
+        return jsonify({"error": "No Team Found"}), 400
+    team_abbr_url = f"https://api.sportsdata.io/v3/nba/scores/json/Players/{team}?key={API_KEY}"
+    response = requests.get(team_abbr_url, timeout=10)
+    return jsonify(response.json())
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

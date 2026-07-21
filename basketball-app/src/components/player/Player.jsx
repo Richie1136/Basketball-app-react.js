@@ -8,9 +8,6 @@ import PlayerPhoto from '../playerPhoto/PlayerPhoto'
 import { getBBRefPhotoUrl } from '../../utils/playerPhotoUtils'
 import { Link } from 'react-router-dom'
 
-const buildPlayerApiUrl = (baseUrl, playerId, apiKey) =>
-  `${baseUrl}/Player/${playerId}?key=${apiKey}`
-
 const computePlayerPhotoUrl = (data) => {
   if (data.FirstName && data.LastName) {
     const firstName =
@@ -106,28 +103,29 @@ const computeAgeAndBirthdateMetrics = (birthDateRaw) => {
 const Player = () => {
   const [playerData, setPlayerData] = useState(null)
   const [photoUrl, setPhotoUrl] = useState(null);
-
-  const APIKEY = import.meta.env.VITE_APP_API_KEY
+  const [loadingStats, setLoadingStats] = useState(true)
 
   const params = useParams()
   const obj = new URLSearchParams(params);
   const playerid = obj.get('playerid')
-  const results = buildPlayerApiUrl(baseUrl, playerid, APIKEY)
 
   useEffect(() => {
     const playerData = async () => {
+      setLoadingStats(true)
       try {
-        const response = await fetch(results)
+        const response = await fetch(`http://localhost:5001/api/player_info?playerId=${playerid}`)
         const data = await response.json()
         setPlayerData(data)
         const computedPhotoUrl = computePlayerPhotoUrl(data)
         setPhotoUrl(computedPhotoUrl)
       } catch (error) {
         console.log(error)
+      } finally {
+        setLoadingStats(false)
       }
     }
     playerData()
-  }, [results])
+  }, [playerid])
 
   if (!playerData) return <Loading />
 
@@ -151,6 +149,10 @@ const Player = () => {
       : HighSchool
         ? 'HIGH SCHOOL'
         : 'SCHOOL'
+
+  if (loadingStats) {
+    return <p>Loading Player Stats</p>
+  }
 
   return (
     <div>

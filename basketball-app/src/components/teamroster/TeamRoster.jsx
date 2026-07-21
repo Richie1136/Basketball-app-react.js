@@ -15,13 +15,10 @@ const TeamRoster = () => {
   const obj = new URLSearchParams(params);
   const term = obj.get('team')
 
-  const result = `${baseUrl}/Players/${term}?key=${APIKEY}`
-
-
   useEffect(() => {
     const rosterData = async () => {
       try {
-        const response = await fetch(result)
+        const response = await fetch(`http://localhost:5001/api/team_roster?team=${term}`)
         const rosterInfo = await response.json()
         setRoster(rosterInfo)
       } catch (error) {
@@ -29,7 +26,7 @@ const TeamRoster = () => {
       }
     }
     rosterData()
-  }, [result])
+  }, [term])
 
   if (!roster) return <Loading />
 
