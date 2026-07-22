@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { baseUrl } from '../../api/Api'
 import './Player.css'
 import Loading from '../loading/Loading'
 import PlayerStats from '../playerStats/PlayerStats'

@@ -8,12 +8,12 @@ import { useParams, Link } from 'react-router-dom'
 const TeamRoster = () => {
   const [roster, setRoster] = useState(null)
 
-  const APIKEY = import.meta.env.VITE_APP_API_KEY
-
   const params = useParams()
 
   const obj = new URLSearchParams(params);
   const term = obj.get('team')
+
+  console.log(baseUrl)
 
   useEffect(() => {
     const rosterData = async () => {
