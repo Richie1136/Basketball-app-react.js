@@ -36,8 +36,6 @@ const PlayerStats = ({ data }) => {
 
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
-  console.log(API_BASE_URL)
-
   const careerStats = grabPlayerStats(playerStats || [])
 
   const { totalAssists, totalBlocks, careerFgPercent, careerFtPercent, careerThreePercent, totalFouls, careerGames, minutes, totalPoints, totalRebounds, totalSteals, totalTurnovers } = careerStats

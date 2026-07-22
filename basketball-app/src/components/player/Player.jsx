@@ -108,11 +108,14 @@ const Player = () => {
   const obj = new URLSearchParams(params);
   const playerid = obj.get('playerid')
 
+  const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+
+
   useEffect(() => {
     const playerData = async () => {
       setLoadingStats(true)
       try {
-        const response = await fetch(`http://localhost:5001/api/player_info?playerId=${playerid}`)
+        const response = await fetch(`${API_BASE_URL}/api/player_info?playerId=${playerid}`)
         const data = await response.json()
         setPlayerData(data)
         const computedPhotoUrl = computePlayerPhotoUrl(data)

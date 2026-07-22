@@ -13,12 +13,13 @@ const TeamRoster = () => {
   const obj = new URLSearchParams(params);
   const term = obj.get('team')
 
-  console.log(baseUrl)
+  const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+
 
   useEffect(() => {
     const rosterData = async () => {
       try {
-        const response = await fetch(`http://localhost:5001/api/team_roster?team=${term}`)
+        const response = await fetch(`${API_BASE_URL}/api/team_roster?team=${term}`)
         const rosterInfo = await response.json()
         setRoster(rosterInfo)
       } catch (error) {
