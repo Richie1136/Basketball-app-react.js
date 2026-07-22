@@ -222,7 +222,27 @@ def get_team_roster():
     response = requests.get(team_abbr_url, timeout=10)
     return jsonify(response.json())
 
+@app.route('/api/standings', methods=['GET'])
+def get_standings():
+    season = request.args.get('season', "").strip()
+    if not season:
+        return jsonify({"error": "No Season Found"}), 400
+    season_url = f"https://api.sportsdata.io/v3/nba/scores/json/Standings/{season}?key={API_KEY}"
+    print("Season", season_url)
+    response = requests.get(season_url, timeout=10)
+    print(response)
+    return jsonify(response.json())
 
+@app.route('/api/teams', methods=['GET'])
+def get_league_teams():
+    # season = request.args.get('season', "").strip()
+    # if not season:
+    #     return jsonify({"error": "No Season Found"}), 400
+    league_url = f"https://api.sportsdata.io/v3/nba/scores/json/teams?key={API_KEY}"
+    print("League", league_url)
+    response = requests.get(league_url, timeout=10)
+    print(response)
+    return jsonify(response.json())
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

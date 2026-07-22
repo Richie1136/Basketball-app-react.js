@@ -8,7 +8,7 @@ const Row = ({ ...props }) => {
     DivisionWins, GamesBack, HomeLosses, HomeWins, Key, LastTenLosses, LastTenWins,
     Losses, Name, Percentage, PointsPerGameAgainst, PointsPerGameFor, StreakDescription,
     Wins, rank
-  } = props
+  } = props ?? {}
 
   const convertPercentage = Percentage.toFixed(3).replace(/^0/, '')
   const pointsScored = Number(PointsPerGameFor).toFixed(1)

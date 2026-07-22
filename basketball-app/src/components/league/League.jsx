@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react'
-import { baseUrl } from '../../api/Api'
-import Card from '../card/Card'
-import { Link } from 'react-router-dom'
 import './League.css'
-
-const defaultPhoto = '/defaultTeam.png'
+import { prefixedUrl } from '../../utils/prefixUrl'
+import TeamCard from '../teamCard/TeamCard'
 
 const League = () => {
 
@@ -13,12 +10,7 @@ const League = () => {
   const [searchTerm, setSearchTerm] = useState("")
   const [standings, setStandings] = useState([]);
 
-  const APIKEY = import.meta.env.VITE_APP_API_KEY
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
-
-
-  const result = `${baseUrl}/teams?key=${APIKEY}`
-  const teamStandings = `${baseUrl}/Standings/2026?key=${APIKEY}`
 
   useEffect(() => {
     const wakeUpBackend = async () => {
@@ -35,7 +27,7 @@ const League = () => {
   useEffect(() => {
     const leagueData = async () => {
       try {
-        const response = await fetch(result)
+        const response = await fetch(`${prefixedUrl}/teams`)
         const leagueInfo = await response.json()
         setLeagueData(leagueInfo)
       } catch (error) {
@@ -43,15 +35,15 @@ const League = () => {
       }
     }
     leagueData()
-  }, [result])
+  }, [])
 
   useEffect(() => {
     const getStandings = async () => {
       try {
-        const data = await fetch(teamStandings);
+        const data = await fetch(`${prefixedUrl}/standings?season=2026`);
         const response = await data.json();
 
-        const eastern = response
+        const easternConference = response
           .filter(team => team.Conference === "Eastern")
           .sort((a, b) => b.Percentage - a.Percentage)
           .map((team, index) => ({
@@ -59,7 +51,7 @@ const League = () => {
             rank: index + 1
           }));
 
-        const western = response
+        const westernConference = response
           .filter(team => team.Conference === "Western")
           .sort((a, b) => b.Percentage - a.Percentage)
           .map((team, index) => ({
@@ -67,14 +59,14 @@ const League = () => {
             rank: index + 1
           }));
 
-        setStandings([...eastern, ...western]);
+        setStandings([...easternConference, ...westernConference]);
       } catch (error) {
         console.log(error);
       }
     };
 
     getStandings();
-  }, [teamStandings]);
+  }, []);
 
   const allTeams = leagueData
 
@@ -82,23 +74,23 @@ const League = () => {
 
   const sortTeams = sortByKey(leagueData)
 
-  const East = sortByKey(leagueData?.filter((team) => team.Conference === 'Eastern'))
-  const Atlantic = sortByKey(East?.filter((team) => team.Division === 'Atlantic'))
-  const Central = sortByKey(East?.filter((team) => team.Division === 'Central'))
-  const Southeast = sortByKey(East?.filter((team) => team.Division === 'Southeast'))
+  const Eastern = sortByKey(leagueData?.filter((team) => team.Conference === 'Eastern'))
+  const Atlantic = sortByKey(Eastern?.filter((team) => team.Division === 'Atlantic'))
+  const Central = sortByKey(Eastern?.filter((team) => team.Division === 'Central'))
+  const Southeast = sortByKey(Eastern?.filter((team) => team.Division === 'Southeast'))
 
-  const West = sortByKey(leagueData?.filter((team) => team.Conference === 'Western'))
-  const Southwest = sortByKey(West?.filter((team) => team.Division === 'Southwest'))
-  const Northwest = sortByKey(West?.filter((team) => team.Division === 'Northwest'))
-  const Pacific = sortByKey(West?.filter((team) => team.Division === 'Pacific'))
+  const Western = sortByKey(leagueData?.filter((team) => team.Conference === 'Western'))
+  const Southwest = sortByKey(Western?.filter((team) => team.Division === 'Southwest'))
+  const Northwest = sortByKey(Western?.filter((team) => team.Division === 'Northwest'))
+  const Pacific = sortByKey(Western?.filter((team) => team.Division === 'Pacific'))
 
   const filterMap = {
     "ALL Teams": sortTeams,
-    East,
+    Eastern,
     Atlantic,
     Central,
     Southeast,
-    West,
+    Western,
     Southwest,
     Northwest,
     Pacific
@@ -129,11 +121,11 @@ const League = () => {
         <label>
           <select value={initialTeams} onChange={handleChange}>
             <option value={"ALL Teams"}>ALL Teams</option>
-            <option value={"East"}>Eastern Conference</option>
+            <option value={"Eastern"}>Eastern Conference</option>
             <option value={"Atlantic"}>Atlantic Division</option>
             <option value={"Central"}>Central Division</option>
             <option value={"Southeast"}>Southeast Division</option>
-            <option value={"West"}>Western Conference</option>
+            <option value={"Western"}>Western Conference</option>
             <option value={"Northwest"}>Northwest Division</option>
             <option value={"Pacific"}>Pacific Division</option>
             <option value={"Southwest"}>Southwest Division</option>
@@ -142,26 +134,10 @@ const League = () => {
       </div>
 
       <div className='cards-wrapper'>
-        {filteredTeams?.map(({ City, HeadCoach, TertiaryColor, WikipediaLogoUrl, Name, Key, PrimaryColor, SecondaryColor }) => {
-          const teamStanding = standings?.find(standing => standing.Key === Key);
+        {filteredTeams?.map(({ ...prop }) => {
+          const teamStandings = standings?.find(standing => standing.Key === prop.Key);
           return (
-            <Card key={Key} style={{ backgroundColor: Name === 'Jazz' ? '#' + PrimaryColor : '#' + TertiaryColor }}>
-              <div className='league-info' style={{ 'backgroundColor': Name === 'Jazz' ? '#' + TertiaryColor : '#' + PrimaryColor }}>
-                {teamStanding && (
-                  <div>
-                    <p className='team-record'>
-                      {teamStanding.Wins} - {teamStanding.Losses}
-                    </p>
-                    <p className='team-rank'>#{teamStanding.rank} {teamStanding.Conference}</p>
-                  </div>
-                )}
-                <h2><Link style={{ 'color': '#' + SecondaryColor }} to={`/${Key}`}>{City} {Name}</Link></h2>
-                <h2 style={{ 'color': '#' + SecondaryColor, backgroundColor: Name === 'Jazz' ? '#' + TertiaryColor : '#' + PrimaryColor }}>Head Coach: {HeadCoach !== null ? HeadCoach : 'N/A'}</h2>
-                <img className='team-photo' src={WikipediaLogoUrl || defaultPhoto} alt={`${City} ${Name} logo`} onError={(e) => {
-                  e.currentTarget.src = defaultPhoto;
-                }} />
-              </div>
-            </Card>
+            <TeamCard teamStandings={teamStandings} singleTeam={prop} />
           )
         })}
         {filteredTeams?.length === 0 && <h2>No teams matched {searchTerm}</h2>}

@@ -33,7 +33,7 @@ const PlayerInfo = ({ data = [], points = 0, seasons = [], minutes = 0, games = 
       <tbody>
         {data?.map((yearlyStats, index) => {
           const { points = 0, games = 0, assists = 0, fieldPercent = 0, team = '', ftPercent = 0, blocks = 0, minutesPg = 0, personalFouls = 0,
-            steals = 0, threePercent = 0, totalRb = 0, turnovers = 0, season = '' } = yearlyStats || {}
+            steals = 0, threePercent = 0, totalRb = 0, turnovers = 0, season = '' } = yearlyStats ?? {}
           const teamDisplay = team === '2TM' ? 'TOT' : team;
 
           return (

@@ -6,6 +6,7 @@ import PlayerStats from '../playerStats/PlayerStats'
 import PlayerPhoto from '../playerPhoto/PlayerPhoto'
 import { getBBRefPhotoUrl } from '../../utils/playerPhotoUtils'
 import { Link } from 'react-router-dom'
+import { prefixedUrl } from '../../utils/prefixUrl'
 
 const computePlayerPhotoUrl = (data) => {
   if (data.FirstName && data.LastName) {
@@ -104,18 +105,14 @@ const Player = () => {
   const [photoUrl, setPhotoUrl] = useState(null);
   const [loadingStats, setLoadingStats] = useState(true)
 
-  const params = useParams()
-  const obj = new URLSearchParams(params);
-  const playerid = obj.get('playerid')
-
-  const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+  const { playerid } = useParams()
 
 
   useEffect(() => {
     const playerData = async () => {
       setLoadingStats(true)
       try {
-        const response = await fetch(`${API_BASE_URL}/api/player_info?playerId=${playerid}`)
+        const response = await fetch(`${prefixedUrl}/player_info?playerId=${playerid}`)
         const data = await response.json()
         setPlayerData(data)
         const computedPhotoUrl = computePlayerPhotoUrl(data)
@@ -131,7 +128,7 @@ const Player = () => {
 
   if (!playerData) return <Loading />
 
-  const { Salary, BirthState, Team, BirthCity, BirthCountry, BirthDate, Jersey, Position, FirstName, LastName, Weight, Experience, HighSchool, College, Height } = playerData
+  const { Salary, BirthState, Team, BirthCity, BirthCountry, BirthDate, Jersey, Position, FirstName, LastName, Weight, Experience, HighSchool, College, Height } = playerData ?? {}
 
   const salaryString =
     Salary != null && Salary !== '' ? Salary.toLocaleString('en-US') : null

@@ -1,25 +1,19 @@
-import { baseUrl } from '../../api/Api'
 import Card from '../card/Card'
 import { useState, useEffect } from 'react'
 import './TeamRoster.css'
 import Loading from '../loading/Loading'
 import { useParams, Link } from 'react-router-dom'
+import { prefixedUrl } from '../../utils/prefixUrl'
 
 const TeamRoster = () => {
   const [roster, setRoster] = useState(null)
 
-  const params = useParams()
-
-  const obj = new URLSearchParams(params);
-  const term = obj.get('team')
-
-  const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
-
+  const { team } = useParams()
 
   useEffect(() => {
     const rosterData = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/team_roster?team=${term}`)
+        const response = await fetch(`${prefixedUrl}/team_roster?team=${team}`)
         const rosterInfo = await response.json()
         setRoster(rosterInfo)
       } catch (error) {
@@ -27,7 +21,7 @@ const TeamRoster = () => {
       }
     }
     rosterData()
-  }, [term])
+  }, [team])
 
   if (!roster) return <Loading />
 
@@ -77,7 +71,7 @@ const TeamRoster = () => {
   return (
     <div className="roster-page">
       <div className="roster-header">
-        <h1>{teamMap[term] || term} Active Roster</h1>
+        <h1>{teamMap[team] || team} Active Roster</h1>
       </div>
       <div className='team-container'>
         {active?.map(({ Jersey, FirstName, LastName, PlayerID, Position }) => {

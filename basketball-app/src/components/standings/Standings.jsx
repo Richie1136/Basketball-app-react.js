@@ -1,8 +1,8 @@
-import { baseUrl } from '../../api/Api'
 import { useState, useEffect } from 'react'
 import './Standings.css'
 import { Row, Loading } from '../index'
 import { useParams, useNavigate } from 'react-router-dom'
+import { prefixedUrl } from '../../utils/prefixUrl'
 
 const allowedSeasons = ["2026", "2025"]
 
@@ -10,13 +10,10 @@ const Standings = () => {
 
   const [getStandings, setGetStadings] = useState()
 
-  const APIKEY = import.meta.env.VITE_APP_API_KEY
   const navigate = useNavigate()
   const { season } = useParams()
 
   const selectedSeason = season || "2026"
-
-  const result = `${baseUrl}/Standings/${selectedSeason}?key=${APIKEY}`
 
   useEffect(() => {
     const getStandings = async () => {
@@ -24,7 +21,7 @@ const Standings = () => {
         return
       }
       try {
-        const data = await fetch(result)
+        const data = await fetch(`${prefixedUrl}/standings?season=${selectedSeason}`)
         const response = await data.json()
         setGetStadings(response)
       } catch (error) {
@@ -32,7 +29,7 @@ const Standings = () => {
       }
     }
     getStandings()
-  }, [result, selectedSeason])
+  }, [selectedSeason])
 
   if (!getStandings) return <Loading />
 
@@ -44,9 +41,9 @@ const Standings = () => {
     number += 1
   ))
 
-  const EasternTeams = Eastern?.map((o, i) => ({ ...o, rank: ranks[i] }))
+  const easternTeams = Eastern?.map((o, i) => ({ ...o, rank: ranks[i] }))
 
-  const WesternTeams = Western?.map((o, i) => ({ ...o, rank: ranks[i] }))
+  const westernTeams = Western?.map((o, i) => ({ ...o, rank: ranks[i] }))
 
   const handleChange = (e) => {
     const selectedSeason = e.target.value
@@ -150,7 +147,7 @@ const Standings = () => {
                   </th>
                   {headers}
                 </tr>
-                {EasternTeams?.map((team) => (
+                {easternTeams?.map((team) => (
                   <Row key={team.Key} {...team} />
                 ))}
               </tbody>
@@ -172,7 +169,7 @@ const Standings = () => {
                   </th>
                   {headers}
                 </tr>
-                {WesternTeams?.map((team) => (
+                {westernTeams?.map((team) => (
                   <Row key={team.Key} {...team} />
                 ))}
               </tbody>

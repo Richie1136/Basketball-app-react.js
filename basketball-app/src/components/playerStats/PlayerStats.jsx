@@ -3,6 +3,7 @@ import PlayerInfo from '../playerInfo/PlayerInfo'
 import Loading from '../loading/Loading'
 import { grabPlayerStats } from '../../utils/grabPlayerStats'
 import { getBasketballReferenceId } from '../../utils/playerPhotoUtils'
+import { prefixedUrl } from '../../utils/prefixUrl'
 
 // Cache for player stats - stores data by player name
 const statsCache = new Map()
@@ -34,11 +35,9 @@ const PlayerStats = ({ data }) => {
   const [playerStats, setPlayerStats] = useState(null)
   const [hasFetched, setHasFetched] = useState(false)
 
-  const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+  const careerStats = grabPlayerStats(playerStats ?? [])
 
-  const careerStats = grabPlayerStats(playerStats || [])
-
-  const { totalAssists, totalBlocks, careerFgPercent, careerFtPercent, careerThreePercent, totalFouls, careerGames, minutes, totalPoints, totalRebounds, totalSteals, totalTurnovers } = careerStats
+  const { totalAssists, totalBlocks, careerFgPercent, careerFtPercent, careerThreePercent, totalFouls, careerGames, minutes, totalPoints, totalRebounds, totalSteals, totalTurnovers } = careerStats ?? {}
 
   useEffect(() => {
     const playerStatsInfo = async () => {
@@ -146,7 +145,7 @@ const PlayerStats = ({ data }) => {
           const basketballReferenceId = getBasketballReferenceId(data.FirstName, lastNameGreaterThanOne)
 
           try {
-            const backendResponse = await fetch(`${API_BASE_URL}/api/player_stats?firstName=${encodeURIComponent(data.FirstName === 'Nicolas' && data.LastName === 'Claxton' ? 'Nic' : data.FirstName)}
+            const backendResponse = await fetch(`${prefixedUrl}/player_stats?firstName=${encodeURIComponent(data.FirstName === 'Nicolas' && data.LastName === 'Claxton' ? 'Nic' : data.FirstName)}
             &lastName=${encodeURIComponent(lastNameGreaterThanOne)}&bbrefId=${encodeURIComponent(basketballReferenceId)}`)
             if (backendResponse.ok) {
               const backendData = await backendResponse.json()
@@ -176,7 +175,7 @@ const PlayerStats = ({ data }) => {
       }
     }
     playerStatsInfo()
-  }, [data?.FirstName, data?.LastName, API_BASE_URL])
+  }, [data?.FirstName, data?.LastName, prefixedUrl])
 
   // Sort the stats so that "TOT" or "2TM" entries appear first for each season, followed by other teams.
   // If player got traded, in the offseason so for example end of 2024 season into 2025 season, then 
@@ -219,7 +218,7 @@ const PlayerStats = ({ data }) => {
     return 0;
   });
 
-  const grabSeasons = (playerStats || []).map(stat => stat.season);
+  const grabSeasons = (playerStats ?? []).map(stat => stat.season);
 
   const convertToSet = new Set(grabSeasons);
   const uniqueSeasons = Array.from(convertToSet);
