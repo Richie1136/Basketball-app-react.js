@@ -103,30 +103,40 @@ const computeAgeAndBirthdateMetrics = (birthDateRaw) => {
 const Player = () => {
   const [playerData, setPlayerData] = useState(null)
   const [photoUrl, setPhotoUrl] = useState(null);
-  const [loadingStats, setLoadingStats] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   const { playerid } = useParams()
 
 
   useEffect(() => {
     const playerData = async () => {
-      setLoadingStats(true)
+      setIsLoading(true)
+      setError(null)
       try {
         const response = await fetch(`${prefixedUrl}/player_info?playerId=${playerid}`)
+        if (!response.ok) {
+          throw new Error("Unable to load player data")
+        }
         const data = await response.json()
         setPlayerData(data)
         const computedPhotoUrl = computePlayerPhotoUrl(data)
         setPhotoUrl(computedPhotoUrl)
       } catch (error) {
-        console.log(error)
+        setPlayerData(null)
+        setError(error.message)
       } finally {
-        setLoadingStats(false)
+        setIsLoading(false)
       }
     }
     playerData()
   }, [playerid])
 
-  if (!playerData) return <Loading />
+  if (error) return <p>{error}</p>
+
+  if (isLoading) return <Loading />
+
+  if (!playerData) return <p>No player information found</p>
 
   const { Salary, BirthState, Team, BirthCity, BirthCountry, BirthDate, Jersey, Position, FirstName, LastName, Weight, Experience, HighSchool, College, Height } = playerData ?? {}
 
@@ -148,10 +158,6 @@ const Player = () => {
       : HighSchool
         ? 'HIGH SCHOOL'
         : 'SCHOOL'
-
-  if (loadingStats) {
-    return <p>Loading Player Stats</p>
-  }
 
   return (
     <div>

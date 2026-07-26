@@ -210,7 +210,6 @@ def get_player_info():
             return jsonify({"error": "No Player ID found"}), 400
         player_info_url = f"https://api.sportsdata.io/v3/nba/scores/json/Player/{player_id}?key={API_KEY}"
         response = requests.get(player_info_url, timeout=10)
-        print(response.json())
         return jsonify(response.json())
 
 @app.route('/api/team_roster', methods=['GET'])
@@ -228,20 +227,13 @@ def get_standings():
     if not season:
         return jsonify({"error": "No Season Found"}), 400
     season_url = f"https://api.sportsdata.io/v3/nba/scores/json/Standings/{season}?key={API_KEY}"
-    print("Season", season_url)
     response = requests.get(season_url, timeout=10)
-    print(response)
     return jsonify(response.json())
 
 @app.route('/api/teams', methods=['GET'])
 def get_league_teams():
-    # season = request.args.get('season', "").strip()
-    # if not season:
-    #     return jsonify({"error": "No Season Found"}), 400
     league_url = f"https://api.sportsdata.io/v3/nba/scores/json/teams?key={API_KEY}"
-    print("League", league_url)
     response = requests.get(league_url, timeout=10)
-    print(response)
     return jsonify(response.json())
 
 if __name__ == "__main__":

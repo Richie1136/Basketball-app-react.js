@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './League.css'
 import { prefixedUrl } from '../../utils/prefixUrl'
 import TeamCard from '../teamCard/TeamCard'
+import Loading from '../loading/Loading'
 
 const League = () => {
 
@@ -9,6 +10,10 @@ const League = () => {
   const [initialTeams, setIntialTeams] = useState("ALL Teams")
   const [searchTerm, setSearchTerm] = useState("")
   const [standings, setStandings] = useState([]);
+  const [teamsLoading, setTeamsLoading] = useState(true)
+  const [teamsError, setTeamsError] = useState(null)
+  const [standingsLoading, setStandingsLoading] = useState(true)
+  const [standingsError, setStandingsError] = useState(null)
 
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
@@ -26,12 +31,23 @@ const League = () => {
 
   useEffect(() => {
     const leagueData = async () => {
+      setTeamsLoading(true)
+      setTeamsError(null)
       try {
         const response = await fetch(`${prefixedUrl}/teams`)
+        if (!response.ok) {
+          throw new Error("Unable to fetch league data")
+        }
         const leagueInfo = await response.json()
+        if (!Array.isArray(leagueInfo)) {
+          throw new Error("Invalid teams response")
+        }
         setLeagueData(leagueInfo)
       } catch (error) {
-        console.log(error)
+        setLeagueData([])
+        setTeamsError(error.message)
+      } finally {
+        setTeamsLoading(false)
       }
     }
     leagueData()
@@ -39,9 +55,19 @@ const League = () => {
 
   useEffect(() => {
     const getStandings = async () => {
+      setStandingsLoading(true)
+      setStandingsError(null)
       try {
-        const data = await fetch(`${prefixedUrl}/standings?season=2026`);
-        const response = await data.json();
+        const response = await fetch(`${prefixedUrl}/standings?season=2026`);
+        const data = await data.json();
+
+        if (!response.ok) {
+          throw new Error("Unable to loading NBA standings")
+        }
+
+        if (!Array.isArray(data)) {
+          throw new Error("Invalid standings response")
+        }
 
         const easternConference = response
           .filter(team => team.Conference === "Eastern")
@@ -58,10 +84,12 @@ const League = () => {
             ...team,
             rank: index + 1
           }));
-
         setStandings([...easternConference, ...westernConference]);
       } catch (error) {
-        console.log(error);
+        setStandings([])
+        setStandingsError(error.message)
+      } finally {
+        setStandingsLoading(false)
       }
     };
 
@@ -111,6 +139,19 @@ const League = () => {
     setSearchTerm("")
   }
 
+  if (teamsLoading) return <Loading />
+  if (teamsError) return <p>{teamsError}</p>
+
+  { standingsLoading && <p>Loading teams records..</p> }
+
+  {
+    standingsError && (
+      <p>
+        Teams loaded, but current records are unavailable
+      </p>
+    )
+  }
+
   return (
     <div className='container'>
       <div className='select-container'>
@@ -132,14 +173,15 @@ const League = () => {
           </select>
         </label>
       </div>
-
       <div className='cards-wrapper'>
-        {filteredTeams?.map(({ ...prop }) => {
-          const teamStandings = standings?.find(standing => standing.Key === prop.Key);
-          return (
-            <TeamCard teamStandings={teamStandings} singleTeam={prop} />
-          )
-        })}
+        {leagueData.length === 0 ? <Loading /> : (
+          filteredTeams?.map(({ ...prop }) => {
+            const teamStandings = standings?.find(standing => standing.Key === prop.Key);
+            return (
+              <TeamCard teamStandings={teamStandings} singleTeam={prop} />
+            )
+          })
+        )}
         {filteredTeams?.length === 0 && <h2>No teams matched {searchTerm}</h2>}
       </div>
     </div>

@@ -8,7 +8,8 @@ const allowedSeasons = ["2026", "2025"]
 
 const Standings = () => {
 
-  const [getStandings, setGetStadings] = useState()
+  const [standings, setStandings] = useState()
+  const [error, setError] = useState(null)
 
   const navigate = useNavigate()
   const { season } = useParams()
@@ -18,32 +19,38 @@ const Standings = () => {
   useEffect(() => {
     const getStandings = async () => {
       if (!allowedSeasons.includes(selectedSeason)) {
+        setStandings(undefined)
+        setError("Standings Year is Not allowed")
         return
       }
       try {
-        const data = await fetch(`${prefixedUrl}/standings?season=${selectedSeason}`)
-        const response = await data.json()
-        setGetStadings(response)
+        setError(null)
+        setStandings(undefined)
+        const response = await fetch(`${prefixedUrl}/standings?season=${selectedSeason}`)
+        if (!response.ok) {
+          throw new Error("Unable to load Standings data")
+        }
+        const data = await response.json()
+        setStandings(data)
       } catch (error) {
         console.log(error)
+        setError("Standings are not available for this season.")
       }
     }
     getStandings()
   }, [selectedSeason])
 
-  if (!getStandings) return <Loading />
+  if (error) return <p>{error}</p>
 
-  const Eastern = getStandings?.filter((east) => east.Conference === 'Eastern').sort((a, b) => b.Percentage - a.Percentage)
-  const Western = getStandings?.filter((west) => west.Conference === 'Western').sort((a, b) => b.Percentage - a.Percentage)
-  let number = 0
+  if (!standings) return <Loading />
 
-  let ranks = Eastern?.map(() => (
-    number += 1
-  ))
 
-  const easternTeams = Eastern?.map((o, i) => ({ ...o, rank: ranks[i] }))
+  const Eastern = standings?.filter((east) => east.Conference === 'Eastern').sort((a, b) => b.Percentage - a.Percentage)
+  const Western = standings?.filter((west) => west.Conference === 'Western').sort((a, b) => b.Percentage - a.Percentage)
 
-  const westernTeams = Western?.map((o, i) => ({ ...o, rank: ranks[i] }))
+  const easternTeams = Eastern?.map((o, i) => ({ ...o, rank: i + 1 }))
+
+  const westernTeams = Western?.map((o, i) => ({ ...o, rank: i + 1 }))
 
   const handleChange = (e) => {
     const selectedSeason = e.target.value
