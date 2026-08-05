@@ -59,7 +59,7 @@ const League = () => {
       setStandingsError(null)
       try {
         const response = await fetch(`${prefixedUrl}/standings?season=2026`);
-        const data = await data.json();
+        const data = await response.json();
 
         if (!response.ok) {
           throw new Error("Unable to loading NBA standings")
@@ -69,7 +69,7 @@ const League = () => {
           throw new Error("Invalid standings response")
         }
 
-        const easternConference = response
+        const easternConference = data
           .filter(team => team.Conference === "Eastern")
           .sort((a, b) => b.Percentage - a.Percentage)
           .map((team, index) => ({
@@ -77,7 +77,7 @@ const League = () => {
             rank: index + 1
           }));
 
-        const westernConference = response
+        const westernConference = data
           .filter(team => team.Conference === "Western")
           .sort((a, b) => b.Percentage - a.Percentage)
           .map((team, index) => ({
@@ -178,7 +178,7 @@ const League = () => {
           filteredTeams?.map(({ ...prop }) => {
             const teamStandings = standings?.find(standing => standing.Key === prop.Key);
             return (
-              <TeamCard teamStandings={teamStandings} singleTeam={prop} />
+              <TeamCard key={prop.NbaDotComTeamID} teamStandings={teamStandings} singleTeam={prop} />
             )
           })
         )}
