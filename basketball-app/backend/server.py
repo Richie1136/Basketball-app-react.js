@@ -132,7 +132,10 @@ def get_player_stats():
     retry_delay = 1
 
     for attempt in range(retries):
+        
         try:
+            if os.environ.get("VERCEL"):
+                raise RuntimeError("Skipping NBA API on Vercel")
             career = playercareerstats.PlayerCareerStats(
                 player_id=player_id,
                 timeout=3
