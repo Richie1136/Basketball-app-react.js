@@ -20,7 +20,12 @@ def home():
 
 cache = {}
 
-CACHE_DIR = "cache"
+if os.environ.get("VERCEL"):
+    CACHE_DIR = "/tmp/cache"
+else:
+    CACHE_DIR = "cache"
+
+
 os.makedirs(CACHE_DIR, exist_ok=True)
 
 API_KEY = os.getenv('VITE_APP_API_KEY')
@@ -132,6 +137,7 @@ def get_player_stats():
                 player_id=player_id,
                 timeout=10
                 )
+            print("CAREER", career)
             data = career.get_data_frames()
             if not data or len(data) == 0:
                 return jsonify({"error": "No stats found"}), 404
