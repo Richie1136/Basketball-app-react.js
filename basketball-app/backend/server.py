@@ -130,7 +130,7 @@ def get_player_stats():
         try:
             career = playercareerstats.PlayerCareerStats(
                 player_id=player_id,
-                timeout=3
+                timeout=10
                 )
             data = career.get_data_frames()
             if not data or len(data) == 0:
