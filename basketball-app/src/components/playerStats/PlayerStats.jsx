@@ -191,8 +191,8 @@ const PlayerStats = ({ data }) => {
     // Different seasons: newest first
     if (a.season !== b.season) return b.season - a.season; // Sorted newest to oldest
 
-    const aIsTot = a.team === "TOT";
-    const bIsTot = b.team === "TOT";
+    const aIsTot = a.team === "TOT" || a.team === "2TM";
+    const bIsTot = b.team === "TOT" || b.team === "2TM";
     const currentTeam = data?.Team;
 
     // TOT always first
