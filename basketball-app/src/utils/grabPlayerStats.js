@@ -17,7 +17,7 @@ export const grabPlayerStats = (playerStats = []) => {
 
   for (let i = 0; i < playerStats.length; i++) {
     const stats = playerStats[i];
-    if (stats.team !== 'TOT') {
+    if (stats.team !== 'TOT' && stats.team !== "2TM") {
       const { minutesPg, games, points, fieldGoals, fieldAttempts, ft, ftAttempts, threeFg, threeAttempts, totalRb, assists, steals,
         blocks, turnovers, personalFouls
       } = stats
