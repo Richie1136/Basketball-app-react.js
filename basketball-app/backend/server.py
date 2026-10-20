@@ -8,6 +8,8 @@ import os
 import json
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 app = Flask(__name__)
 CORS(app)
@@ -73,8 +75,15 @@ def get_player_id(first_name, last_name):
         static_matches[0]
     )
         return active_player["id"]
+    
+    if os.environ.get("VERCEL"):
+        return None
+    
+    today = datetime.now(ZoneInfo("America/New_York"))
 
-    current_season = "2025-26"
+    start_year = today.year if today.month >= 10 else today.year - 1
+
+    current_season = f"{start_year}-{str(start_year + 1)[-2:]}"
     season_players = commonallplayers.CommonAllPlayers(
         is_only_current_season=1,
         season=current_season
@@ -126,7 +135,7 @@ def get_player_stats():
     player_id = get_player_id(first_name, last_name)
 
     if not player_id:
-        return jsonify({"error": "Player not found"}), 404
+        return jsonify({"error": "No Player Stats found"}), 404
 
     retries = 1
     retry_delay = 1

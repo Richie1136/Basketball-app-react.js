@@ -1,121 +1,22 @@
-.Positive {
+.stats-standings .Positive {
   color: #094;
 }
 
-.Negative {
+.stats-standings .Negative {
   color: #d00;
 }
 
-.Neutral {
+.stats-standings .Neutral {
   color: #000;
 }
 
-.city-name {
-  width: 200px;
+.stats-standings .city-name a {
+  color: #06c;
 }
 
-td.city-name a {
-  color: #06c
-}
-
-.team-win {
-  width: 58.03px;
-  padding-left: 7px;
-}
-
-.team-lose {
-  width: 58.03px;
-}
-
-.pointsFor {
-  text-align: center;
-  padding-right: 7px;
-}
-
-.pointsAgainst {
-  text-align: center;
-}
-
-.home {
-  padding-left: 7px;
-}
-
-.road {
-  padding-left: 7px;
-}
-
-.last10 {
-  padding-left: 7px;
-}
-
-.winper {
-  width: 86.98px;
-  text-align: center;
-  padding-left: 13px;
-}
-
-.oneHundred {
-  width: 86.98px;
-  text-align: center;
-}
-
-.conrecord {
-  width: 85.28px;
-  padding-left: 7px;
-}
-
-
-.last10 {
-  width: 109.98px;
-}
-
-.streak {
-  width: 112.19px;
-  padding-left: 10px;
-}
-
-td {
-  font: 14px "Roboto Condensed", Arial, sans-serif;
-  background-color: white;
-  height: 41px;
-  font-weight: 400;
-  line-height: 1.25;
-  border-style: solid;
-  font-weight: 400;
-  font-size: 14px;
-  font-family: Roboto Condensed, Arial, sans-serif;
-  text-align: left;
-  white-space: nowrap;
-  color: #000;
-  font-stretch: condensed;
-  padding-left: 5px;
-}
-
-tbody {
-  border-bottom: 2px solid #ebe9e7;
-}
-
-tbody:last-child {
-  border-bottom: none;
-}
-
-tbody:nth-child(11) {
-  border-bottom: 2px dashed #0268d6;
-}
-
-
-tbody:nth-child(15) {
-  border-bottom: 2px solid #0268d6;
-}
-
-tbody:nth-child(30) {
-  border-bottom: 2px dashed #0268d6;
-}
-
-tbody:nth-child(34) {
-  border-bottom: 2px solid #0268d6;
-}
-
-.rank-number {
-  margin-right: 5px
+.stats-standings .rank-number {
+  display: inline-block;
+  min-width: 28px;
+  margin-right: 6px;
+  text-align: right;
 }

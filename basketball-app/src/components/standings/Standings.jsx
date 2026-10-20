@@ -4,7 +4,16 @@ import { Row, Loading } from '../index'
 import { useParams, useNavigate } from 'react-router-dom'
 import { prefixedUrl } from '../../utils/prefixUrl'
 
-const allowedSeasons = ["2026", "2025"]
+const today = new Date()
+
+const currentYear = today.getFullYear()
+
+const latestSeason = today.getMonth() >= 9 ? currentYear + 1 : currentYear
+
+const allowedSeasons = Array.from(
+  { length: latestSeason - 2025 + 1 },
+  (_, index) => String(latestSeason - index)
+)
 
 const Standings = () => {
 
@@ -14,7 +23,7 @@ const Standings = () => {
   const navigate = useNavigate()
   const { season } = useParams()
 
-  const selectedSeason = season || "2026"
+  const selectedSeason = season || String(latestSeason)
 
   useEffect(() => {
     const getStandings = async () => {
@@ -57,75 +66,14 @@ const Standings = () => {
     navigate('/standings/' + selectedSeason)
   }
 
-  const headers = (
-    <>
-      <th className='wins'>
-        <span className='divisionspan'>
-          <span className='teamw'>W</span>
-        </span>
-      </th>
-      <th className='losses'>
-        <span className='team'>
-          <span className='teaml'>L</span>
-        </span>
-      </th>
-      <th className='pct'>
-        <span className='runs'>
-          <span style={{ marginLeft: '20px' }}>WIN%</span>
-        </span>
-      </th>
-      <th className='gb'>
-        <span className='runs'>
-          <span>GB</span>
-        </span>
-      </th>
-      <th className='conf'>
-        <span className='runs'>
-          <span>CONF</span>
-        </span>
-      </th>
-      <th className='div'>
-        <span className='runs'>
-          <span>DIV</span>
-        </span>
-      </th>
-      <th className='div'>
-        <span className='runs'>
-          <span style={{ textAlign: 'center', marginLeft: '10px' }}>PPG</span>
-        </span>
-      </th>
-      <th className='div'>
-        <span className='runs'>
-          <span>OPP PPG</span>
-        </span>
-      </th>
-      <th className='div'>
-        <span className='runs'>
-          <span>DIFF</span>
-        </span>
-      </th>
-      <th className='home'>
-        <span className='runs'>
-          <span>Home</span>
-        </span>
-      </th>
-      <th className='home'>
-        <span className='runs'>
-          <span>Road</span>
-        </span>
-      </th>
-      <th className='last10'>
-        <span className='runs'>
-          <span>LAST10</span>
-        </span>
-      </th>
-      <th className='streak'>
-        <span className='tstreak'>
-          <span>STREAK</span>
-        </span>
-      </th>
-    </>
-  )
+  const headers = [
+    "W", "L", "WIN%", "GB", "CONF", "DIV",
+    "PPG", "OPP PPG", "DIFF", "Home", "Road", "Last10", "STREAK"
+  ].map((header) => (
+    <th key={header} scope='col'>
+      {header}
+    </th>
+  ))
 
   return (
     <>
@@ -133,24 +81,21 @@ const Standings = () => {
         <div className="season-select-wrap">
           <label className="season-label" htmlFor="season">Season:</label>
           <select id="season" className='season-select' value={selectedSeason} onChange={handleChange}>
-            <option value="2026">2025-26</option>
-            <option value="2025">2024-25</option>
+            {allowedSeasons?.map((year) => (
+              <option key={year} value={year}>
+                {Number(year) - 1}-{year.slice(-2)}
+              </option>
+            ))}
           </select>
         </div>
         <div className='standings-layout'>
           <div className='conference-standings'>
             <h2 className='conference-title'>Eastern Conference</h2>
             <table>
-              <colgroup className='col1' span='6'></colgroup>
-              <colgroup className='col2' span='2'></colgroup>
-              <colgroup className='col3' span='4'></colgroup>
-              <colgroup className='col4' span='3'></colgroup>
               <tbody>
-                <tr className='conference-row'>
-                  <th className='conference-name'>
-                    <span>
-                      <span className='conference-team-title'>TEAM</span>
-                    </span>
+                <tr>
+                  <th scope='col'>
+                    TEAM
                   </th>
                   {headers}
                 </tr>
@@ -163,17 +108,9 @@ const Standings = () => {
           <div className='conference-standings'>
             <h2 className='conference-title'>Western Conference</h2>
             <table>
-              <colgroup className='col1' span='6'></colgroup>
-              <colgroup className='col2' span='2'></colgroup>
-              <colgroup className='col3' span='4'></colgroup>
-              <colgroup className='col4' span='3'></colgroup>
               <tbody>
-                <tr className='conference-row'>
-                  <th className='conference-name'>
-                    <span>
-                      <span className='conference-team-title'>TEAM</span>
-                    </span>
-                  </th>
+                <tr>
+                  <th scope='col'>TEAM</th>
                   {headers}
                 </tr>
                 {westernTeams?.map((team) => (
