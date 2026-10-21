@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom'
 import './Navigation.css'
-import { useCurrentSeason } from '../../utils/getCurrentSeason'
+import { getCurrentSeason } from '../../utils/getCurrentSeason'
 
 const Navigation = () => {
-  const currentSeason = useCurrentSeason()
+  const currentSeason = getCurrentSeason()
   return (
     <nav className='nav'>
       <NavLink to='/' className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>

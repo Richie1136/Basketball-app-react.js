@@ -3,6 +3,8 @@ import './League.css'
 import { prefixedUrl } from '../../utils/prefixUrl'
 import TeamCard from '../teamCard/TeamCard'
 import Loading from '../loading/Loading'
+import { getCurrentSeason } from '../../utils/getCurrentSeason'
+import { sortStandings } from '../../utils/sortStandings'
 
 const League = () => {
 
@@ -16,6 +18,8 @@ const League = () => {
   const [standingsError, setStandingsError] = useState(null)
 
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+
+  const currentSeason = getCurrentSeason()
 
   useEffect(() => {
     const wakeUpBackend = async () => {
@@ -58,7 +62,7 @@ const League = () => {
       setStandingsLoading(true)
       setStandingsError(null)
       try {
-        const response = await fetch(`${prefixedUrl}/standings?season=2026`);
+        const response = await fetch(`${prefixedUrl}/standings?season=${currentSeason}`);
         const data = await response.json();
 
         if (!response.ok) {
@@ -71,7 +75,7 @@ const League = () => {
 
         const easternConference = data
           .filter(team => team.Conference === "Eastern")
-          .sort((a, b) => b.Percentage - a.Percentage)
+          .sort(sortStandings)
           .map((team, index) => ({
             ...team,
             rank: index + 1
@@ -79,7 +83,7 @@ const League = () => {
 
         const westernConference = data
           .filter(team => team.Conference === "Western")
-          .sort((a, b) => b.Percentage - a.Percentage)
+          .sort(sortStandings)
           .map((team, index) => ({
             ...team,
             rank: index + 1

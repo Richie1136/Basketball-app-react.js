@@ -3,17 +3,8 @@ import './Standings.css'
 import { Row, Loading } from '../index'
 import { useParams, useNavigate } from 'react-router-dom'
 import { prefixedUrl } from '../../utils/prefixUrl'
-
-const today = new Date()
-
-const currentYear = today.getFullYear()
-
-const latestSeason = today.getMonth() >= 9 ? currentYear + 1 : currentYear
-
-const allowedSeasons = Array.from(
-  { length: latestSeason - 2025 + 1 },
-  (_, index) => String(latestSeason - index)
-)
+import { getCurrentSeason, getAllowedSeasons } from '../../utils/getCurrentSeason'
+import { sortStandings } from '../../utils/sortStandings'
 
 const Standings = () => {
 
@@ -23,7 +14,9 @@ const Standings = () => {
   const navigate = useNavigate()
   const { season } = useParams()
 
-  const selectedSeason = season || String(latestSeason)
+  const allowedSeasons = getAllowedSeasons()
+
+  const selectedSeason = season || String(getCurrentSeason())
 
   useEffect(() => {
     const getStandings = async () => {
@@ -53,9 +46,9 @@ const Standings = () => {
 
   if (!standings) return <Loading />
 
-
-  const Eastern = standings?.filter((east) => east.Conference === 'Eastern').sort((a, b) => b.Percentage - a.Percentage)
-  const Western = standings?.filter((west) => west.Conference === 'Western').sort((a, b) => b.Percentage - a.Percentage)
+  // Filter each conference and apply the same sorting rules.
+  const Eastern = standings?.filter((east) => east.Conference === 'Eastern').sort(sortStandings)
+  const Western = standings?.filter((west) => west.Conference === 'Western').sort(sortStandings)
 
   const easternTeams = Eastern?.map((o, i) => ({ ...o, rank: i + 1 }))
 

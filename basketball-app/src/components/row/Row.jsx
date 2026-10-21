@@ -1,3 +1,4 @@
+import { getWinPercentage } from '../../utils/getWinPercentage'
 import './Row.css'
 import { Link } from 'react-router-dom'
 
@@ -12,7 +13,7 @@ const Row = ({ ...props }) => {
 
   const gamesPlayed = Number(Wins) + Number(Losses)
 
-  const convertPercentage = gamesPlayed > 0 ? (Number(Wins) / gamesPlayed).toFixed(3).replace(/^0/, '') : ".000"
+  const convertPercentage = getWinPercentage({ Wins, Losses }).toFixed(3).replace(/^0/, '')
   const pointsScored = Number(PointsPerGameFor).toFixed(1)
   const OpponentsScored = Number(PointsPerGameAgainst).toFixed(1)
   const pointDiff = (pointsScored - OpponentsScored).toFixed(1)
