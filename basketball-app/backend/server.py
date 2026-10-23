@@ -20,7 +20,9 @@ def home():
         "message": "NBA Basketball Stats API is running"
     }
 
-cache = {}
+# Reuse saved player stats for one hour before fetching an updated response.
+
+CACHE_TTL_SECONDS = 60 * 60
 
 if os.environ.get("VERCEL"):
     CACHE_DIR = "/tmp/cache"
@@ -47,13 +49,25 @@ def cache_file_path(key):
 
 def get_file_cache(key):
     path = cache_file_path(key)
-    if os.path.exists(path):
-        with open(path, "r") as file:
-            return json.load(file)
-    return None
-
+    # A missing file means this player needs a fresh fetch.
+    if not os.path.exists(path):
+        return None
+    
+    # Measure the file's age using its last modification time.
+    cache_age = time.time() - os.path.getmtime(path)
+    
+    # Return None so the route fetches new stats when the cache expires.
+    if cache_age >= CACHE_TTL_SECONDS:
+        print("FILE CACHE EXPIRED:", key, flush=True)
+        return None
+    
+    # Return the saved response while it is still within the cache lifetime.
+    with open(path, "r") as file:
+        return json.load(file)
+        
 def save_file_cache(key, data):
     path = cache_file_path(key)
+    # Writing fresh stats also resets the file's modification time.
     with open(path, "w") as file:
         json.dump(data, file)
 
@@ -123,14 +137,16 @@ def get_player_stats():
         first_name = 'Alex'
 
     key = f"{first_name} {last_name}"
-    # Cache hit
-    if key in cache:
-        return jsonify(cache[key])
 
+    # Check the file cache on every single request so expiration cannot be bypassed.
     file_cached = get_file_cache(key)
-    if file_cached:
-        cache[key] = file_cached
+
+    if file_cached is not None:
+        print("FILE CACHE HIT:", key, flush=True)
         return jsonify(file_cached)
+    
+    # Missing or expired cached data continues to the fetch logic below.
+    print("FETCHING FRESH STATS:", key, flush=True)
 
     player_id = get_player_id(first_name, last_name)
 
@@ -154,13 +170,14 @@ def get_player_stats():
                 return jsonify({"error": "No stats found"}), 404
 
             stats = data[0].to_dict(orient='records')
+            print("STATS", stats)
 
             if not stats:
                 print("No NBA career stats returned for:", key)
                 raise ValueError("NBA career stats unavailable")
 
             # ✅ Cache AFTER success
-            cache[key] = stats
+
             save_file_cache(key, stats)
 
             print("Fetched + cached:", key)
@@ -206,7 +223,6 @@ def get_player_stats():
                     "status": response.status_code,
                     "seasonStats": season_stats
                 }
-                cache[key] = response_data
                 save_file_cache(key, response_data)
                 return jsonify(response_data), 200
             except Exception as error:

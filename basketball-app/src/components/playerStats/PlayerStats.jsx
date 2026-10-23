@@ -5,27 +5,59 @@ import { grabPlayerStats } from '../../utils/grabPlayerStats'
 import { getBasketballReferenceId } from '../../utils/playerPhotoUtils'
 import { prefixedUrl } from '../../utils/prefixUrl'
 
-// Cache for player stats - stores data by player name
+// Keep player stats in memory for repeat visits within the running app.
 const statsCache = new Map()
+
+// Cache lifetime in milliseconds. Checked when stats are requested,
+// rather than automatically refreshing a page that stays open.
+const CACHE_TTL_MS = 60 * 60 * 1000
 
 
 // Helper functions for sessionStorage cache (persists across page reloads)
 const getCachedStats = (cacheKey) => {
   if (typeof window === 'undefined') return null
+  const storageKey = `playerStats_${cacheKey}`
+  let cached = statsCache.get(cacheKey)
   try {
-    const cached = sessionStorage.getItem(`playerStats_${cacheKey}`)
-    if (cached) {
-      return JSON.parse(cached)
+    // Restore from sessionStorage when no entry exists in memory.
+    // sessionStorage preserves the cache across reloads in the same tab.
+    if (!cached) {
+      const stored = sessionStorage.getItem(storageKey)
+      cached = stored ? JSON.parse(stored) : null
     }
+    if (!cached) return null
+
+    // Accept only timestamped stats that have not expired.
+    // Older cache entries containing only an array are rejected too.
+    const isValid = Array.isArray(cached.stats) && Number.isFinite(cached.savedAt) && Date.now() - cached.savedAt < CACHE_TTL_MS
+    if (!isValid) {
+      // Remove invalid or expired data from both frontend caches.
+      statsCache.delete(cacheKey)
+      sessionStorage.removeItem(storageKey)
+      return null
+    }
+
+    // Preserve the original timestamp so cache reads don't extend its lifetime.
+    statsCache.set(cacheKey, cached)
+    return cached.stats
   } catch (error) {
-    console.log('Error reading from sessionStorage:', error)
+    console.log('Error reading cached stats:', error)
+    statsCache.delete(cacheKey)
+    return null
   }
-  return null
 }
 
 const setCachedStats = (cacheKey, stats) => {
+  // Record when the browser received these stats.
+  // The backend response may itself have come from its file cache.
+  const entry = {
+    stats,
+    savedAt: Date.now()
+  }
+  statsCache.set(cacheKey, entry)
   try {
-    sessionStorage.setItem(`playerStats_${cacheKey}`, JSON.stringify(stats))
+    // Save the same stats and timestamp for reuse after a page reload.
+    sessionStorage.setItem(`playerStats_${cacheKey}`, JSON.stringify(entry))
   } catch (error) {
     console.log('Error writing to sessionStorage:', error)
   }
@@ -46,10 +78,9 @@ const PlayerStats = ({ data }) => {
           const lastNameGreaterThanOne = data.LastName === 'Martin Jr.' ? data.LastName.split(" ")[0] : data.LastName
           const cacheKey = `${data.FirstName}_${lastNameGreaterThanOne}`
           let statsData = []
-
-          const cachedStats = statsCache.get(cacheKey) || getCachedStats(cacheKey)
+          // Reuse cached stats only after checking their age.
+          const cachedStats = getCachedStats(cacheKey)
           if (cachedStats) {
-            statsCache.set(cacheKey, cachedStats)
             setPlayerStats(cachedStats)
             return
           }
@@ -162,8 +193,8 @@ const PlayerStats = ({ data }) => {
           }
           const finalStats = statsData && Array.isArray(statsData) && statsData?.length > 0 ? statsData : null
 
+          // Cache successful, nonempty stats in memory and sessionStorage.
           if (finalStats) {
-            statsCache.set(cacheKey, finalStats) // cacheKey is the player name
             setCachedStats(cacheKey, finalStats)
           }
           setPlayerStats(finalStats)
