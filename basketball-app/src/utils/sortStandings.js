@@ -20,6 +20,14 @@ export const sortStandings = (a, b) => {
         return percentageDifference
     }
 
+    // When win percentages match, put teams with more wins first.
+
+    const winDifference = Number(b.Wins) - Number(a.Wins)
+
+    if (winDifference !== 0) {
+        return winDifference
+    }
+
     // If percentages are equal, compare points scored minus points allowed.
     const aDiff = Number(a.PointsPerGameFor) - Number(a.PointsPerGameAgainst)
     const bDiff = Number(b.PointsPerGameFor) - Number(b.PointsPerGameAgainst)

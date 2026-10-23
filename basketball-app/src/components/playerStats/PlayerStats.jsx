@@ -38,7 +38,7 @@ const PlayerStats = ({ data }) => {
   const careerStats = grabPlayerStats(playerStats ?? [])
 
   const { totalAssists, totalBlocks, careerFgPercent, careerFtPercent, careerThreePercent, totalFouls, careerGames, minutes, totalPoints, totalRebounds, totalSteals, totalTurnovers } = careerStats ?? {}
-
+  console.log(playerStats)
   useEffect(() => {
     const playerStatsInfo = async () => {
       try {
@@ -55,7 +55,9 @@ const PlayerStats = ({ data }) => {
           }
 
           const transformBackendData = (backendData, filterSeason = null) => {
+            console.log(backendData)
             const statsArray = backendData.seasonStats ?? backendData
+            console.log(statsArray)
             return statsArray
               .map(stat => {
                 const seasonId = stat.SEASON_ID ?? stat.year_id
@@ -147,6 +149,7 @@ const PlayerStats = ({ data }) => {
           try {
             const backendResponse = await fetch(`${prefixedUrl}/player_stats?firstName=${encodeURIComponent(data.FirstName === 'Nicolas' && data.LastName === 'Claxton' ? 'Nic' : data.FirstName)}
             &lastName=${encodeURIComponent(lastNameGreaterThanOne)}&bbrefId=${encodeURIComponent(basketballReferenceId)}`)
+            console.log(backendResponse)
             if (backendResponse.ok) {
               const backendData = await backendResponse.json()
               statsData = transformBackendData(backendData)
