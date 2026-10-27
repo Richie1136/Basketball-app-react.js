@@ -33,6 +33,11 @@ const Standings = () => {
           throw new Error("Unable to load Standings data")
         }
         const data = await response.json()
+
+        // Reject error objects before they reach the table.
+        if (!Array.isArray(data)) {
+          throw new Error("Invalid standings response")
+        }
         setStandings(data)
       } catch (error) {
         console.log(error)

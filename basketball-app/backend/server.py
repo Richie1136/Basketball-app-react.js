@@ -151,7 +151,7 @@ def get_player_stats():
     player_id = get_player_id(first_name, last_name)
 
     if not player_id:
-        return jsonify({"error": "No Player Stats found"}), 404
+        return jsonify({"error": "No Player statistics available."}), 404
 
     retries = 1
     retry_delay = 1
@@ -260,8 +260,18 @@ def get_standings():
     if not season:
         return jsonify({"error": "No Season Found"}), 400
     season_url = f"https://api.sportsdata.io/v3/nba/scores/json/Standings/{season}?key={API_KEY}"
-    response = requests.get(season_url, timeout=10)
-    return jsonify(response.json())
+    try:
+
+        response = requests.get(season_url, timeout=10)
+        # Treat unsuccessful provider responses as failures.
+        response.raise_for_status()
+        data = response.json()
+        # Standings must be a list of teams.
+        if not isinstance(data, list):
+            return jsonify({"error": "Invalid standings response"}), 502
+        return jsonify(data), 200
+    except requests.exceptions.Timeout:
+        return jsonify({"error": "Standings request timed out"}), 504
 
 @app.route('/api/teams', methods=['GET'])
 def get_league_teams():

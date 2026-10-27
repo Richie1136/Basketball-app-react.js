@@ -259,7 +259,7 @@ const PlayerStats = ({ data }) => {
       {!hasFetched ? (
         <Loading />
       ) : playerStats === null || playerStats.length === 0 ? (
-        <h4>No Player Stats</h4>
+        <h4>No Player statistics avaiable.</h4>
       ) : (
         <PlayerInfo data={sortedStats} games={careerGames} minutes={minutes} points={totalPoints} rebounds={totalRebounds} assists={totalAssists} steals={totalSteals} blocks={totalBlocks} fieldGoal={careerFgPercent} threePoint={careerThreePercent} freeThrow={careerFtPercent} turnovers={totalTurnovers} fouls={totalFouls} seasons={uniqueSeasons} />
       )}
