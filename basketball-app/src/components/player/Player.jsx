@@ -162,9 +162,9 @@ const Player = () => {
   return (
     <div>
       <div className='player-header'>
+        <PlayerPhoto photoUrl={photoUrl} altText={`${FirstName} ${LastName}`} data={playerData} />
         <div className='player-vitals'>
           <div>
-            <PlayerPhoto photoUrl={photoUrl} altText={`${FirstName} ${LastName}`} data={playerData} />
             <div className='player-bio'>
               <p className='player-header-number'><Link to={`/${Team}`}>{Team}</Link> {Jersey !== null && `| #${Jersey}`} | {Position}</p>
               <div className='name-and-stats'>
@@ -237,7 +237,7 @@ const Player = () => {
                   ${salaryString}
                 </span>
               ) : (
-                <span className="vital-value vital-value--muted">No Salary Found</span>
+                <span className="vital-value vital-value--muted">Unavailable</span>
               )}
             </div>
             <div className="vital-cell">

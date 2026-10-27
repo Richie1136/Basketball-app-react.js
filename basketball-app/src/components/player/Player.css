@@ -56,9 +56,8 @@ body {
 }
 
 .player-header {
-  width: 1360px;
+  width: 100%;
   min-height: 320px;
-  height: auto;
   padding: 0 80px;
   display: flex;
   background-color: black;
@@ -184,4 +183,88 @@ body {
 
 .player-header-number a {
   color: #fff;
+}
+
+@media (max-width: 1000px) {
+  /* Adjust photo positioning, bio spacing, and header layout*/
+
+
+  .player-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 24px 16px;
+    height: auto;
+  }
+
+  .player-header .player-photo-container {
+    position: static;
+    transform: none;
+    flex: none;
+    width: 400px;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    margin: 0;
+  }
+
+  .player-vitals {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+  }
+
+  .player-bio {
+    width: 100%;
+    height: auto;
+  }
+
+  .player-header-name {
+    width: auto;
+    overflow-wrap: anywhere;
+  }
+
+  .player-header-number {
+    width: auto;
+    height: auto;
+  }
+
+  .player-data-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin-top: 24px;
+  }
+
+  /* Allow longer values to wrap within their cells.*/
+
+  .vital-value--no-wrap,
+  .vital-birthdate {
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+}
+
+@media (max-width: 600px) {
+
+  /* Switch the information grid to two columns here. */
+  .player-data-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Reset the borders from the five-column layout*/
+
+  .player-data-grid .vital-cell {
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+  }
+
+  .player-data-grid .vital-cell:nth-child(2n) {
+    border-right: none;
+  }
+
+  .player-data-grid .vital-cell:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
 }

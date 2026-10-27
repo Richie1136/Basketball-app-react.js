@@ -6,6 +6,11 @@ thead>tr>th {
   margin-top: 24px;
   padding: 20px;
   border-radius: 8px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  /* Scroll the table within this container*/
 }
 
 .playerStatSection {
@@ -51,4 +56,11 @@ thead>tr>th {
   font-weight: bold;
   border-right: 1px solid #222;
   border-left: 1px solid #222;
+}
+
+@media (max-width: 1000px) {
+  .stats-table {
+    min-width: 1100px;
+    /* Keep the 14 columns readable*/
+  }
 }
