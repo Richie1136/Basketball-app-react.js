@@ -19,6 +19,7 @@ const Standings = () => {
   const selectedSeason = season || String(getCurrentSeason())
 
   useEffect(() => {
+    const controller = new AbortController()
     const getStandings = async () => {
       if (!allowedSeasons.includes(selectedSeason)) {
         setStandings(undefined)
@@ -28,7 +29,7 @@ const Standings = () => {
       try {
         setError(null)
         setStandings(undefined)
-        const response = await fetch(`${prefixedUrl}/standings?season=${selectedSeason}`)
+        const response = await fetch(`${prefixedUrl}/standings?season=${selectedSeason}`, { signal: controller.signal })
         if (!response.ok) {
           throw new Error("Unable to load Standings data")
         }
@@ -40,11 +41,15 @@ const Standings = () => {
         }
         setStandings(data)
       } catch (error) {
+        if (controller.signal.aborted) return
         console.log(error)
         setError("Standings are not available for this season.")
       }
     }
     getStandings()
+    return () => {
+      controller.abort()
+    }
   }, [selectedSeason])
 
   if (error) return <p>{error}</p>
