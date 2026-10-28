@@ -110,11 +110,13 @@ const Player = () => {
 
 
   useEffect(() => {
+    const controller = new AbortController()
+
     const playerData = async () => {
       setIsLoading(true)
       setError(null)
       try {
-        const response = await fetch(`${prefixedUrl}/player_info?playerId=${playerid}`)
+        const response = await fetch(`${prefixedUrl}/player_info?playerId=${playerid}`, { signal: controller.signal })
         if (!response.ok) {
           throw new Error("Unable to load player data")
         }
@@ -123,13 +125,21 @@ const Player = () => {
         const computedPhotoUrl = computePlayerPhotoUrl(data)
         setPhotoUrl(computedPhotoUrl)
       } catch (error) {
+        if (controller.signal.aborted) return
         setPlayerData(null)
         setError(error.message)
       } finally {
-        setIsLoading(false)
+        // Only the active request can end loading.
+        if (!controller.signal.aborted) {
+          setIsLoading(false)
+        }
       }
     }
     playerData()
+    // Cancel this request when the player changes or we leave the page.
+    return () => {
+      controller.abort()
+    }
   }, [playerid])
 
   if (error) return <p>{error}</p>
