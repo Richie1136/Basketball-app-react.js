@@ -4,101 +4,12 @@ import './Player.css'
 import Loading from '../loading/Loading'
 import PlayerStats from '../playerStats/PlayerStats'
 import PlayerPhoto from '../playerPhoto/PlayerPhoto'
-import { getBBRefPhotoUrl } from '../../utils/playerPhotoUtils'
 import { Link } from 'react-router-dom'
 import { prefixedUrl } from '../../utils/prefixUrl'
-
-const computePlayerPhotoUrl = (data) => {
-  if (data.FirstName && data.LastName) {
-    const firstName =
-      data.FirstName === 'Bub' ? data.DraftKingsName : data.FirstName
-    const lastName = data.LastName
-
-    // Use DraftKingsName for some foreign players because it avoids special characters
-    const BBRefPhoto = getBBRefPhotoUrl(firstName, lastName)
-    return BBRefPhoto
-  }
-
-  return data.PhotoUrl || null
-}
-
-const computeHeightMetrics = (heightInInches) => {
-  if (!heightInInches && heightInInches !== 0) {
-    return {
-      feet: '',
-      inches: '',
-      metersValue: 0,
-    }
-  }
-
-  const grabHeight = Number(heightInInches / 12).toFixed(1)
-  const [feet, inches] = grabHeight.split('.')
-
-  const convertToCm = feet * 30.48
-  const convertInches = inches * 2.54
-  const resultOfBoth = convertInches + convertToCm
-  const metersValue = resultOfBoth / 100
-
-  return {
-    feet,
-    inches,
-    metersValue,
-  }
-}
-
-const computeWeightMetrics = (weightInPounds) => {
-  if (!weightInPounds && weightInPounds !== 0) {
-    return {
-      weightKg: 0,
-      weightKgLength: 0,
-    }
-  }
-
-  const weightKg = Math.round(weightInPounds / 2.2046)
-  const weightKgLength = weightKg.toString().length
-
-  return {
-    weightKg,
-    weightKgLength,
-  }
-}
-
-const computeAgeAndBirthdateMetrics = (birthDateRaw) => {
-  if (!birthDateRaw) {
-    return {
-      age: null,
-      objectDate: '',
-      birthDay: '',
-      birthYear: '',
-    }
-  }
-
-  const today = new Date()
-  const birthDate = new Date(birthDateRaw)
-  let age = today.getFullYear() - birthDate.getFullYear()
-
-  const monthDifference = today.getMonth() - birthDate.getMonth()
-
-  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-    age--
-  }
-
-  const objectDate = new Date(birthDateRaw).toLocaleDateString('en-US', {
-    month: 'long',
-  })
-
-  const date = birthDate.toLocaleDateString()
-  const getBirth = date.split('/')
-  const birthDay = getBirth[1]
-  const birthYear = getBirth[2]
-
-  return {
-    age,
-    objectDate,
-    birthDay,
-    birthYear
-  }
-}
+import { computeHeightMetrics } from '../../utils/playerMetrics/computeHeightMetrics'
+import { computeWeightMetrics } from '../../utils/playerMetrics/computeWeightMetrics'
+import { computeAgeAndBirthdateMetrics } from '../../utils/playerMetrics/computeAgeAndBirthday'
+import { computePlayerPhotoUrl } from '../../utils/playerMetrics/computePlayerPhotoUrl'
 
 const Player = () => {
   const [playerData, setPlayerData] = useState(null)
