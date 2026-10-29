@@ -48,15 +48,6 @@ A full-stack NBA statistics application built with React and Python/Flask that p
 * Vercel (Frontend)
 * Render (Backend)
 
-## Key Features Implemented
-
-* Implemented player name normalization to support accented characters and special naming conventions.
-* Developed custom data transformation and aggregation logic for career statistics and multi-team seasons.
-* Built backend caching to improve API performance and reduce redundant requests.
-* Implemented dynamic conference and division filtering for NBA teams.
-* Developed dynamic standings pages using React and React Router.
-* Designed a responsive user interface for desktop and mobile devices.
-
 
 ## Project Structure
 
@@ -71,7 +62,7 @@ src/
 
 
 backend/
-├── venv/
+├── cache/
 ├── database.py
 ├── fetch_stats.py
 ├── nba.db
@@ -86,7 +77,7 @@ backend/
 ```bash
 
 npm install
-npm start
+npm run dev
 ```
 
 ### Backend
