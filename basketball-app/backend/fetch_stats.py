@@ -12,6 +12,7 @@ from nba_api.stats.endpoints import (
 
 # -----------------------------
 # DB SETUP
+# This batch script populates SQLite; server.py serves stats from a separate JSON cache.
 # -----------------------------
 conn = sqlite3.connect("nba.db")
 c = conn.cursor()
@@ -54,11 +55,11 @@ for player in active_players:
     try:
         player_id = player["id"]
 
-        # 🔥 SKIP if they did NOT play yesterday
+        # Limit API calls to players who appeared in yesterday's games.
         if player_id not in played_players:
             continue
 
-        # 🔥 SKIP if already in DB (optional optimization)
+        # Existing rows are not refreshed: this script only fills missing player records.
         c.execute(
             "SELECT 1 FROM player_stats WHERE player_id = ?",
             (player_id,)

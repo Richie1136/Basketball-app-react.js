@@ -24,6 +24,7 @@ def home():
 
 CACHE_TTL_SECONDS = 60 * 60
 
+# Serverless deployments use temporary writable storage; this cache is disposable.
 if os.environ.get("VERCEL"):
     CACHE_DIR = "/tmp/cache"
 else:
@@ -76,6 +77,7 @@ def get_player_id(first_name, last_name):
     normalized_last_name = normalize_name(last_name)
     normalized_full_name = f"{normalized_first_name} {normalized_last_name}"
 
+    # Try the bundled player list first to avoid a network request for known names.
     all_players = players.get_players()
     static_matches = [
         player
@@ -93,6 +95,8 @@ def get_player_id(first_name, last_name):
     if os.environ.get("VERCEL"):
         return None
     
+    # For names absent from the bundled list, try the current-season NBA roster.
+    # NBA endpoints use a start/end label rather than the frontend's ending year.
     today = datetime.now(ZoneInfo("America/New_York"))
 
     start_year = today.year if today.month >= 10 else today.year - 1
@@ -118,7 +122,7 @@ def get_player_stats():
     if not first_name or not last_name:
         return jsonify({"error": "Missing firstName or lastName"}), 400
 
-    # Normalize names
+    # Reconcile SportsData player names with the names used by the stats providers.
     if first_name == 'Ron' and last_name == 'Holland II':
         first_name = 'Ronald'
     if first_name == 'L.J.' and last_name == 'Cryer':
@@ -159,6 +163,7 @@ def get_player_stats():
     for attempt in range(retries):
         
         try:
+            # On Vercel, go directly to the Basketball Reference fallback below.
             if os.environ.get("VERCEL"):
                 raise RuntimeError("Skipping NBA API on Vercel")
             career = playercareerstats.PlayerCareerStats(
@@ -176,7 +181,7 @@ def get_player_stats():
                 print("No NBA career stats returned for:", key)
                 raise ValueError("NBA career stats unavailable")
 
-            # ✅ Cache AFTER success
+            # Cache only nonempty successful responses so failures can be retried.
 
             save_file_cache(key, stats)
 
@@ -217,6 +222,7 @@ def get_player_stats():
                     if season:
                         season_stats.append(season)
 
+                # Preserve the fallback's named fields; the frontend normalizes both formats.
                 response_data = {
                     "message": "Basketball Reference fallback succeeded",
                     "bbrefId": bbref_id,

@@ -1,6 +1,6 @@
 import { getWinPercentage } from "./getWinPercentage"
 
-// Sort by win percentage, then use point differential to break ties.
+// Sort by win percentage, then wins, then point differential to break ties.
 // This is a simplified display order, not the full NBA tiebreaker system.
 
 export const sortStandings = (a, b) => {

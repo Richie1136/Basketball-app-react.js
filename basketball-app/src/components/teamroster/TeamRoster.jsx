@@ -7,21 +7,33 @@ import { prefixedUrl } from '../../utils/prefixUrl'
 
 const TeamRoster = () => {
   const [roster, setRoster] = useState(null)
+  const [error, setError] = useState(null)
 
   const { team } = useParams()
 
   useEffect(() => {
     const rosterData = async () => {
       try {
+        setError(null)
+        setRoster(null)
         const response = await fetch(`${prefixedUrl}/team_roster?team=${team}`)
+        if (!response.ok) {
+          throw new Error("Unable to load Team Roster data")
+        }
         const rosterInfo = await response.json()
+        if (!Array.isArray(rosterInfo)) {
+          throw new Error("Invalid team roster response")
+        }
         setRoster(rosterInfo)
       } catch (error) {
         console.log(error)
+        setError("Team roster is not available")
       }
     }
     rosterData()
   }, [team])
+
+  if (error) return <p>{error}</p>
 
   if (!roster) return <Loading />
 

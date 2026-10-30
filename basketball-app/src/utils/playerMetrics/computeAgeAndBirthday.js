@@ -14,6 +14,7 @@ export const computeAgeAndBirthdateMetrics = (birthDateRaw) => {
 
     const monthDifference = today.getMonth() - birthDate.getMonth()
 
+    // The year difference overstates age until this year's birthday has passed.
     if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
         age--
     }

@@ -32,7 +32,7 @@ const PlayerInfo = ({ data = [], points = 0, seasons = [], minutes = 0, games = 
       </thead>
       <tbody>
         {data?.map((yearlyStats, index) => {
-          const { points = 0, games = 0, assists = 0, fieldPercent = 0, team = '', ftPercent = 0, blocks = 0, minutesPg = 0, personalFouls = 0,
+          const { points = 0, games = 0, assists = 0, fieldPercent = 0, team = '', ftPercent = 0, blocks = 0, totalMinutes = 0, personalFouls = 0,
             steals = 0, threePercent = 0, totalRb = 0, turnovers = 0, season = '' } = yearlyStats ?? {}
           const teamDisplay = team === '2TM' ? 'TOT' : team;
 
@@ -41,7 +41,7 @@ const PlayerInfo = ({ data = [], points = 0, seasons = [], minutes = 0, games = 
               <td className="season-year">{season}</td>
               <td className="players-Average">{games}</td>
               <td className='players-Average'>{teamDisplay}</td>
-              <td className="players-Average">{averagePlayerStats(minutesPg, games)}</td>
+              <td className="players-Average">{averagePlayerStats(totalMinutes, games)}</td>
               <td className="players-Average">{averagePlayerStats(points, games)}</td>
               <td className="players-Average">{averagePlayerStats(totalRb, games)}</td>
               <td className="players-Average">{averagePlayerStats(assists, games)}</td>

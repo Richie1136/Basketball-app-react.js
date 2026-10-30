@@ -85,6 +85,7 @@ const PlayerStats = ({ data }) => {
             return
           }
 
+          // NBA responses are arrays; the Basketball Reference fallback wraps seasonStats.
           const transformBackendData = (backendData, filterSeason = null) => {
             const statsArray = backendData.seasonStats ?? backendData
             return statsArray
@@ -95,6 +96,7 @@ const PlayerStats = ({ data }) => {
                   const seasonParts = seasonId.split('-')
                   if (seasonParts?.length === 2) {
                     const startYear = parseInt(seasonParts[0])
+                    // Match the ending-year convention used by standings and the UI.
                     season = startYear + 1
                   } else {
                     season = parseInt(seasonId) || null
@@ -105,12 +107,14 @@ const PlayerStats = ({ data }) => {
                 }
                 const games = Number(stat.GP ?? stat.games ?? 0)
                 const isBasketballReference = Boolean(stat.year_id)
+                // Normalize counting stats to totals for game-weighted career averages.
+                // Reference totals are estimates because its per-game values are rounded.
                 return {
                   season,
                   team: stat.TEAM_ABBREVIATION || stat.team_name_abbr || '',
                   games,
 
-                  minutesPg: isBasketballReference ? Number(stat.mp_per_g ?? 0) * games : Number(stat.MIN ?? 0),
+                  totalMinutes: isBasketballReference ? Number(stat.mp_per_g ?? 0) * games : Number(stat.MIN ?? 0),
 
                   points: isBasketballReference
                     ? Number(stat.pts_per_g ?? 0) * games
@@ -208,9 +212,9 @@ const PlayerStats = ({ data }) => {
     playerStatsInfo()
   }, [data?.FirstName, data?.LastName, prefixedUrl])
 
-  // Sort the stats so that "TOT" or "2TM" entries appear first for each season, followed by other teams.
-  // If player got traded, in the offseason so for example end of 2024 season into 2025 season, then 
-  // the last team before TOT in 2024 season should be old team and new team should be first in 2025 season
+  // Within each season, show combined totals (TOT/2TM) first,
+  // followed by the current team. Place previous-season teams
+  // last among the remaining team rows.
 
   const getPrevSeasonTeams = (stats, season) => {
     return stats

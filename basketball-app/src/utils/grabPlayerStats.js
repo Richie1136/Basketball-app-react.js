@@ -17,12 +17,13 @@ export const grabPlayerStats = (playerStats = []) => {
 
   for (let i = 0; i < playerStats.length; i++) {
     const stats = playerStats[i];
+    // TOT and 2TM combine team stints; including them would count those games twice.
     if (stats.team !== 'TOT' && stats.team !== "2TM") {
-      const { minutesPg, games, points, fieldGoals, fieldAttempts, ft, ftAttempts, threeFg, threeAttempts, totalRb, assists, steals,
+      const { totalMinutes, games, points, fieldGoals, fieldAttempts, ft, ftAttempts, threeFg, threeAttempts, totalRb, assists, steals,
         blocks, turnovers, personalFouls
       } = stats
       // Default missing stat value to 0 
-      minutes += minutesPg ?? 0;
+      minutes += totalMinutes ?? 0;
       careerGames += games ?? 0;
       totalPoints += points ?? 0;
       totalFieldGoalsMade += fieldGoals ?? 0;
@@ -39,6 +40,7 @@ export const grabPlayerStats = (playerStats = []) => {
       totalFouls += personalFouls ?? 0;
     }
   }
+  // Compute shooting percentages from total makes and attempts, not season averages.
   return {
     minutes,
     careerGames,

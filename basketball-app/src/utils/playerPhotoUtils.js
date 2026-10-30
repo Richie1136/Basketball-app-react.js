@@ -1,3 +1,5 @@
+// Basketball Reference uses numeric suffixes to distinguish players with similar IDs.
+// These exceptions override the default 01 suffix; they cannot be inferred from names.
 const suffix2 = new Set([
   'Malachi Smith', 'Will Richard', 'Gary Payton II', 'Miles Kelly', 'Ron Harper Jr.', 'Devin Carter',
   'Keegan Murray', 'Terence Davis', 'Harrison Barnes', 'Julian Champagnie', 'Andrew Carr', 'Jared Butler',
@@ -7,7 +9,7 @@ const suffix2 = new Set([
   'Jeff Green', 'Trayce Jackson-Davis', 'Tobias Harris', 'Colby Jones', 'Brice Williams', 'Javonte Green', 'Jalen Pickett',
   'Cameron Johnson', 'Kessler Edwards', 'Tim Hardaway Jr.', 'Caleb Martin', 'Anthony Davis', 'Jaden Hardy', 'Max Christie',
   'Larry Nance Jr.', 'Brandon Miller', 'Josh Green', 'Miles Bridges', 'Jaylen Brown', 'Cam Thomas', 'Ziaire Williams', 'Mikel Brown Jr.',
-  'Christian Anderson', 'Robert McCray V', 'Cameron Boozer'
+  'Christian Anderson', 'Robert McCray V', 'Cameron Boozer', "Bronny James"
 ])
 const suffix3 = new Set([
   'Kam Jones', 'Tre Johnson', 'Coleman Hawkins', 'Brandon Williams', 'Jalen Wilson', 'Lajae Jones'])
@@ -39,6 +41,7 @@ const normalizeFirstName = (firstName) =>
     .replace(/[.'’\s-]/g, '')
     .toLowerCase();
 
+// Some provider names differ from the names used in Basketball Reference IDs.
 const FIRST_PART_OVERRIDES = {
   'bub carrington': 'ca',
   "n'faly dante": 'nf',
@@ -96,6 +99,7 @@ export const getBasketballReferenceId = (firstName, lastName) => {
   const cleanedFirstName = cleanFirstName(firstName)
   const cleanedLastName = cleanLastName(lastName)
 
+  // Build the Kleber exception from the spelling used by his reference ID (klebi).
   let count = 0
   const newName = cleanedLastName.replace(/e/g, (match) => {
     count++;
@@ -117,6 +121,8 @@ export const getBasketballReferenceId = (firstName, lastName) => {
   const firstNameGreaterThanOne = firstName.split(" ")[1]?.toLowerCase()
   const fullFirstName = firstName === 'Yang' && firstName.trim().toLowerCase();
 
+  // Usually IDs use five surname letters and two given-name letters.
+  // These exceptions account for compound names and provider spelling differences.
   const lastNamePart =
     firstName === 'Yang'
       ? fullFirstName
