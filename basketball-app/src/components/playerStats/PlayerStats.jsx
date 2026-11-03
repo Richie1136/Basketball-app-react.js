@@ -71,6 +71,16 @@ const PlayerStats = ({ data }) => {
 
   const { totalAssists, totalBlocks, careerFgPercent, careerFtPercent, careerThreePercent, totalFouls, careerGames, minutes, totalPoints, totalRebounds, totalSteals, totalTurnovers } = careerStats ?? {}
 
+
+  const teamAbbreviationMap = {
+    BRK: 'BKN',
+    CHO: 'CHA',
+    GSW: 'GS',
+    NOP: 'NO',
+    NYK: 'NY',
+    SAS: 'SA'
+  }
+
   useEffect(() => {
     const playerStatsInfo = async () => {
       try {
@@ -107,11 +117,12 @@ const PlayerStats = ({ data }) => {
                 }
                 const games = Number(stat.GP ?? stat.games ?? 0)
                 const isBasketballReference = Boolean(stat.year_id)
+                const team = stat.TEAM_ABBREVIATION || stat.team_name_abbr || ''
                 // Normalize counting stats to totals for game-weighted career averages.
                 // Reference totals are estimates because its per-game values are rounded.
                 return {
                   season,
-                  team: stat.TEAM_ABBREVIATION || stat.team_name_abbr || '',
+                  team: teamAbbreviationMap[team] || team,
                   games,
 
                   totalMinutes: isBasketballReference ? Number(stat.mp_per_g ?? 0) * games : Number(stat.MIN ?? 0),
