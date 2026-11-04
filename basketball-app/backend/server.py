@@ -72,7 +72,7 @@ def save_file_cache(key, data):
     with open(path, "w") as file:
         json.dump(data, file)
 
-def get_player_id(first_name, last_name):
+def get_player_id(first_name, last_name, allow_network_lookup=True):
     normalized_first_name = normalize_name(first_name)
     normalized_last_name = normalize_name(last_name)
     normalized_full_name = f"{normalized_first_name} {normalized_last_name}"
@@ -91,8 +91,8 @@ def get_player_id(first_name, last_name):
         static_matches[0]
     )
         return active_player["id"]
-    
-    if os.environ.get("VERCEL"):
+    # Skip the network lookup on Vercel or when the caller disables it.
+    if os.environ.get("VERCEL") or not allow_network_lookup:
         return None
     
     # For names absent from the bundled list, try the current-season NBA roster.
@@ -104,7 +104,8 @@ def get_player_id(first_name, last_name):
     current_season = f"{start_year}-{str(start_year + 1)[-2:]}"
     season_players = commonallplayers.CommonAllPlayers(
         is_only_current_season=1,
-        season=current_season
+        season=current_season,
+        timeout=5
     ).get_data_frames()[0]
 
     for _, row in season_players.iterrows():
@@ -118,6 +119,8 @@ def get_player_id(first_name, last_name):
 def get_player_stats():
     first_name = request.args.get('firstName', "").strip()
     last_name = request.args.get('lastName', "").strip()
+    bbref_id = request.args.get("bbrefId", "").strip()
+
 
     if not first_name or not last_name:
         return jsonify({"error": "Missing firstName or lastName"}), 400
@@ -142,7 +145,7 @@ def get_player_stats():
 
     key = f"{first_name} {last_name}"
 
-    # Check the file cache on every single request so expiration cannot be bypassed.
+    # Check the file cache and fetch fresh stats if it has expired.
     file_cached = get_file_cache(key)
 
     if file_cached is not None:
@@ -152,20 +155,23 @@ def get_player_stats():
     # Missing or expired cached data continues to the fetch logic below.
     print("FETCHING FRESH STATS:", key, flush=True)
 
-    player_id = get_player_id(first_name, last_name)
-
-    if not player_id:
-        return jsonify({"error": "No Player statistics available."}), 404
-
     retries = 1
     retry_delay = 1
 
     for attempt in range(retries):
         
         try:
-            # On Vercel, go directly to the Basketball Reference fallback below.
+            # Use Basketball Reference directly when its player ID is supplied.
+            if bbref_id:
+                raise RuntimeError("Using Basketball Reference directly") 
+            # Avoid NBA requests on Vercel when no Basketball Reference ID is supplied.
             if os.environ.get("VERCEL"):
                 raise RuntimeError("Skipping NBA API on Vercel")
+            
+            # Lookup failures also continue to the fallback
+            player_id = get_player_id(first_name, last_name, allow_network_lookup=not bool(bbref_id))
+            if not player_id:
+                raise ValueError("NBA player ID not found")
             career = playercareerstats.PlayerCareerStats(
                 player_id=player_id,
                 timeout=3
@@ -188,9 +194,8 @@ def get_player_stats():
             print("Fetched + cached:", key)
             return jsonify(stats)
         except Exception as nba_error:
-            print("NBA API failed", repr(nba_error))
+            print("Using Basketball Reference", repr(nba_error))
             try:
-                bbref_id = request.args.get("bbrefId", "").strip()
                 if not bbref_id:
                     raise ValueError("Missing Basketball Reference ID")
                 lastNameFirstLetter = bbref_id[0]
@@ -222,7 +227,7 @@ def get_player_stats():
                     if season:
                         season_stats.append(season)
 
-                # Preserve the fallback's named fields; the frontend normalizes both formats.
+                # Preserve provider field names; the frontend normalizes the response.
                 response_data = {
                     "message": "Basketball Reference fallback succeeded",
                     "bbrefId": bbref_id,
