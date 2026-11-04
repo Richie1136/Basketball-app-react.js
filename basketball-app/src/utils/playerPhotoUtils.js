@@ -9,7 +9,7 @@ const suffix2 = new Set([
   'Jeff Green', 'Trayce Jackson-Davis', 'Tobias Harris', 'Colby Jones', 'Brice Williams', 'Javonte Green', 'Jalen Pickett',
   'Cameron Johnson', 'Kessler Edwards', 'Tim Hardaway Jr.', 'Caleb Martin', 'Anthony Davis', 'Jaden Hardy', 'Max Christie',
   'Larry Nance Jr.', 'Brandon Miller', 'Josh Green', 'Miles Bridges', 'Jaylen Brown', 'Cam Thomas', 'Ziaire Williams', 'Mikel Brown Jr.',
-  'Christian Anderson', 'Robert McCray V', 'Cameron Boozer', "Bronny James"
+  'Christian Anderson', 'Darryn Peterson', 'Robert McCray V', 'Cameron Boozer', "Bronny James"
 ])
 const suffix3 = new Set([
   'Kam Jones', 'Tre Johnson', 'Coleman Hawkins', 'Brandon Williams', 'Jalen Wilson', 'Lajae Jones'])
