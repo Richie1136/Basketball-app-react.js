@@ -23,7 +23,7 @@ const Standings = () => {
     const getStandings = async () => {
       if (!allowedSeasons.includes(selectedSeason)) {
         setStandings(undefined)
-        setError("Standings Year is Not allowed")
+        setError("This season isn't supported. Choose a season above.")
         return
       }
       try {
@@ -51,10 +51,6 @@ const Standings = () => {
       controller.abort()
     }
   }, [selectedSeason])
-
-  if (error) return <p>{error}</p>
-
-  if (!standings) return <Loading />
 
   // Filter each conference and apply the same sorting rules.
   const Eastern = standings?.filter((east) => east.Conference === 'Eastern').sort(sortStandings)
@@ -84,6 +80,11 @@ const Standings = () => {
         <div className="season-select-wrap">
           <label className="season-label" htmlFor="season">Season:</label>
           <select id="season" className='season-select' value={selectedSeason} onChange={handleChange}>
+            {!allowedSeasons.includes(selectedSeason) && (
+              <option value={selectedSeason} disabled>
+                Select a valid season
+              </option>
+            )}
             {allowedSeasons?.map((year) => (
               <option key={year} value={year}>
                 {Number(year) - 1}-{year.slice(-2)}
@@ -92,38 +93,44 @@ const Standings = () => {
           </select>
         </div>
         <p className='standings-sort-note'>Teams are ranked by win percentage, then total wins, then point differential.</p>
-        <div className='standings-layout'>
-          <div className='conference-standings'>
-            <h2 className='conference-title'>Eastern Conference</h2>
-            <table>
-              <tbody>
-                <tr>
-                  <th scope='col'>
-                    TEAM
-                  </th>
-                  {headers}
-                </tr>
-                {easternTeams?.map((team) => (
-                  <Row key={team.Key} {...team} />
-                ))}
-              </tbody>
-            </table>
+        {error ? (
+          <p role='alert' style={{ textAlign: 'center', justifyContent: 'center', marginTop: '24px', color: '#fff' }}>{error}</p>
+        ) : !standings ? (
+          <Loading />
+        ) : (
+          <div className='standings-layout'>
+            <div className='conference-standings'>
+              <h2 className='conference-title'>Eastern Conference</h2>
+              <table>
+                <tbody>
+                  <tr>
+                    <th scope='col'>
+                      TEAM
+                    </th>
+                    {headers}
+                  </tr>
+                  {easternTeams?.map((team) => (
+                    <Row key={team.Key} {...team} />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className='conference-standings'>
+              <h2 className='conference-title'>Western Conference</h2>
+              <table>
+                <tbody>
+                  <tr>
+                    <th scope='col'>TEAM</th>
+                    {headers}
+                  </tr>
+                  {westernTeams?.map((team) => (
+                    <Row key={team.Key} {...team} />
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div className='conference-standings'>
-            <h2 className='conference-title'>Western Conference</h2>
-            <table>
-              <tbody>
-                <tr>
-                  <th scope='col'>TEAM</th>
-                  {headers}
-                </tr>
-                {westernTeams?.map((team) => (
-                  <Row key={team.Key} {...team} />
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        )}
       </div>
     </>
   )
