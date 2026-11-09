@@ -89,3 +89,10 @@
 .conference-standings tbody tr:hover {
   background-color: #f9fafb;
 }
+
+.standings-sort-note {
+  margin: 12px auto 16px;
+  padding: 0 16px;
+  color: #fff;
+  text-align: center;
+}

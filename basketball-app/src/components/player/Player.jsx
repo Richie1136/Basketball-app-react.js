@@ -119,7 +119,7 @@ const Player = () => {
             </div>
             <div className="vital-cell">
               <span className="vital-label">BIRTH STATE</span>
-              <span className={BirthState ? "vital-value" : 'vital-value vital-value--muted'}>{BirthState || 'No State'}</span>
+              <span className={BirthState ? "vital-value" : 'vital-value vital-value--muted'}>{BirthState || 'Unavailable'}</span>
             </div>
             <div className="vital-cell">
               <span className="vital-label">AGE</span>
@@ -164,7 +164,7 @@ const Player = () => {
             <div className="vital-cell">
               <span className="vital-label">{schoolLabel}</span>
               <span className={schoolLabel === 'SCHOOL' ? 'vital-value vital-value--muted' : College?.length === 16 || College?.length === 17 || HighSchool?.length === 17 ? 'vital-value vital-value--no-wrap' : "vital-value vital-value--wrap"}>
-                {College && College !== 'None' ? College : HighSchool || 'No School'}
+                {College && College !== 'None' ? College : HighSchool || 'Unavailable'}
               </span>
             </div>
           </section>

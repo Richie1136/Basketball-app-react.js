@@ -57,7 +57,7 @@ const PlayerInfo = ({ data = [], points = 0, seasons = [], minutes = 0, games = 
         })}
         {/* Career Averages Row */}
         <tr>
-          <td className='season-year' style={{ fontWeight: 700 }}>{seasons.length} seasons</td>
+          <td className='season-year' style={{ fontWeight: 700 }}>{seasons.length} {seasons.length === 1 ? "season" : "seasons"}</td>
           <td className="players-Average">{games}</td>
           <td className="career-Averages" style={{ whiteSpace: 'break-spaces', fontSize: '16px', fontWeight: 'bold' }}>Career Averages</td>
           <td className="players-Average">{averagePlayerStats(minutes, games)}</td>

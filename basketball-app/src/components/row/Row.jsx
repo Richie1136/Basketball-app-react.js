@@ -7,11 +7,9 @@ const Row = ({ ...props }) => {
   const {
     AwayLosses, AwayWins, City, ConferenceLosses, ConferenceWins, DivisionLosses,
     DivisionWins, GamesBack, HomeLosses, HomeWins, Key, LastTenLosses, LastTenWins,
-    Losses, Name, Percentage, PointsPerGameAgainst, PointsPerGameFor, StreakDescription,
+    Losses, Name, PointsPerGameAgainst, PointsPerGameFor, StreakDescription,
     Wins, rank
   } = props ?? {}
-
-  const gamesPlayed = Number(Wins) + Number(Losses)
 
   const convertPercentage = getWinPercentage({ Wins, Losses }).toFixed(3).replace(/^0/, '')
   const pointsScored = Number(PointsPerGameFor).toFixed(1)

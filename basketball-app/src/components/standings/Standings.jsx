@@ -91,6 +91,7 @@ const Standings = () => {
             ))}
           </select>
         </div>
+        <p className='standings-sort-note'>Teams are ranked by win percentage, then total wins, then point differential.</p>
         <div className='standings-layout'>
           <div className='conference-standings'>
             <h2 className='conference-title'>Eastern Conference</h2>
